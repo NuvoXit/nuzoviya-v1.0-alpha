@@ -1,0 +1,15 @@
+.home-container {
+    padding: 20px;
+}
+
+.home-container h1 {
+    font-size: 28px;
+    color: #2c3e50;
+}
+
+.home-container p2 {
+    margin-top: 20px;
+    line-height: 1.5;
+    text-align: justify;
+    color: #34495e;
+}

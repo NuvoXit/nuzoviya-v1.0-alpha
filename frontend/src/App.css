@@ -1,0 +1,74 @@
+/* Top navigation bar */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2bbbef;
+  padding: 20px 90px;
+  
+}
+
+.mainheading {
+    font-weight: bold;
+    font-size: 24px;
+    color: #000000;
+    text-decoration: none;
+}
+/* Wrapper for sidebar + content */
+.navverticalbar {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.verticalbar {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #ecf0f1;
+}
+
+
+/* Main content area (where routes render) */
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.links {
+  color: rgb(255, 255, 255);
+  background-color: rgb(20, 78, 105);
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-bottom: 15px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.links:hover {
+  color: #a6f011;
+}
+
+.loginbut {
+    background-color: #a6f011;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: #000000;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.loginbut:hover {
+    background-color: #1b3300;
+    color: #ffffff;
+    cursor: pointer;
+
+}
