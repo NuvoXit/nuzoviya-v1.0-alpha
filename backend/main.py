@@ -1,154 +1,238 @@
-from datetime import date, time, datetime
 from flask import request, jsonify
-from flask.views import MethodView
-from config import app, db
-from models import Patient, Booking
-import login  # registers /login, /logout, /register routes onto the shared app
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from config import Application, db
+from admin import init_admin
+from models import Patient, Booking, Login, UserRole
 
 
-def parse_date(value):
-    if isinstance(value, date):
-        return value
+# =========================
+# ADD PATIENT
+# =========================
+
+@Application.route('/patient/add_patient', methods=['POST'])
+def add_patient():
+
     try:
-        return datetime.strptime(value, '%Y-%m-%d').date()
-    except (ValueError, TypeError):
-        return None
 
+        data = request.get_json()
 
-def parse_time(value):
-    if isinstance(value, time):
-        return value
-    for fmt in ('%H:%M:%S', '%H:%M'):
-        try:
-            return datetime.strptime(value, fmt).time()
-        except (ValueError, TypeError):
-            continue
-    return None
+        patient_id = data.get('NIC') or data.get('patientID') or data.get('PatientID')
+        first_name = data.get('firstName')
+        last_name = data.get('lastName')
+        DOB = data.get('DOB') or data.get('dob')
+        address = data.get('address')
+        telephone = data.get('telephone')
+        email = data.get('email')
 
+        if not all([patient_id, first_name, last_name, DOB, address, telephone, email]):
+            return jsonify({"error": "Missing required fields"}), 400
 
-# ── Patient Views ────────────────────────────────────────────────────────────
+        existing_patient = Patient.query.get(patient_id)
 
-class PatientView(MethodView):
-    def get(self):
-        """Return all patients."""
-        patients = Patient.query.all()
-        return jsonify({'patients': [p.to_json() for p in patients]})
-
-    def post(self):
-        """Create a new patient."""
-        data = request.json or {}
-        first_name = data.get('first_name')
-        last_name  = data.get('last_name')
-        NIC        = data.get('NIC')
-        DOB_raw    = data.get('DOB')
-        address    = data.get('address')
-        phone      = data.get('Tel_no')
-        email      = data.get('email')
-
-        if not all([first_name, last_name, NIC, DOB_raw, address, phone, email]):
-            return jsonify({'error': 'Missing required fields'}), 400
-
-        DOB = parse_date(DOB_raw)
-        if DOB is None:
-            return jsonify({'error': 'Invalid DOB format, expected YYYY-MM-DD'}), 400
-
-        if Patient.query.get(NIC):
-            return jsonify({'error': 'Patient with this NIC already exists'}), 409
+        if existing_patient:
+            return jsonify({"error": "Patient already exists"}), 409
 
         new_patient = Patient(
-            first_name=first_name, last_name=last_name, NIC=NIC,
-            DOB=DOB, address=address, telephone=phone, email=email,
+            NIC=patient_id,
+            first_name=first_name,
+            last_name=last_name,
+            DOB=DOB,
+            address=address,
+            telephone=telephone,
+            email=email
         )
-        try:
-            db.session.add(new_patient)
-            db.session.commit()
-            return jsonify({'message': 'Patient created successfully'}), 201
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({'error': str(e)}), 500
+
+        db.session.add(new_patient)
+        db.session.commit()
+
+        return jsonify({"message": "Patient added successfully"}), 201
+
+    except Exception as e:
+
+        db.session.rollback()
+
+        return jsonify({"error": str(e)}), 500
 
 
-class PatientDetailView(MethodView):
-    def delete(self, nic):
-        """Delete a patient by NIC."""
+# =========================
+# GET ALL PATIENTS
+# =========================
+
+@Application.route('/patient/all_patients', methods=['GET'])
+def all_patients():
+
+    patients = Patient.query.all()
+
+    return jsonify([patient.to_dict() for patient in patients])
+
+
+# =========================
+# DELETE PATIENT
+# =========================
+
+@Application.route('/patient/delete/<nic>', methods=['DELETE'])
+def delete_patient(nic):
+    try:
         patient = Patient.query.get(nic)
         if not patient:
-            return jsonify({'error': 'Patient not found'}), 404
-        try:
-            db.session.delete(patient)
-            db.session.commit()
-            return jsonify({'message': 'Patient deleted successfully'}), 200
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({'error': str(e)}), 500
+            return jsonify({"error": "Patient not found"}), 404
+            
+        db.session.delete(patient)
+        db.session.commit()
+        return jsonify({"message": "Patient deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 
-# ── Booking Views ────────────────────────────────────────────────────────────
+# =========================
+# ADD BOOKING
+# =========================
 
-class BookingView(MethodView):
-    def get(self):
-        """Return all bookings."""
-        bookings = Booking.query.all()
-        return jsonify({'bookings': [b.to_json() for b in bookings]})
+@Application.route('/booking/add_booking', methods=['POST'])
+def add_booking():
 
-    def post(self):
-        """Create a new booking."""
-        data = request.json or {}
-        patient_nic          = data.get('patientNIC')
-        first_name           = data.get('firstName')
-        last_name            = data.get('lastName')
-        telephone            = data.get('telephone')
-        doctor_name          = data.get('doctorName')
-        appointment_date_raw = data.get('appointmentDate')
-        appointment_time_raw = data.get('appointmentTime')
+    try:
 
-        if not all([patient_nic, first_name, last_name, telephone, doctor_name,
-                    appointment_date_raw, appointment_time_raw]):
-            return jsonify({'error': 'Missing required fields'}), 400
+        data = request.get_json()
 
-        appointment_date = parse_date(appointment_date_raw)
-        if appointment_date is None:
-            return jsonify({'error': 'Invalid appointmentDate format, expected YYYY-MM-DD'}), 400
+        first_name = data.get('firstName')
+        last_name = data.get('lastName')
+        telephone = data.get('telephone')
+        patient_id = data.get('patientID')
+        doctor_name = data.get('doctorName')
+        appointment_date = data.get('appointmentDate')
+        appointment_time = data.get('appointmentTime')
 
-        appointment_time = parse_time(appointment_time_raw)
-        if appointment_time is None:
-            return jsonify({'error': 'Invalid appointmentTime format, expected HH:MM'}), 400
+        if not all([first_name, last_name, telephone, patient_id,
+                    doctor_name, appointment_date, appointment_time]):
+            return jsonify({"error": "Missing required fields"}), 400
 
-        if not Patient.query.get(patient_nic):
-            return jsonify({'error': 'Patient not found'}), 404
+        patient = Patient.query.get(patient_id)
+
+        if not patient:
+            return jsonify({"error": "Patient not found"}), 404
 
         new_booking = Booking(
-            patient_nic=patient_nic, first_name=first_name, last_name=last_name,
-            telephone=telephone, doctor_name=doctor_name,
-            appointment_date=appointment_date, appointment_time=appointment_time,
+            first_name=first_name,
+            last_name=last_name,
+            telephone=telephone,
+            patient_nic=patient_id,
+            doctor_name=doctor_name,
+            appointment_date=appointment_date,
+            appointment_time=appointment_time
         )
-        try:
-            db.session.add(new_booking)
-            db.session.commit()
-            return jsonify({'message': 'Booking created successfully'}), 201
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({'error': str(e)}), 500
+
+        db.session.add(new_booking)
+        db.session.commit()
+
+        return jsonify({"message": "Booking added successfully"}), 201
+
+    except Exception as e:
+
+        db.session.rollback()
+
+        return jsonify({"error": str(e)}), 500
 
 
-# ── Register all routes ──────────────────────────────────────────────────────
+# =========================
+# GET ALL BOOKINGS
+# =========================
 
-app.add_url_rule('/patient',             view_func=PatientView.as_view('patient'))
-app.add_url_rule('/patient/add_patient', view_func=PatientView.as_view('patient_add'))
-app.add_url_rule('/patient/all_patients',view_func=PatientView.as_view('patient_all'))
-app.add_url_rule('/patient/delete/<nic>',view_func=PatientDetailView.as_view('patient_delete'))
-app.add_url_rule('/bookings',            view_func=BookingView.as_view('bookings'))
-app.add_url_rule('/bookings/add_booking',view_func=BookingView.as_view('booking_add'))
+@Application.route('/booking/all_bookings', methods=['GET'])
+def all_bookings():
 
+    bookings = Booking.query.all()
+
+    return jsonify([booking.to_dict() for booking in bookings])
+
+
+# =========================
+# REGISTER USER
+# =========================
+
+@Application.route('/register', methods=['POST'])
+def register():
+
+    try:
+
+        data = request.get_json()
+
+        username = data.get('username')
+        password = data.get('password')
+        role = data.get('role')
+
+        if not all([username, password, role]):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        existing_user = Login.query.filter_by(username=username).first()
+
+        if existing_user:
+            return jsonify({"error": "Username already exists"}), 409
+
+        hashed_password = generate_password_hash(password)
+
+        new_user = Login(
+            username=username,
+            password=hashed_password,
+            role=UserRole(role)
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return jsonify({"message": "User registered successfully"}), 201
+
+    except Exception as e:
+
+        db.session.rollback()
+
+        return jsonify({"error": str(e)}), 500
+
+
+# =========================
+# LOGIN
+# =========================
+
+@Application.route('/login', methods=['POST'])
+def login():
+
+    try:
+
+        data = request.get_json()
+
+        username = data.get('username')
+        password = data.get('password')
+
+        user = Login.query.filter_by(username=username).first()
+
+        if user and check_password_hash(user.password, password):
+
+            return jsonify({
+                "message": "Login successful",
+                "user": {
+                    "username": user.username,
+                    "role": user.role.value
+                }
+            }), 200
+
+        return jsonify({"error": "Invalid username or password"}), 401
+
+    except Exception as e:
+
+        return jsonify({"error": str(e)}), 500
+
+
+# =========================
+# MAIN
+# =========================
 
 if __name__ == '__main__':
-    with app.app_context():
+
+    with Application.app_context():
         db.create_all()
-    app.run(debug=True)
 
+    init_admin(Application)
 
-
-
-
-
-
+    Application.run(debug=True, host='0.0.0.0', port=5000)

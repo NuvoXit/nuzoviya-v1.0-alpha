@@ -8,94 +8,38 @@ import AllPatient from "./main_pages/mini_pages/all_patient.jsx";
 import BookingPatient from "./main_pages/mini_pages/booking_patient.jsx";
 import BookingHistory from "./main_pages/mini_pages/booking_history.jsx";
 import Login from "./Login.jsx";
-import ProtectedRoute from "./ProtectedRoute.jsx";
 import "./App.css";
 
 function App() {
-    const [role, setRole] = useState(localStorage.getItem('role'));  // fixed: useState so sidebar reacts to changes
-
-    const handleLogout = () => {
-        localStorage.removeItem('role');
-        localStorage.removeItem('username');
-        setRole(null);  // triggers re-render immediately
-        window.location.href = '/login';
-    };
 
     return (
         <BrowserRouter>
             <header className="navigation">
-                <h2>Nuvu</h2>
+                <Link to="/" className="mainheading">Hospital Managment System</Link>
                 <nav>
-                    {role ? (
-                        <span style={{ cursor: 'pointer' }} onClick={handleLogout}>
-                            Logout
-                        </span>
-                    ) : (
-                        <Link to="/login">Login</Link>
-                    )}
+
+                    <Link to="/login" className="loginbut">Login</Link>
+
                 </nav>
             </header>
 
             <div className="navverticalbar">
                 <div className="verticalbar">
-                    <Link to="/home">Home</Link>
-
-                    {(role === 'user' || role === 'admin') && (
-                        <>
-                            <Link to="/patient">Patient</Link>
-                            <Link to="/booking">Booking</Link>
-                        </>
-                    )}
-
-                    {/* admin only sidebar link */}
-                    {role === 'admin' && (
-                        <Link to="/booking_history">Booking History</Link>
-                    )}
+                    <Link to="/home" className="app-links">Home</Link>
+                    <Link to="/patient" className="app-links">Patient</Link>
+                    <Link to="/booking" className="app-links">Booking</Link>
                 </div>
 
-                <main className="content">
+                <main className="app-content">
                     <Routes>
-                        <Route path="/login" element={
-                          <Login onLogin={(r) => setRole(r)} />
-                        } />
-                        <Route path="/" element={<Navigate to="/login" replace />} />
-                        <Route path="/unauthorized" element={<h2 style={{padding:'2rem'}}>Access Denied.</h2>} />
-
-                        <Route path="/home" element={
-                            <ProtectedRoute allowedRoles={['admin', 'user', 'guest']}>
-                                <Home />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/patient" element={
-                            <ProtectedRoute allowedRoles={['admin', 'user']}>
-                                <Patient />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/patient/add_patient" element={
-                            <ProtectedRoute allowedRoles={['admin', 'user']}>
-                                <AddPatient />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/patient/all_patients" element={
-                            <ProtectedRoute allowedRoles={['admin', 'user']}>
-                                <AllPatient />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/booking" element={
-                            <ProtectedRoute allowedRoles={['admin', 'user']}>
-                                <Booking />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/booking/booking_patient" element={
-                            <ProtectedRoute allowedRoles={['admin', 'user']}>
-                                <BookingPatient />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/booking_history" element={
-                            <ProtectedRoute allowedRoles={['admin']}>
-                                <BookingHistory />
-                            </ProtectedRoute>
-                        } />
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/patient" element={<Patient />} />
+                        <Route path="/patient/add_patient" element={<AddPatient />} />
+                        <Route path="/patient/all_patients" element={<AllPatient />} />
+                        <Route path="/booking" element={<Booking />} />
+                        <Route path="/booking/booking_patient" element={<BookingPatient />} />
+                        <Route path="/booking/booking_history" element={<BookingHistory />} />
+                        <Route path="/login" element={<Login />} />
                     </Routes>
                 </main>
             </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./all_patient.css";
 
 function AllPatient() {
   const [patients, setPatients] = useState([]);
@@ -23,10 +24,10 @@ function AllPatient() {
     fetchPatients();
   }, []);
 
-  const deletePatient = async (id) => {
+  const deletePatient = async (nic) => {
     if (!window.confirm("Delete this patient?")) return;
     try {
-      const res = await fetch(`http://127.0.0.1:5000/patient/delete/${id}`, {
+      const res = await fetch(`http://127.0.0.1:5000/patient/delete/${nic}`, {
         method: "DELETE",
       });
       if (!res.ok) {
@@ -42,8 +43,8 @@ function AllPatient() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <Link to="/patient" style={{ display: "inline-block", marginBottom: "16px" }}>
+    <div className="all-patient-container" style={{ padding: "20px" }}>
+      <Link to="/patient" className="all-patient-back-btn" style={{ display: "inline-block", marginBottom: "16px" }}>
         ← Back
       </Link>
       <h2>All Patients</h2>
@@ -53,7 +54,7 @@ function AllPatient() {
       ) : patients.length === 0 ? (
         <p>No patients found</p>
       ) : (
-        <table border="1" cellPadding="10" style={{ width: "100%", marginTop: "12px" }}>
+        <table className="patient_table" border="1" cellPadding="10" style={{ width: "100%", marginTop: "12px" }}>
           <thead>
             <tr>
               <th>Name</th>
@@ -64,14 +65,14 @@ function AllPatient() {
           </thead>
           <tbody>
             {patients.map((p) => (
-              <tr key={p.id}>
-                <td>{p.first_name} {p.last_name}</td>  {/* fixed: was firstName lastName */}
+              <tr key={p.NIC}>
+                <td>{p.firstName} {p.lastName}</td>
                 <td>{p.NIC}</td>
-                <td>{p.Tel_no}</td>                     {/* fixed: was telephone */}
+                <td>{p.telephone}</td>
                 <td>
                   <button onClick={() => alert("Edit not implemented yet.")}>Edit</button>
                   <button
-                    onClick={() => deletePatient(p.id)} 
+                    onClick={() => deletePatient(p.NIC)} 
                     style={{ marginLeft: "10px", color: "red" }}
                   >
                     Delete

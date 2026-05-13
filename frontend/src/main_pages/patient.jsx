@@ -5,18 +5,18 @@ import "./patient.css";
 
 function Patient() {
   return (
-    <div className="main-content">
-      <div className="card-grid">
+    <div className="patient-main-content">
+      <div className="patient-card-grid">
 
-        <Link to="/patient/add_patient" className="card">
-          <div className="card-icon">
+        <Link to="/patient/add_patient" className="patient-card">
+          <div className="patient-card-icon">
             <img src={ADDpatientImg} alt="Add Patient" className="patientimg"/>
           </div>
           <p>Add Patient</p>
         </Link>
 
-        <Link to="/patient/all_patients" className="card">
-          <div className="card-icon">
+        <Link to="/patient/all_patients" className="patient-card">
+          <div className="patient-card-icon">
             <img src={Allpatientimg} alt="All Patients" className="patientimg"/>
           </div>
           <p>All Patient</p>

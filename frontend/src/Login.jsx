@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-function Login({ onLogin }) {  // added: accept onLogin prop from App.jsx
+function Login({ onLogin }) {
+  // added: accept onLogin prop from App.jsx
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -51,11 +52,10 @@ function Login({ onLogin }) {  // added: accept onLogin prop from App.jsx
       localStorage.setItem("role", data.user.role);
       localStorage.setItem("username", data.user.username);
 
-      onLogin(data.user.role);  // added: tells App.jsx to update sidebar immediately
+      onLogin(data.user.role); // added: tells App.jsx to update sidebar immediately
 
       alert(data.message);
       navigate("/home");
-
     } catch (error) {
       console.error("Error:", error);
       alert("Something went wrong. Check backend.");
@@ -68,7 +68,7 @@ function Login({ onLogin }) {  // added: accept onLogin prop from App.jsx
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
-        <div className="form-group">
+        <div className="login-form-group">
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -78,7 +78,7 @@ function Login({ onLogin }) {  // added: accept onLogin prop from App.jsx
             required
           />
         </div>
-        <div className="form-group">
+        <div className="login-form-group">
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -88,12 +88,14 @@ function Login({ onLogin }) {  // added: accept onLogin prop from App.jsx
             required
           />
         </div>
-        <div className="form-group">
+        <div className="login-form-group">
           <label htmlFor="role">Role:</label>
           <select id="role" value={formData.role} onChange={handleChange}>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-            <option value="guest">Guest</option>
+            <option value="user">Select Your Role in Hospital</option>
+            <option value="guest">Receptionist</option>
+            <option value="admin">Surgical Doctor</option>
+            <option value="admin">MLT</option>
+            <option value="admin">Radiologist</option>
           </select>
         </div>
         <button type="submit">Login</button>

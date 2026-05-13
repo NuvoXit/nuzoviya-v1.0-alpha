@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./booking_history.css";
 
 function BookingHistory() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:5000/bookings")
+        fetch("http://127.0.0.1:5000/booking/all_bookings")
             .then((res) => res.json())
             .then((data) => {
-                setBookings(data.bookings || []);
+                setBookings(Array.isArray(data) ? data : []);
                 setLoading(false);
             })
             .catch((error) => {
@@ -19,8 +20,8 @@ function BookingHistory() {
     }, []);
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Link to="/booking" style={{ display: "inline-block", marginBottom: "16px" }}>
+        <div className="booking-history-container" style={{ padding: "20px" }}>
+            <Link to="/booking" className="booking-history-back-btn" style={{ display: "inline-block", marginBottom: "16px" }}>
                 ← Back
             </Link>
             <h2>Booking History</h2>
@@ -30,7 +31,7 @@ function BookingHistory() {
             ) : bookings.length === 0 ? (
                 <p>No bookings found</p>
             ) : (
-                <table border="1" cellPadding="10" style={{ width: "100%", marginTop: "12px" }}>
+                <table className="booking_history_table" border="1" cellPadding="10" style={{ width: "100%", marginTop: "12px" }}>
                     <thead>
                         <tr>
                             <th>ID</th>

@@ -1,21 +1,21 @@
-body {
+.all-patient-container {
   font-family: Arial, sans-serif;
   background-color: #f4f6f8;
 }
 
-h2 {
+.all-patient-container h2 {
   text-align: center;
   margin-top: 20px;
   color: #333;
 }
 
 /* Container */
-.container {
+.all-patient-container {
   padding: 20px;
 }
 
 /* Back button */
-.back-btn {
+.all-patient-back-btn {
   text-decoration: none;
   padding: 8px 12px;
   background-color: #555;
@@ -24,12 +24,12 @@ h2 {
   font-size: 14px;
 }
 
-.back-btn:hover {
+.all-patient-back-btn:hover {
   background-color: #333;
 }
 
 /* Table styling */
-.patient_table {
+.all-patient-container .patient_table {
   border-collapse: collapse;
   width: 90%;
   margin: 40px auto;
@@ -37,49 +37,49 @@ h2 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-th {
+.all-patient-container th {
   background-color: #007bff;
   color: white;
   padding: 12px;
   text-align: left;
 }
 
-td {
+.all-patient-container td {
   padding: 12px;
   border-bottom: 1px solid #ddd;
 }
 
 /* Row hover effect */
-tr:hover {
+.all-patient-container tr:hover {
   background-color: #f1f1f1;
 }
 
 /* Buttons */
-button {
+.all-patient-container button {
   padding: 6px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-button:hover {
+.all-patient-container button:hover {
   opacity: 0.8;
 }
 
 /* Edit button */
-button:first-child {
+.all-patient-container button:first-child {
   background-color: #28a745;
   color: white;
 }
 
 /* Delete button */
-button:last-child {
+.all-patient-container button:last-child {
   background-color: #dc3545;
   color: rgb(255, 255, 255);
 }
 
 /* Loading text */
-p {
+.all-patient-container p {
   text-align: center;
   font-size: 16px;
   color: #666;

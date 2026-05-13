@@ -24,10 +24,10 @@ function AddPatient() {
     const { firstname, lastname, nic, telephone, email } = form;
 
     if (
-      !firstname.trim() ||
-      !lastname.trim() ||
-      !nic.trim() ||
-      !telephone.trim()
+        !firstname.trim() ||
+        !lastname.trim() ||
+        !nic.trim() ||
+        !telephone.trim()
     ) {
       alert("Please fill all required fields.");
       return false;
@@ -50,12 +50,12 @@ function AddPatient() {
     if (!validateForm()) return;
 
     const patientData = {
-      first_name: form.firstname.trim(),
-      last_name: form.lastname.trim(),
+      firstName: form.firstname.trim(),
+      lastName: form.lastname.trim(),
       NIC: form.nic.trim(),
       DOB: form.dob || null,
       address: form.address?.trim() || "",
-      Tel_no: form.telephone.trim(),
+      telephone: form.telephone.trim(),
       email: form.email?.trim() || "",
     };
 
@@ -63,14 +63,14 @@ function AddPatient() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/patient/add_patient",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+          "http://127.0.0.1:5000/patient/add_patient",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(patientData),
           },
-          body: JSON.stringify(patientData),
-        },
       );
 
       const data = await response.json().catch(() => ({}));
@@ -106,28 +106,21 @@ function AddPatient() {
   };
 
   return (
-    <div className="main-content">
-      <div className="page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          ←
-        </button>
+    <div className="add-patient-main-content">
+      <div className="add-patient-page-header">
+        <button className="back-btn" onClick={() => navigate(-1)}> ← </button>
         <h3>Adding New Patient</h3>
       </div>
 
-      <div className="form">
+      <div className="add-patient-form">
         {/* FIRST NAME */}
-        <div className="form-row">
+        <div className="add-patient-form-row">
           <label>Firstname *</label>
-          <input
-            name="firstname"
-            value={form.firstname}
-            onChange={handleChange}
-            placeholder="Enter first name (e.g. John)"
-          />
+          <input name="firstname" value={form.firstname} onChange={handleChange} placeholder="Enter first name (e.g. John)"/>
         </div>
 
         {/* LAST NAME */}
-        <div className="form-row">
+        <div className="add-patient-form-row">
           <label>Lastname *</label>
           <input
             name="lastname"
@@ -138,7 +131,7 @@ function AddPatient() {
         </div>
 
         {/* NIC */}
-        <div className="form-row">
+        <div className="add-patient-form-row">
           <label>NIC *</label>
           <input
             name="nic"
@@ -150,7 +143,7 @@ function AddPatient() {
         </div>
 
         {/* DOB */}
-        <div className="form-row">
+        <div className="add-patient-form-row">
           <label>Date Of Birth *</label>
           <input
             type="date"
@@ -162,7 +155,7 @@ function AddPatient() {
         </div>
 
         {/* ADDRESS */}
-        <div className="form-row">
+        <div className="add-patient-form-row">
           <label>Address</label>
           <input
             name="address"
@@ -173,7 +166,7 @@ function AddPatient() {
         </div>
 
         {/* TELEPHONE */}
-        <div className="form-row">
+        <div className="add-patient-form-row">
           <label>Telephone *</label>
           <input
             name="telephone"
@@ -185,7 +178,7 @@ function AddPatient() {
         </div>
 
         {/* EMAIL */}
-        <div className="form-row">
+        <div className="add-patient-form-row">
           <label>Email</label>
           <input
             name="email"
@@ -196,7 +189,7 @@ function AddPatient() {
         </div>
 
         {/* BUTTONS */}
-        <div className="form-actions">
+        <div className="add-patient-form-actions">
           <button className="btn" onClick={handleCreate} disabled={loading}>
             {loading ? "Saving..." : "Create"}
           </button>

@@ -1,10 +1,10 @@
 /* Main Content */
-.main-content {
+.patient-main-content {
     padding: 30px;
 }
 
 /* Card Grid */
-.card-grid {
+.patient-card-grid {
     display: flex;
     gap: 90px;
     justify-content: center;
@@ -14,7 +14,7 @@
 }
 
 /* Card */
-.card {
+.patient-card {
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 30px 20px;
@@ -28,13 +28,13 @@
     transition: 0.3s ease;
 }
 
-.card:hover {
+.patient-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Icon container */
-.card-icon {
+.patient-card-icon {
     margin: 0 auto 12px;
     display: flex;
     justify-content: center;

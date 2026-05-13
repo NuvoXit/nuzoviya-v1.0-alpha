@@ -42,10 +42,14 @@ function BookingPatient() {
 
         setLoading(true);
         try {
-            const response = await fetch("http://127.0.0.1:5000/bookings/add_booking", {
+            const payload = {
+                ...form,
+                patientID: form.patientNIC // map NIC to ID for backend
+            };
+            const response = await fetch("http://127.0.0.1:5000/booking/add_booking", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
+                body: JSON.stringify(payload),
             });
 
             const data = await response.json();
@@ -66,43 +70,43 @@ function BookingPatient() {
     }
 
     return (
-        <div className="main-content">
-            <div className="page-header">
+        <div className="booking-patient-main-content">
+            <div className="booking-patient-page-header">
                 <h3>New Booking</h3>
                 <Link to="/booking" className="back-btn">←</Link>
             </div>
 
-            <div className="form">
-                <div className="form-row">
+            <div className="booking-patient-form">
+                <div className="booking-patient-form-row">
                     <label>Patient NIC <span className="required">*</span></label>
                     <input name="patientNIC" value={form.patientNIC} onChange={handleChange} placeholder="e.g. 123456789V" />
                 </div>
-                <div className="form-row">
+                <div className="booking-patient-form-row">
                     <label>First Name <span className="required">*</span></label>
                     <input name="firstName" value={form.firstName} onChange={handleChange} />
                 </div>
-                <div className="form-row">
+                <div className="booking-patient-form-row">
                     <label>Last Name <span className="required">*</span></label>
                     <input name="lastName" value={form.lastName} onChange={handleChange} />
                 </div>
-                <div className="form-row">
+                <div className="booking-patient-form-row">
                     <label>Telephone <span className="required">*</span></label>
                     <input name="telephone" value={form.telephone} onChange={handleChange} />
                 </div>
-                <div className="form-row">
+                <div className="booking-patient-form-row">
                     <label>Doctor Name <span className="required">*</span></label>
                     <input name="doctorName" value={form.doctorName} onChange={handleChange} />
                 </div>
-                <div className="form-row">
+                <div className="booking-patient-form-row">
                     <label>Appointment Date <span className="required">*</span></label>
                     <input type="date" name="appointmentDate" value={form.appointmentDate} onChange={handleChange} />
                 </div>
-                <div className="form-row">
+                <div className="booking-patient-form-row">
                     <label>Appointment Time <span className="required">*</span></label>
                     <input type="time" name="appointmentTime" value={form.appointmentTime} onChange={handleChange} />
                 </div>
 
-                <div className="form-actions">
+                <div className="booking-patient-form-actions">
                     <button className="btn" onClick={handleCreate} disabled={loading}>
                         {loading ? "Saving..." : "Book"}
                     </button>
