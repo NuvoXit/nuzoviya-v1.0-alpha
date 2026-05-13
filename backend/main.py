@@ -5,25 +5,22 @@ from config import Application, db
 from admin import init_admin
 from models import Patient, Booking, Login, UserRole
 
-
 # =========================
 # ADD PATIENT
 # =========================
 
-@Application.route('/patient/add_patient', methods=['POST'])
+
+@Application.route("/patient/add_patient", methods=["POST"])
 def add_patient():
-
     try:
-
         data = request.get_json()
-
-        patient_id = data.get('NIC') or data.get('patientID') or data.get('PatientID')
-        first_name = data.get('firstName')
-        last_name = data.get('lastName')
-        DOB = data.get('DOB') or data.get('dob')
-        address = data.get('address')
-        telephone = data.get('telephone')
-        email = data.get('email')
+        patient_id = data.get("NIC") or data.get("patientID") or data.get("PatientID")
+        first_name = data.get("firstName")
+        last_name = data.get("lastName")
+        DOB = data.get("DOB") or data.get("dob")
+        address = data.get("address")
+        telephone = data.get("telephone")
+        email = data.get("email")
 
         if not all([patient_id, first_name, last_name, DOB, address, telephone, email]):
             return jsonify({"error": "Missing required fields"}), 400
@@ -40,7 +37,7 @@ def add_patient():
             DOB=DOB,
             address=address,
             telephone=telephone,
-            email=email
+            email=email,
         )
 
         db.session.add(new_patient)
@@ -59,7 +56,8 @@ def add_patient():
 # GET ALL PATIENTS
 # =========================
 
-@Application.route('/patient/all_patients', methods=['GET'])
+
+@Application.route("/patient/all_patients", methods=["GET"])
 def all_patients():
 
     patients = Patient.query.all()
@@ -71,13 +69,14 @@ def all_patients():
 # DELETE PATIENT
 # =========================
 
-@Application.route('/patient/delete/<nic>', methods=['DELETE'])
+
+@Application.route("/patient/delete/<nic>", methods=["DELETE"])
 def delete_patient(nic):
     try:
         patient = Patient.query.get(nic)
         if not patient:
             return jsonify({"error": "Patient not found"}), 404
-            
+
         db.session.delete(patient)
         db.session.commit()
         return jsonify({"message": "Patient deleted successfully"}), 200
@@ -90,23 +89,33 @@ def delete_patient(nic):
 # ADD BOOKING
 # =========================
 
-@Application.route('/booking/add_booking', methods=['POST'])
+
+@Application.route("/booking/add_booking", methods=["POST"])
 def add_booking():
 
     try:
 
         data = request.get_json()
 
-        first_name = data.get('firstName')
-        last_name = data.get('lastName')
-        telephone = data.get('telephone')
-        patient_id = data.get('patientID')
-        doctor_name = data.get('doctorName')
-        appointment_date = data.get('appointmentDate')
-        appointment_time = data.get('appointmentTime')
+        first_name = data.get("firstName")
+        last_name = data.get("lastName")
+        telephone = data.get("telephone")
+        patient_id = data.get("patientID")
+        doctor_name = data.get("doctorName")
+        appointment_date = data.get("appointmentDate")
+        appointment_time = data.get("appointmentTime")
 
-        if not all([first_name, last_name, telephone, patient_id,
-                    doctor_name, appointment_date, appointment_time]):
+        if not all(
+            [
+                first_name,
+                last_name,
+                telephone,
+                patient_id,
+                doctor_name,
+                appointment_date,
+                appointment_time,
+            ]
+        ):
             return jsonify({"error": "Missing required fields"}), 400
 
         patient = Patient.query.get(patient_id)
@@ -121,7 +130,7 @@ def add_booking():
             patient_nic=patient_id,
             doctor_name=doctor_name,
             appointment_date=appointment_date,
-            appointment_time=appointment_time
+            appointment_time=appointment_time,
         )
 
         db.session.add(new_booking)
@@ -140,7 +149,8 @@ def add_booking():
 # GET ALL BOOKINGS
 # =========================
 
-@Application.route('/booking/all_bookings', methods=['GET'])
+
+@Application.route("/booking/all_bookings", methods=["GET"])
 def all_bookings():
 
     bookings = Booking.query.all()
@@ -152,16 +162,17 @@ def all_bookings():
 # REGISTER USER
 # =========================
 
-@Application.route('/register', methods=['POST'])
+
+@Application.route("/register", methods=["POST"])
 def register():
 
     try:
 
         data = request.get_json()
 
-        username = data.get('username')
-        password = data.get('password')
-        role = data.get('role')
+        username = data.get("username")
+        password = data.get("password")
+        role = data.get("role")
 
         if not all([username, password, role]):
             return jsonify({"error": "Missing required fields"}), 400
@@ -174,9 +185,7 @@ def register():
         hashed_password = generate_password_hash(password)
 
         new_user = Login(
-            username=username,
-            password=hashed_password,
-            role=UserRole(role)
+            username=username, password=hashed_password, role=UserRole(role)
         )
 
         db.session.add(new_user)
@@ -195,27 +204,25 @@ def register():
 # LOGIN
 # =========================
 
-@Application.route('/login', methods=['POST'])
+
+@Application.route("/login", methods=["POST"])
 def login():
 
     try:
-
         data = request.get_json()
-
-        username = data.get('username')
-        password = data.get('password')
-
+        username = data.get("username")
+        password = data.get("password")
         user = Login.query.filter_by(username=username).first()
-
         if user and check_password_hash(user.password, password):
-
-            return jsonify({
-                "message": "Login successful",
-                "user": {
-                    "username": user.username,
-                    "role": user.role.value
-                }
-            }), 200
+            return (
+                jsonify(
+                    {
+                        "message": "Login successful",
+                        "user": {"username": user.username, "role": user.role.value},
+                    }
+                ),
+                200,
+            )
 
         return jsonify({"error": "Invalid username or password"}), 401
 
@@ -228,11 +235,11 @@ def login():
 # MAIN
 # =========================
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     with Application.app_context():
         db.create_all()
 
     init_admin(Application)
 
-    Application.run(debug=True, host='0.0.0.0', port=5000)
+    Application.run(debug=True, host="0.0.0.0", port=5000)
