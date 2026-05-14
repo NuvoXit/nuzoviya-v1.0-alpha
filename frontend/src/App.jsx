@@ -11,25 +11,23 @@ import Login from "./Login.jsx";
 import "./App.css";
 
 function App() {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        // remove login data
-        localStorage.removeItem("user");
-
-        // redirect to login page
-        navigate("/login");
-    };
+    // const navigate = useNavigate();
+    //
+    // const handleLogout = () => {
+    //     localStorage.removeItem("user");
+    //
+    //     navigate("/login");
+    // };
 
     return (
         <BrowserRouter>
             <header className="navigation">
                 <Link to="/" className="mainheading">Hospital Managment System</Link>
                 <nav>
-                    <button onClick={handleLogout} className="logoutbut">
-                        Logout
-                    </button>
-                    {/*<Link to="/login" className="loginbut">Login</Link>*/}
+                    {/*<button onClick={handleLogout} className="logoutbut">*/}
+                    {/*    Logout*/}
+                    {/*</button>*/}
+                    <Link to="/login" className="loginbut">Login</Link>
                 </nav>
             </header>
 
@@ -38,6 +36,9 @@ function App() {
                     <Link to="/home" className="app-links">Home</Link>
                     <Link to="/patient" className="app-links">Patient</Link>
                     <Link to="/booking" className="app-links">Booking</Link>
+                    <Link to="/booking" className="app-links">Patient Dashboard</Link>
+                    <Link to="/booking" className="app-links">Surgical Procedure</Link>
+                    <Link to="/booking" className="app-links">prescription ordinance</Link>
                 </div>
 
                 <main className="app-content">
