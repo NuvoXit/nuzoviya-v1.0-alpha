@@ -7,6 +7,7 @@ import AddPatient from "./main_pages/mini_pages/add_patient.jsx";
 import AllPatient from "./main_pages/mini_pages/all_patient.jsx";
 import BookingPatient from "./main_pages/mini_pages/booking_patient.jsx";
 import BookingHistory from "./main_pages/mini_pages/booking_history.jsx";
+import Prescription from "./main_pages/mini_pages/prescription.jsx";
 import Login from "./Login.jsx";
 import "./App.css";
 
@@ -36,9 +37,8 @@ function App() {
                     <Link to="/home" className="app-links">Home</Link>
                     <Link to="/patient" className="app-links">Patient</Link>
                     <Link to="/booking" className="app-links">Booking</Link>
-                    <Link to="/booking" className="app-links">Patient Dashboard</Link>
-                    <Link to="/booking" className="app-links">Surgical Procedure</Link>
-                    <Link to="/booking" className="app-links">prescription ordinance</Link>
+                    <Link to="/cosult_patient_list" className="app-links">Patient List</Link>
+                    <Link to="/lab/patient" className="app-links">Patient List</Link>
                 </div>
 
                 <main className="app-content">
@@ -50,6 +50,7 @@ function App() {
                         <Route path="/booking" element={<Booking />} />
                         <Route path="/booking/booking_patient" element={<BookingPatient />} />
                         <Route path="/booking/booking_history" element={<BookingHistory />} />
+                        <Route path="/cosult_patient_list/prescription" element={<Prescription />} />
                         <Route path="/login" element={<Login />} />
                     </Routes>
                 </main>
