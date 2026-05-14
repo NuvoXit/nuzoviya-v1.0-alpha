@@ -1,15 +1,21 @@
-from flask import request, jsonify
+from flask import request, jsonify, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from config import Application, db
 from admin import init_admin
 from models import Patient, Booking, Login, UserRole
+from flask_login import login_required
+from login import login_acess
 
+login_access(Application)
+
+# @Application.route("/", methods=["GET"])
+# def Application():
+#     return send_from_directory(frontend_dist, "index.html")
 # =========================
 # ADD PATIENT
 # =========================
 
-
+@login_required
 @Application.route("/patient/add_patient", methods=["POST"])
 def add_patient():
     try:
@@ -56,12 +62,10 @@ def add_patient():
 # GET ALL PATIENTS
 # =========================
 
-
+@login_required
 @Application.route("/patient/all_patients", methods=["GET"])
 def all_patients():
-
     patients = Patient.query.all()
-
     return jsonify([patient.to_dict() for patient in patients])
 
 
@@ -69,7 +73,7 @@ def all_patients():
 # DELETE PATIENT
 # =========================
 
-
+@login_required
 @Application.route("/patient/delete/<nic>", methods=["DELETE"])
 def delete_patient(nic):
     try:
@@ -89,7 +93,7 @@ def delete_patient(nic):
 # ADD BOOKING
 # =========================
 
-
+@login_required
 @Application.route("/booking/add_booking", methods=["POST"])
 def add_booking():
 
@@ -149,86 +153,11 @@ def add_booking():
 # GET ALL BOOKINGS
 # =========================
 
-
+@login_required
 @Application.route("/booking/all_bookings", methods=["GET"])
 def all_bookings():
-
     bookings = Booking.query.all()
-
     return jsonify([booking.to_dict() for booking in bookings])
-
-
-# =========================
-# REGISTER USER
-# =========================
-
-
-@Application.route("/register", methods=["POST"])
-def register():
-
-    try:
-
-        data = request.get_json()
-
-        username = data.get("username")
-        password = data.get("password")
-        role = data.get("role")
-
-        if not all([username, password, role]):
-            return jsonify({"error": "Missing required fields"}), 400
-
-        existing_user = Login.query.filter_by(username=username).first()
-
-        if existing_user:
-            return jsonify({"error": "Username already exists"}), 409
-
-        hashed_password = generate_password_hash(password)
-
-        new_user = Login(
-            username=username, password=hashed_password, role=UserRole(role)
-        )
-
-        db.session.add(new_user)
-        db.session.commit()
-
-        return jsonify({"message": "User registered successfully"}), 201
-
-    except Exception as e:
-
-        db.session.rollback()
-
-        return jsonify({"error": str(e)}), 500
-
-
-# =========================
-# LOGIN
-# =========================
-
-
-@Application.route("/login", methods=["POST"])
-def login():
-
-    try:
-        data = request.get_json()
-        username = data.get("username")
-        password = data.get("password")
-        user = Login.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password, password):
-            return (
-                jsonify(
-                    {
-                        "message": "Login successful",
-                        "user": {"username": user.username, "role": user.role.value},
-                    }
-                ),
-                200,
-            )
-
-        return jsonify({"error": "Invalid username or password"}), 401
-
-    except Exception as e:
-
-        return jsonify({"error": str(e)}), 500
 
 
 # =========================

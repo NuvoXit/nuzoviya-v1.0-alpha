@@ -25,3 +25,5 @@ class LoginForm:
         self.username = username
         self.password = password
         self.role = role
+
+

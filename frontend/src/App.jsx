@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import Home from "./main_pages/home.jsx";
 import Patient from "./main_pages/patient.jsx";
 import Booking from "./main_pages/booking.jsx";
@@ -11,15 +11,25 @@ import Login from "./Login.jsx";
 import "./App.css";
 
 function App() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // remove login data
+        localStorage.removeItem("user");
+
+        // redirect to login page
+        navigate("/login");
+    };
 
     return (
         <BrowserRouter>
             <header className="navigation">
                 <Link to="/" className="mainheading">Hospital Managment System</Link>
                 <nav>
-
-                    <Link to="/login" className="loginbut">Login</Link>
-
+                    <button onClick={handleLogout} className="logoutbut">
+                        Logout
+                    </button>
+                    {/*<Link to="/login" className="loginbut">Login</Link>*/}
                 </nav>
             </header>
 
