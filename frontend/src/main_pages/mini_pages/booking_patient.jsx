@@ -72,8 +72,9 @@ function BookingPatient() {
     return (
         <div className="booking-patient-main-content">
             <div className="booking-patient-page-header">
-                <h3>New Booking</h3>
+
                 <Link to="/booking" className="back-btn">←</Link>
+                <h3>New Booking</h3>
             </div>
 
             <div className="booking-patient-form">
