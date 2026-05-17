@@ -1,86 +1,229 @@
+/* ── Page ── */
 .all-patient-container {
-  font-family: Arial, sans-serif;
-  background-color: #f4f6f8;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f6f8;
+    min-height: 100%;
 }
 
-.all-patient-container h2 {
-  text-align: center;
-  margin-top: 20px;
-  color: #333;
+/* ── Top row ── */
+.all-patient-header-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
 }
 
-/* Container */
-.all-patient-container {
-  padding: 20px;
+.all-patient-header-row h2 {
+    margin: 0;
+    flex: 1;
+    color: #333;
 }
 
-/* Back button */
+.all-patient-datetime {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
 .all-patient-back-btn {
-  text-decoration: none;
-  padding: 8px 12px;
-  background-color: #555;
-  color: white;
-  border-radius: 5px;
-  font-size: 14px;
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: #555;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .all-patient-back-btn:hover {
-  background-color: #333;
+    background-color: #333;
 }
 
-/* Table styling */
-.all-patient-container .patient_table {
-  border-collapse: collapse;
-  width: 90%;
-  margin: 40px auto;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+/* ── Two-column layout ── */
+.all-patient-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
-.all-patient-container th {
-  background-color: #007bff;
-  color: white;
-  padding: 12px;
-  text-align: left;
+/* ── Table ── */
+.all-patient-table-wrap {
+    overflow-x: auto;
 }
 
-.all-patient-container td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
+.patient_table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Row hover effect */
-.all-patient-container tr:hover {
-  background-color: #f1f1f1;
+.patient_table th {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    text-align: left;
 }
 
-/* Buttons */
-.all-patient-container button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.patient_table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
 }
 
-.all-patient-container button:hover {
-  opacity: 0.8;
+.patient_table tr:hover {
+    background-color: #f1f1f1;
 }
 
-/* Edit button */
-.all-patient-container button:first-child {
-  background-color: #28a745;
-  color: white;
+.all-patient-row--active td {
+    background-color: #d4f3fa !important;
 }
 
-/* Delete button */
-.all-patient-container button:last-child {
-  background-color: #dc3545;
-  color: rgb(255, 255, 255);
+.btn-edit {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
 }
 
-/* Loading text */
-.all-patient-container p {
-  text-align: center;
-  font-size: 16px;
-  color: #666;
+.btn-delete {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+    opacity: 0.8;
+}
+
+/* ── Consulting panel — full width below table ── */
+.all-patient-consulting-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+/* ── Detail card: info left, tags right ── */
+.consulting-detail-card {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #b2e0ea;
+    border-radius: 8px;
+    background: #e8f6f9;
+    overflow: hidden;
+}
+
+.consulting-detail-info {
+    flex: 1;
+    padding: 20px 24px;
+    border-right: 2px solid #b2e0ea;
+}
+
+.consulting-detail-id-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 6px;
+}
+
+.consulting-detail-age {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+    text-align: center;
+}
+
+.consulting-detail-placeholder {
+    font-size: 14px;
+    color: #999;
+    margin: 0;
+}
+
+/* ── Checkup tags ── */
+.consulting-checkup-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 24px;
+    justify-content: center;
+    min-width: 200px;
+}
+
+.consulting-tag {
+    display: block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    background: #d0eeea;
+    border: 1.5px solid #9adbc6;
+    color: #2a7a6a;
+    opacity: 0.5;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    text-align: left;
+}
+
+.consulting-tag--active {
+    background: #2bbfb0;
+    border-color: #1a9e91;
+    color: #fff;
+    opacity: 1;
+}
+
+.consulting-tag:hover:not(.consulting-tag--disabled) {
+    opacity: 0.85;
+    background: #a8e8d8;
+}
+
+.consulting-tag--disabled {
+    cursor: not-allowed;
+    opacity: 0.25;
+}
+
+/* ── Action buttons — horizontal row ── */
+.consulting-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.consulting-action-btn {
+    flex: 1;
+    padding: 14px 10px;
+    border: 1.5px solid #c5c5a0;
+    border-radius: 6px;
+    background: #f5f5e8;
+    color: #3a3a1a;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+.consulting-action-btn:hover:not(:disabled) {
+    background: #e8e8c8;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    transform: translateY(-1px);
+}
+
+.consulting-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ── Loading/empty text ── */
+.all-patient-container > p {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+}
 }
