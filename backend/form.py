@@ -27,3 +27,11 @@ class LoginForm:
         self.role = role
 
 
+class DoctorForm:
+    def __init__(self, doctor_first_name, doctor_last_name):
+        self.doctor_first_name = doctor_first_name
+        self.doctor_last_name = doctor_last_name
+        self._name = self.doctor_first_name + " " + self.doctor_last_name
+
+    
+    

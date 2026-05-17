@@ -1,0 +1,59 @@
+.patient-dasboard-option {
+    
+}
+
+
+.patient-dasboard {
+    display: flex;
+    border-radius: 5px;
+    background-color: antiquewhite;
+    gap: 100px;    
+}
+
+.patient-details {
+    position: relative;
+    top: 50px;
+    left: 50px;
+    font-size: large;
+    width: 800px;  
+}
+
+.patientdash-verticalbar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;   
+}
+
+.patientdash-links {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    width: 150px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: rgb(13, 125, 92);
+    padding: 10px;
+    border-radius: 5px; 
+}   
+
+
+.options {
+    margin-top: 150px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    gap: 80px;
+}
+
+.options-links {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    width: 200px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: rgb(158, 164, 115);
+    padding: 15px;
+    border-radius: 5px; 
+}

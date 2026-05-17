@@ -10,4 +10,4 @@ Application.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 Application.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 Application.config["SECRET_KEY"] = "nuvo-secret-key-change-in-production"
 
-db = SQLAlchemy(Application)
+Database = SQLAlchemy(Application)

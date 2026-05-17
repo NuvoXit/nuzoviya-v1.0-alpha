@@ -1,48 +1,38 @@
 from datetime import datetime
-from config import db
+from config import Database
 from sqlalchemy.orm import validates
 import enum
 
-
+# Date Validation Functions
 def _to_date(value):
     if isinstance(value, str):
         return datetime.strptime(value, '%Y-%m-%d').date()
     return value
 
-
+# Time Validation Functions
 def _to_time(value):
     if isinstance(value, str):
         return datetime.strptime(value, '%H:%M').time()
     return value
-
-
-# =========================
-# USER ROLE ENUM
-# =========================
 
 class UserRole(enum.Enum):
     Doctor = "Doctor"
     Receptionist = "Receptionist"
     Nurse = "Nurse"
 
-
-# =========================
-# PATIENT MODEL
-# =========================
-
-class Patient(db.Model):
+class Patient(Database.Model):
 
     __tablename__ = 'patient'
 
-    NIC = db.Column(db.String(10), primary_key=True, nullable=False)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    DOB = db.Column(db.Date, nullable=False)
-    address = db.Column(db.String(200), nullable=False)
-    telephone = db.Column(db.String(15), nullable=False)
-    email = db.Column(db.String(50), nullable=False)
+    NIC = Database.Column(Database.String(10), primary_key=True, nullable=False)
+    first_name = Database.Column(Database.String(50), nullable=False)
+    last_name = Database.Column(Database.String(50), nullable=False)
+    DOB = Database.Column(Database.Date, nullable=False)
+    address = Database.Column(Database.String(200), nullable=False)
+    telephone = Database.Column(Database.String(15), nullable=False)
+    email = Database.Column(Database.String(50), nullable=False)
 
-    bookings = db.relationship('Booking', backref='patient', lazy=True)
+    bookings = Database.relationship('Booking', backref='patient', lazy=True)
 
     @validates('DOB')
     def validate_dob(self, key, value):
@@ -65,24 +55,19 @@ class Patient(db.Model):
     def to_dict(self):
         return self.to_json()
 
-
-# =========================
-# BOOKING MODEL
-# =========================
-
-class Booking(db.Model):
+class Booking(Database.Model):
 
     __tablename__ = 'booking'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
 
-    patient_nic = db.Column(db.String(10), db.ForeignKey('patient.NIC'), nullable=False)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    telephone = db.Column(db.String(15), nullable=False)
-    doctor_name = db.Column(db.String(50), nullable=False)
-    appointment_date = db.Column(db.Date, nullable=False)
-    appointment_time = db.Column(db.Time, nullable=False)
+    patient_nic = Database.Column(Database.String(10), Database.ForeignKey('patient.NIC'), nullable=False)
+    first_name = Database.Column(Database.String(50), nullable=False)
+    last_name = Database.Column(Database.String(50), nullable=False)
+    telephone = Database.Column(Database.String(15), nullable=False)
+    doctor_name = Database.Column(Database.String(50), Database.ForeignKey('doctor.Doctor_name'), nullable=False)
+    appointment_date = Database.Column(Database.Date, nullable=False)
+    appointment_time = Database.Column(Database.Time, nullable=False)
 
     @validates('appointment_date')
     def validate_appointment_date(self, key, value):
@@ -110,22 +95,14 @@ class Booking(db.Model):
     def to_dict(self):
         return self.to_json()
 
-
-# =========================
-# LOGIN MODEL
-# =========================
-
-class Login(db.Model):
+class Login(Database.Model):
 
     __tablename__ = 'login'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-    username = db.Column(db.String(50), nullable=False, unique=True)
-
-    password = db.Column(db.String(255), nullable=False)
-
-    role = db.Column(db.Enum(UserRole), nullable=False)
+    id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    username = Database.Column(Database.String(50), nullable=False, unique=True)
+    password = Database.Column(Database.String(255), nullable=False)
+    role = Database.Column(Database.Enum(UserRole), nullable=False)
 
     def __repr__(self):
         return f'<Login {self.username}>'
@@ -139,3 +116,46 @@ class Login(db.Model):
 
     def to_dict(self):
         return self.to_json()
+      
+class Nurse(Database.Model):
+
+    __tablename__ = 'nurse'
+
+    id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    Nurse_name = Database.Column(Database.String(50), nullable=False, unique=True)
+    
+    def __repr__(self):
+        return f'<Nurse {self.Nurse_name}>'
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "NurseName": self.Nurse_name
+        }
+
+    def to_dict(self):
+        return self.to_json()
+    
+class Doctor(Database.Model):
+
+    __tablename__ = 'doctor'
+
+    id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    Doctor_First_name = Database.Column(Database.String(50), nullable=False, unique=True)
+    Doctor_Last_name = Database.Column(Database.String(50), nullable=False, unique=True)
+    Doctor_name = Doctor_First_name + " " + Doctor_Last_name
+
+
+    def __repr__(self):
+        return f'<Doctor {self.Doctor_name}>'
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "DoctorName": self.Doctor_name
+        }
+
+    def to_dict(self):
+        return self.to_json()
+    
+

@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from models import Patient, Booking, Login, UserRole
-from config import Application, db
+from config import Application, Database
 
 
 def login_access(Application):
@@ -29,8 +29,10 @@ def login_access(Application):
             return jsonify({"error": "Invalid username, password, or role"}), 401
 
         except Exception as e:
-            db.session.rollback()
+            Database.session.rollback()
             return jsonify({"error": str(e)}), 500
+            
+
 
 
 # @loginacess.route("/login", methods=["POST"])
