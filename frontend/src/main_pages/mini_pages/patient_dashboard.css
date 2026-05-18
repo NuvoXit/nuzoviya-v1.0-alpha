@@ -1,59 +1,11 @@
-.patient-dasboard-option {
-    
-}
-
-
-.patient-dasboard {
-    display: flex;
-    border-radius: 5px;
-    background-color: antiquewhite;
-    gap: 100px;    
-}
-
-.patient-details {
-    position: relative;
-    top: 50px;
-    left: 50px;
-    font-size: large;
-    width: 800px;  
-}
-
-.patientdash-verticalbar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;   
-}
-
-.patientdash-links {
-    text-align: center;
-    text-decoration: none;
-    color: black;
-    width: 150px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: rgb(13, 125, 92);
-    padding: 10px;
-    border-radius: 5px; 
-}   
-
-
-.options {
-    margin-top: 150px;
-    display: flex;
-    justify-content: center; 
-    align-items: center;     
-    gap: 80px;
-}
-
-.options-links {
-    text-align: center;
-    text-decoration: none;
-    color: black;
-    width: 200px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: rgb(158, 164, 115);
-    padding: 15px;
-    border-radius: 5px; 
-}
+.dashboard-section { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+.dashboard-header { display: flex; align-items: center; gap: 16px; }
+.dashboard-title { margin: 0; font-size: 22px; }
+.dashboard-back-btn { padding: 8px 14px; background: #555; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
+.dashboard-back-btn:hover { background: #333; }
+.dashboard-card { background: #eaf2fc; border: 2px solid #b2e0ea; border-radius: 8px; padding: 20px 24px; }
+.dashboard-name { font-size: 20px; font-weight: 700; margin: 0 0 10px; }
+.dashboard-card p { margin: 4px 0; font-size: 14px; color: #333; }
+.dashboard-actions { display: flex; gap: 16px; }
+.dashboard-btn { flex: 1; padding: 14px; border: 1.5px solid #c5c5a0; border-radius: 6px; background: #f5f5e8; font-size: 15px; font-weight: 700; cursor: pointer; }
+.dashboard-btn:hover { background: #e8e8c8; }
