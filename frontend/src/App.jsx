@@ -11,6 +11,7 @@ import Prescription from "./main_pages/mini_pages/prescription.jsx";
 import Feedback from "./main_pages/mini_pages/feedback.jsx";
 import PatientDashboard from "./main_pages/mini_pages/patient_dashboard.jsx";
 import SurgicalProcedure from "./main_pages/mini_pages/surgical_procedure.jsx";
+import Consulting from "./main_pages/consulting.jsx";
 import Login from "./Login.jsx";
 import "./App.css";
 
@@ -29,7 +30,7 @@ function App() {
                     <Link to="/patient" className="app-links">Patient</Link>
                     <Link to="/booking" className="app-links">Booking</Link>
                     <Link to="/patient/all_patients" className="app-links">Patient List</Link>
-                    <Link to="/dashboard" className="app-links">Dashboard</Link>
+                    <Link to="/cosult_patient_list" className="app-links">Dashboard</Link>
                 </div>
                 <main className="app-content">
                     <Routes>
@@ -40,8 +41,9 @@ function App() {
                         <Route path="/booking" element={<Booking />} />
                         <Route path="/booking/booking_patient" element={<BookingPatient />} />
                         <Route path="/booking/booking_history" element={<BookingHistory />} />
-                        <Route path="/cosult_patient_list/:id/dashboard/prescription" element={<Prescription />} />
+                        <Route path="/cosult_patient_list" element={<Consulting />} />
                         <Route path="/cosult_patient_list/:id/dashboard" element={<PatientDashboard />} />
+                        <Route path="/cosult_patient_list/:id/dashboard/prescription" element={<Prescription />} />
                         <Route path="/cosult_patient_list/:id/dashboard/surgical_procedure" element={<SurgicalProcedure />} />
                         <Route path="/patient/all_patients/feedback" element={<Feedback />} />
                         <Route path="/login" element={<Login />} />
