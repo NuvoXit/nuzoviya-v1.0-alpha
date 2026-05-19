@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./consulting.css";
 
-<<<<<<< HEAD
+
 function Consulting() {
-=======
+
 const ALL_CHECKUPS = ["Blood Checkup", "Eye Checkup", "X-Ray Checkup", "Other"];
 
 function calcAge(dob) {
@@ -83,7 +83,7 @@ function Consulting() {
             state: { patient: { ...selected, checkups: activeCheckups } },
         });
     };
->>>>>>> e4c245be8c162f2728500f8fb181d4c3ec5796a3
+
 
     return (
         <section className="consulting-section">
@@ -164,8 +164,6 @@ function Consulting() {
     );
 }
 
-<<<<<<< HEAD
+
 export default Consulting;
-=======
-export default Consulting;
->>>>>>> e4c245be8c162f2728500f8fb181d4c3ec5796a3
+
