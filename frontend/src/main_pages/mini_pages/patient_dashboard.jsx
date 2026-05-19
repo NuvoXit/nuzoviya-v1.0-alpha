@@ -59,7 +59,7 @@ function PatientDashboard() {
 
             <div className="dashboard-actions">
                 <button className="dashboard-btn" onClick={() => navigate(`${base}/prescription`)}>Prescription</button>
-                <button className="dashboard-btn" onClick={() => navigate("/patient/all_patients/feedback", { state: { patient: { patientId: id, name: patient ? `${patient.first_name} ${patient.last_name}` : id } } })}>Feedback</button>
+                <button className="dashboard-btn" onClick={() => navigate(`${base}/feedback`, { state: { patient: { patientId: id, name: patient ? `${patient.first_name} ${patient.last_name}` : id } } })}>Feedback</button>
                 <button className="dashboard-btn" onClick={() => navigate(`${base}/surgical_procedure`)}>Surgical Procedure</button>
             </div>
         </section>
