@@ -32,10 +32,13 @@ function AllPatient() {
 
     useEffect(() => { fetchPatients(); }, []);
 
-    const deletePatient = async (nic) => {
+
+
+    // Delete function with confirmation and error handling
+    const deletePatients = async (patient_id) => {
         if (!window.confirm("Delete this patient?")) return;
         try {
-            const res = await fetch(`http://127.0.0.1:5000/patient/delete/${nic}`, { method: "DELETE" });
+            const res = await fetch(`http://127.0.0.1:5000/patient/delete/${patient_id}`,{method: "DELETE"});
             if (!res.ok) {
                 const data = await res.json();
                 alert(data.error || "Could not delete patient.");
@@ -49,21 +52,17 @@ function AllPatient() {
     };
 
     return (
-        <div className="all-patient-container">
+        <div className="all-patient-container" >
             <div className="all-patient-header-row">
                 <Link to="/patient" className="all-patient-back-btn">← Back</Link>
-                <h2>All Patients</h2>
             </div>
+            <h2>All Patients</h2>
 
-            {loading ? (
-                <p>Loading...</p>
-            ) : patients.length === 0 ? (
-                <p>No patients found</p>
-            ) : (
+            {loading ? (<p>Loading...</p>) : patients.length === 0 ? (<p>No patients found</p>) : (
                 <table className="patient_table">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>NIC</th>
                             <th>Age</th>
@@ -72,16 +71,16 @@ function AllPatient() {
                         </tr>
                     </thead>
                     <tbody>
-                        {patients.map((p, i) => (
-                            <tr key={p.NIC}>
-                                <td>{String(i + 1).padStart(2, "0")}</td>
-                                <td>{p.firstName} {p.lastName}</td>
-                                <td>{p.NIC}</td>
-                                <td>{calcAge(p.DOB)}</td>
+                        {patients.map((p) => (
+                            <tr key={p.id}>
+                                <td>{p.patient_id}</td>
+                                <td>{p.first_name} {p.last_name}</td>
+                                <td>{p.nic || "—"}</td>
+                                <td>{calcAge(p.dob)}</td>
                                 <td>{p.telephone}</td>
                                 <td style={{ display: "flex", gap: "8px" }}>
                                     <button className="btn-edit" onClick={() => alert("Edit not implemented yet.")}>Edit</button>
-                                    <button className="btn-delete" onClick={() => deletePatient(p.NIC)}>Delete</button>
+                                    <button className="btn-delete" onClick={() => deletePatients(p.patient_id)}>Delete</button>
                                 </td>
                             </tr>
                         ))}

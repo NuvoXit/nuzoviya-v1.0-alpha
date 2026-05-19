@@ -104,36 +104,53 @@ def add_booking():
         first_name = data.get("firstName")
         last_name = data.get("lastName")
         telephone = data.get("telephone")
-        patient_id = data.get("patientID")
         doctor_name = data.get("doctorName")
         appointment_date = data.get("appointmentDate")
         appointment_time = data.get("appointmentTime")
 
-        if not all(
-            [
-                first_name,
-                last_name,
-                telephone,
-                patient_id,
-                doctor_name,
-                appointment_date,
-                appointment_time,
-            ]
-        ):
+        # Validate required fields
+        if not all([first_name, last_name, telephone, doctor_name, appointment_date, appointment_time]):
             return jsonify({"error": "Missing required fields"}), 400
 
-        patient = Patient.query.filter_by(patient_id=patient_id).first()
-        if not patient:
-            return jsonify({"error": "Patient not found"}), 404
+        # Remove extra spaces
+        first_name = first_name.strip()
+        last_name = last_name.strip()
+        telephone = telephone.strip()
 
+        # Check if patient exists
+        patient = Patient.query.filter_by(first_name=first_name, last_name=last_name, telephone=telephone).first()
+
+        # Create patient only if not found
+        if not patient:
+            patient = Patient(
+                first_name=first_name,
+                last_name=last_name,
+                nic=None,
+                dob=None,
+                address=None,
+                telephone=telephone,
+                email=None
+            )
+
+            Database.session.add(patient)
+            Database.session.commit()
+
+        # Create booking
         new_booking = Booking(
-            first_name=first_name, last_name=last_name, telephone=telephone,
-            booked_patient_id=patient.patient_id, doctor_name=doctor_name,
-            appointment_date=appointment_date, appointment_time=appointment_time,
+            first_name=first_name,
+            last_name=last_name,
+            telephone=telephone,
+            doctor_name=doctor_name,
+            appointment_date=appointment_date,
+            appointment_time=appointment_time,
         )
+
         Database.session.add(new_booking)
         Database.session.commit()
-        return jsonify({"message": "Booking added successfully"}), 201
+
+        return jsonify({
+            "message": "Booking added successfully"
+        }), 201
 
     except Exception as e:
         Database.session.rollback()

@@ -47,8 +47,8 @@ function AddPatient() {
     const patientData = {
       firstName: form.firstname.trim(),
       lastName: form.lastname.trim(),
-      NIC: form.nic.trim(),
-      DOB: form.dob || null,
+      nic: form.nic.trim(),
+      dob: form.dob || null,
       address: form.address?.trim() || '',
       telephone: form.telephone.trim(),
       email: form.email?.trim() || '',

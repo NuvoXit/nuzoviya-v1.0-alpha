@@ -20,16 +20,16 @@ class Patient(Database.Model):
     __tablename__ = 'patient'
 
     patient_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
-    bookings = Database.relationship('Booking', backref='patient', lazy=True, cascade='all, delete-orphan')
+    
 
     
     first_name = Database.Column(Database.String(50), nullable=False)
     last_name = Database.Column(Database.String(50), nullable=False)
-    nic = Database.Column(Database.String(10), nullable=False)
-    dob = Database.Column(Database.Date, nullable=False)
-    address = Database.Column(Database.String(200), nullable=False)
+    nic = Database.Column(Database.String(10), nullable=True)
+    dob = Database.Column(Database.Date, nullable=True)
+    address = Database.Column(Database.String(200), nullable=True)
     telephone = Database.Column(Database.String(15), nullable=False)
-    email = Database.Column(Database.String(50), nullable=False)
+    email = Database.Column(Database.String(50), nullable=True)
 
     @validates('dob')
     def validate_dob(self, key, value):
@@ -41,10 +41,10 @@ class Patient(Database.Model):
     def to_json(self):
         return {
             "patient_id": self.patient_id,
-            "firstName": self.first_name,
-            "lastName": self.last_name,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
             "nic": self.nic,
-            "dob": self.dob.isoformat(),
+            "dob": self.dob.isoformat() if self.dob else None, # Attribute Error Fix Happened Here
             "address": self.address,
             "telephone": self.telephone,
             "email": self.email
@@ -62,7 +62,6 @@ class Booking(Database.Model):
     first_name = Database.Column(Database.String(50), nullable=False)
     last_name = Database.Column(Database.String(50), nullable=False)
     telephone = Database.Column(Database.String(15), nullable=False)
-    booked_patient_id = Database.Column(Database.Integer, Database.ForeignKey('patient.patient_id', ondelete='CASCADE'), nullable=False)
     doctor_name = Database.Column(Database.String(50), nullable=False)
     appointment_date = Database.Column(Database.Date, nullable=False)
     appointment_time = Database.Column(Database.Time, nullable=False)
@@ -84,7 +83,6 @@ class Booking(Database.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "telephone": self.telephone,
-            "booked_patient_id": self.booked_patient_id,
             "doctor_name": self.doctor_name,
             "appointmentDate": self.appointment_date.isoformat() if self.appointment_date else None,
             "appointmentTime": self.appointment_time.strftime('%H:%M') if self.appointment_time else None

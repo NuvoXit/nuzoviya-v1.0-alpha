@@ -26,15 +26,13 @@ function BookingHistory() {
             </Link>
             <h2>Booking History</h2>
 
-            {loading ? (
-                <p>Loading...</p>
-            ) : bookings.length === 0 ? (
-                <p>No bookings found</p>
-            ) : (
+            {loading ? (<p>Loading...</p>) : bookings.length === 0 ? (<p>No bookings found</p>) : (
+
                 <table className="booking_history_table" border="1" cellPadding="10" style={{ width: "100%", marginTop: "12px" }}>
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Patient Name</th>
                             <th>Patient NIC</th>
                             <th>Doctor</th>
                             <th>Date</th>
@@ -44,9 +42,10 @@ function BookingHistory() {
                     <tbody>
                         {bookings.map((b) => (
                             <tr key={b.id}>
-                                <td>{b.id}</td>
-                                <td>{b.patientNIC}</td>
-                                <td>{b.doctorName}</td>
+                                <td>{b.booking_id}</td>
+                                <td>{b.first_name} {b.last_name}</td>
+                                <td>{b.nic || "NIC not found"}</td>
+                                <td>{b.doctor_name}</td>
                                 <td>{b.appointmentDate}</td>
                                 <td>{b.appointmentTime}</td>
                             </tr>

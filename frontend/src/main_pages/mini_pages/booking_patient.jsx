@@ -4,7 +4,6 @@ import "./booking_patient.css";
 
 function BookingPatient() {
     const [form, setForm] = useState({
-        patientNIC: "",
         firstName: "",
         lastName: "",
         telephone: "",
@@ -21,7 +20,6 @@ function BookingPatient() {
 
     const handleClear = () => {
         setForm({
-            patientNIC: "",
             firstName: "",
             lastName: "",
             telephone: "",
@@ -33,9 +31,9 @@ function BookingPatient() {
 
     // Was only logging to console — now actually calls the backend
     async function handleCreate() {
-        const { patientNIC, firstName, lastName, telephone, doctorName, appointmentDate, appointmentTime } = form;
+        const { firstName, lastName, telephone, doctorName, appointmentDate, appointmentTime } = form;
 
-        if (!patientNIC || !firstName || !lastName || !telephone || !doctorName || !appointmentDate || !appointmentTime) {
+        if (!firstName || !lastName || !telephone || !doctorName || !appointmentDate || !appointmentTime) {
             alert("Please fill in all required fields.");
             return;
         }
@@ -78,10 +76,6 @@ function BookingPatient() {
             </div>
 
             <div className="booking-patient-form">
-                <div className="booking-patient-form-row">
-                    <label>Patient NIC <span className="required">*</span></label>
-                    <input name="patientNIC" value={form.patientNIC} onChange={handleChange} placeholder="e.g. 123456789V" />
-                </div>
                 <div className="booking-patient-form-row">
                     <label>First Name <span className="required">*</span></label>
                     <input name="firstName" value={form.firstName} onChange={handleChange} />

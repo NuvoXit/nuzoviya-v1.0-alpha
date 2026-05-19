@@ -15,7 +15,6 @@ class BookingForm:
         self.first_name = first_name
         self.last_name = last_name
         self.telephone = telephone
-        self.booked_patient_id = booked_patient_id
         self.doctor_name = doctor_name
         self.appointment_date = appointment_date
         self.appointment_time = appointment_time
