@@ -1,30 +1,39 @@
 from flask import request, jsonify
 from werkzeug.security import check_password_hash
+from sqlalchemy import func
 from config import Application, Database
 from admin import init_admin
-from models import Patient, Booking, Login, UserRole
+from models import Patient, Booking, Login, UserRole, Doctor, Nurse
 
+# =========================
+# ROUTES
+# =========================
 
 
 @Application.route("/", methods=["GET"])
 def main():
     return {"message": "First Page of Nuvo Medical Platform Backend"}
-   
+
+
 @Application.route("/home", methods=["GET"])
 def home():
     return {"message": "Welcome to the Home Page"}
+
 
 @Application.route("/patient", methods=["GET"])
 def patient():
     return {"message": "Welcome to the Patient Page"}
 
+
 @Application.route("/booking", methods=["GET"])
 def booking():
     return {"message": "Welcome to the Booking Page"}
 
+
 # =========================
 # ADD PATIENT
 # =========================
+
 
 @Application.route("/patient/add_patient", methods=["POST"])
 def add_patient():
@@ -32,12 +41,12 @@ def add_patient():
         data = request.get_json()
 
         first_name = data.get("firstName")
-        last_name  = data.get("lastName")
-        nic        = data.get("nic") 
-        dob        = data.get("dob")
-        address    = data.get("address")
-        telephone  = data.get("telephone")
-        email      = data.get("email")
+        last_name = data.get("lastName")
+        nic = data.get("nic")
+        dob = data.get("dob")
+        address = data.get("address")
+        telephone = data.get("telephone")
+        email = data.get("email")
 
         if not all([first_name, last_name, nic, dob, address, telephone, email]):
             return jsonify({"error": "Missing required fields"}), 400
@@ -46,13 +55,13 @@ def add_patient():
             return jsonify({"error": "Patient with this NIC already exists"}), 409
 
         new_patient = Patient(
-            first_name=first_name, 
+            first_name=first_name,
             last_name=last_name,
-            nic=nic, 
-            dob=dob, 
-            address=address, 
-            telephone=telephone, 
-            email=email
+            nic=nic,
+            dob=dob,
+            address=address,
+            telephone=telephone,
+            email=email,
         )
 
         Database.session.add(new_patient)
@@ -68,6 +77,7 @@ def add_patient():
 # GET ALL PATIENTS
 # =========================
 
+
 @Application.route("/patient/all_patients", methods=["GET"])
 def all_patients():
     patients = Patient.query.all()
@@ -77,6 +87,7 @@ def all_patients():
 # =========================
 # DELETE PATIENT
 # =========================
+
 
 @Application.route("/patient/delete/<int:patient_id>", methods=["DELETE"])
 def delete_patient(patient_id):
@@ -96,6 +107,7 @@ def delete_patient(patient_id):
 # ADD BOOKING
 # =========================
 
+
 @Application.route("/booking/add_booking", methods=["POST"])
 def add_booking():
     try:
@@ -109,7 +121,16 @@ def add_booking():
         appointment_time = data.get("appointmentTime")
 
         # Validate required fields
-        if not all([first_name, last_name, telephone, doctor_name, appointment_date, appointment_time]):
+        if not all(
+            [
+                first_name,
+                last_name,
+                telephone,
+                doctor_name,
+                appointment_date,
+                appointment_time,
+            ]
+        ):
             return jsonify({"error": "Missing required fields"}), 400
 
         # Remove extra spaces
@@ -118,7 +139,9 @@ def add_booking():
         telephone = telephone.strip()
 
         # Check if patient exists
-        patient = Patient.query.filter_by(first_name=first_name, last_name=last_name, telephone=telephone).first()
+        patient = Patient.query.filter_by(
+            first_name=first_name, last_name=last_name, telephone=telephone
+        ).first()
 
         # Create patient only if not found
         if not patient:
@@ -129,7 +152,7 @@ def add_booking():
                 dob=None,
                 address=None,
                 telephone=telephone,
-                email=None
+                email=None,
             )
 
             Database.session.add(patient)
@@ -148,9 +171,7 @@ def add_booking():
         Database.session.add(new_booking)
         Database.session.commit()
 
-        return jsonify({
-            "message": "Booking added successfully"
-        }), 201
+        return jsonify({"message": "Booking added successfully"}), 201
 
     except Exception as e:
         Database.session.rollback()
@@ -161,12 +182,11 @@ def add_booking():
 # GET ALL BOOKINGS
 # =========================
 
+
 @Application.route("/booking/all_bookings", methods=["GET"])
 def all_bookings():
     bookings = Booking.query.all()
     return jsonify([b.to_dict() for b in bookings])
-
-
 
 
 @Application.route("/login", methods=["POST"])
@@ -203,6 +223,32 @@ def login():
     except Exception as e:
         Database.session.rollback()
         return jsonify({"error": str(e)}), 500
+
+
+# =========================
+# Search Doctors
+
+
+@Application.route("/booking/search_doctors", methods=["GET"])
+def search_doctors():
+    try:
+        query = request.args.get("query", "").strip()
+
+        if not query:
+            return jsonify([])
+
+        # Search by full name (concatenated) or individual names
+        Doctors = Doctor.query.filter(
+            func.concat(Doctor.doctor_first_name, ' ', Doctor.doctor_last_name).ilike(f"%{query}%") | # Here func functtion is used to concatenate first and last name for searching full name
+            (Doctor.doctor_first_name.ilike(f"%{query}%")) |
+            (Doctor.doctor_last_name.ilike(f"%{query}%"))
+        ).all()
+
+        return jsonify([d.to_dict() for d in Doctors])
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # =========================
 # MAIN

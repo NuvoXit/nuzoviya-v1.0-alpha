@@ -134,10 +134,10 @@ class Doctor(Database.Model):
 
     def to_dict(self):
         return {
-            "doctor_id": self.doctor_id,
+            "id": self.doctor_id,
+            "name": self.doctor_full_name,
             "first_name": self.doctor_first_name,
-            "last_name": self.doctor_last_name,
-            "doctor_full_name": self.doctor_full_name
+            "last_name": self.doctor_last_name
         }
     
 class Nurse(Database.Model):
