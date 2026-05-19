@@ -32,12 +32,12 @@ class DoctorForm:
         self.doctor_id = doctor_id
         self.doctor_first_name = doctor_first_name
         self.doctor_last_name = doctor_last_name
-
+        self.doctor_full_name = f"{doctor_first_name} {doctor_last_name}"
 
 class NurseForm:
     def __init__(self, nurse_id, nurse_first_name, nurse_last_name):
         self.nurse_id = nurse_id
         self.nurse_first_name = nurse_first_name
         self.nurse_last_name = nurse_last_name
-        
+        self.nurse_full_name = f"{nurse_first_name} {nurse_last_name}"
 

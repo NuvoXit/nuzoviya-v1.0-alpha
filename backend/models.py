@@ -132,21 +132,17 @@ class Doctor(Database.Model):
         return f"{self.doctor_first_name} {self.doctor_last_name}"
 
     def __repr__(self):
-        return f'<Doctor {self.doctor_id}>'
+        return f"<Doctor {self.doctor_full_name}>"
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "doctor_id": self.doctor_id,
             "first_name": self.doctor_first_name,
             "last_name": self.doctor_last_name,
             "doctor_full_name": self.doctor_full_name
         }
-
-    def to_dict(self):
-        return self.to_json()
     
 class Nurse(Database.Model):
-
     __tablename__ = 'nurse'
 
     nurse_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
@@ -158,15 +154,12 @@ class Nurse(Database.Model):
         return f"{self.nurse_first_name} {self.nurse_last_name}"
 
     def __repr__(self):
-        return f'<Nurse {self.nurse_id}>'
+        return f"<Nurse {self.nurse_full_name}>"
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "nurse_id": self.nurse_id,
             "first_name": self.nurse_first_name,
             "last_name": self.nurse_last_name,
             "nurse_full_name": self.nurse_full_name
         }
-
-    def to_dict(self):
-        return self.to_json()
