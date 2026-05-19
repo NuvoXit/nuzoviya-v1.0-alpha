@@ -1,9 +1,8 @@
 from flask import request, jsonify
-from flask_cors import CORS
-from werkzeug.security import generate_password_hash, check_password_hash
-from config import Application, db
+from werkzeug.security import check_password_hash
+from config import Application, Database
 from admin import init_admin
-from models import Patient, Booking, Login, UserRole, Nurse, Doctor
+from models import Patient, Booking, Login, UserRole
 
 
 
@@ -31,36 +30,37 @@ def booking():
 def add_patient():
     try:
         data = request.get_json()
-        patient_id = data.get("NIC") or data.get("patientID") or data.get("PatientID")
-        NIC =data.get("NIC") 
+
         first_name = data.get("firstName")
         last_name  = data.get("lastName")
-        DOB        = data.get("DOB") or data.get("dob")
+        nic        = data.get("nic") 
+        dob        = data.get("dob")
         address    = data.get("address")
         telephone  = data.get("telephone")
         email      = data.get("email")
 
-        if not all([patient_id, first_name, last_name, DOB, address, telephone, email]):
+        if not all([first_name, last_name, nic, dob, address, telephone, email]):
             return jsonify({"error": "Missing required fields"}), 400
 
-        if Patient.query.get(patient_id):
-            return jsonify({"error": "Patient already exists"}), 409
+        if Patient.query.filter_by(nic=nic).first():
+            return jsonify({"error": "Patient with this NIC already exists"}), 409
 
         new_patient = Patient(
-            NIC=patient_id,
-            first_name=first_name,
+            first_name=first_name, 
             last_name=last_name,
-            DOB=DOB,
-            address=address,
-            telephone=telephone,
-            email=email,
+            nic=nic, 
+            dob=dob, 
+            address=address, 
+            telephone=telephone, 
+            email=email
         )
-        db.session.add(new_patient)
-        db.session.commit()
+
+        Database.session.add(new_patient)
+        Database.session.commit()
         return jsonify({"message": "Patient added successfully"}), 201
 
     except Exception as e:
-        db.session.rollback()
+        Database.session.rollback()
         return jsonify({"error": str(e)}), 500
 
 
@@ -78,17 +78,17 @@ def all_patients():
 # DELETE PATIENT
 # =========================
 
-@Application.route("/patient/delete/<nic>", methods=["DELETE"])
-def delete_patient(nic):
+@Application.route("/patient/delete/<int:patient_id>", methods=["DELETE"])
+def delete_patient(patient_id):
     try:
-        patient = Patient.query.get(nic)
+        patient = Patient.query.get(patient_id)
         if not patient:
             return jsonify({"error": "Patient not found"}), 404
-        db.session.delete(patient)
-        db.session.commit()
+        Database.session.delete(patient)
+        Database.session.commit()
         return jsonify({"message": "Patient deleted successfully"}), 200
     except Exception as e:
-        db.session.rollback()
+        Database.session.rollback()
         return jsonify({"error": str(e)}), 500
 
 
@@ -122,20 +122,21 @@ def add_booking():
         ):
             return jsonify({"error": "Missing required fields"}), 400
 
-        if not Patient.query.get(patient_id):
+        patient = Patient.query.filter_by(patient_id=patient_id).first()
+        if not patient:
             return jsonify({"error": "Patient not found"}), 404
 
         new_booking = Booking(
             first_name=first_name, last_name=last_name, telephone=telephone,
-            patient_nic=patient_id, doctor_name=doctor_name,
+            booked_patient_id=patient.patient_id, doctor_name=doctor_name,
             appointment_date=appointment_date, appointment_time=appointment_time,
         )
-        db.session.add(new_booking)
-        db.session.commit()
+        Database.session.add(new_booking)
+        Database.session.commit()
         return jsonify({"message": "Booking added successfully"}), 201
 
     except Exception as e:
-        db.session.rollback()
+        Database.session.rollback()
         return jsonify({"error": str(e)}), 500
 
 
@@ -153,37 +154,45 @@ def all_bookings():
 
 @Application.route("/login", methods=["POST"])
 def login():
+    try:
+        data = request.get_json() or {}
+
+        username = data.get("username")
+        password = data.get("password")
+        role = data.get("role")
+
+        if not all([username, password, role]):
+            return jsonify({"error": "Missing required fields"}), 400
+
         try:
-            data = request.get_json()
+            role_enum = UserRole(role)
+        except ValueError:
+            return jsonify({"error": "Invalid role"}), 400
 
-            username = data.get("username")
-            password = data.get("password")
-            role = data.get("role")
-
-            # Check required fields
-            if not all([username, password, role]):
-                return jsonify({"error": "Missing required fields"}), 400
-
-            # Check user in database
-            existing_user = Login.query.filter_by(username=username,password=password,role=role).first()
-
-            # If user exists
-            if existing_user:
-                return jsonify({"message": "Successfully Logged In"}), 200
-
-            # If user not found
+        existing_user = Login.query.filter_by(username=username, role=role_enum).first()
+        if not existing_user:
             return jsonify({"error": "Invalid username, password, or role"}), 401
 
-        except Exception as e:
-            Database.session.rollback()
-            return jsonify({"error": str(e)}), 500
-    
+        try:
+            password_valid = check_password_hash(existing_user.password, password)
+        except ValueError:
+            password_valid = existing_user.password == password
+
+        if password_valid:
+            return jsonify({"message": "Successfully Logged In"}), 200
+
+        return jsonify({"error": "Invalid username, password, or role"}), 401
+
+    except Exception as e:
+        Database.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 # =========================
 # MAIN
 # =========================
 
 if __name__ == "__main__":
     with Application.app_context():
-        db.create_all()
+        Database.create_all()
     init_admin(Application)
     Application.run(debug=True, host="0.0.0.0", port=5000)

@@ -3,7 +3,7 @@
 ## use the command to acess backend side
 
     cd backend
-    pip install -r requirments.txt
+    pip install -r requirements.txt
     env/scripts/activate
-    $env:FLASK_APP = "{Your File Name}"
+    $env:FLASK_APP = "main.py"
     flask run
