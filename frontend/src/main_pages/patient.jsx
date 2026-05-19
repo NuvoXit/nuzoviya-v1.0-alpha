@@ -1,9 +1,20 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ADDpatientImg from "./assets/Add_patient.svg";
 import Allpatientimg from "./assets/All_patient.png";
 import "./patient.css";
 
 function Patient() {
+  const [data, setData] = useState(null);
+      
+      useEffect(() => {
+      fetch("http://127.0.0.1:5000/patient")
+          .then((response) => response.json())
+          .then((result) => {setData(result);})
+          .catch((error) => {console.error("Fetch error:", error);});
+      }, []);
+
+
   return (
     <div className="patient-main-content">
       <div className="patient-card-grid">

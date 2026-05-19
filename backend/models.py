@@ -1,5 +1,5 @@
-from datetime import datetime
-from config import Database
+from datetime import datetime 
+from config import Database    
 from sqlalchemy.orm import validates
 import enum
 
@@ -21,10 +21,11 @@ class UserRole(enum.Enum):
     Nurse = "Nurse"
 
 class Patient(Database.Model):
-
     __tablename__ = 'patient'
 
-    NIC = Database.Column(Database.String(10), primary_key=True, nullable=False)
+    Patient_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+
+    NIC = Database.Column(Database.String(10), nullable=False)
     first_name = Database.Column(Database.String(50), nullable=False)
     last_name = Database.Column(Database.String(50), nullable=False)
     DOB = Database.Column(Database.Date, nullable=False)
@@ -32,17 +33,16 @@ class Patient(Database.Model):
     telephone = Database.Column(Database.String(15), nullable=False)
     email = Database.Column(Database.String(50), nullable=False)
 
-    bookings = Database.relationship('Booking', backref='patient', lazy=True)
-
     @validates('DOB')
     def validate_dob(self, key, value):
         return _to_date(value)
 
     def __repr__(self):
         return f'<Patient {self.NIC}>'
-
+    
     def to_json(self):
         return {
+            "PatientID": self.Patient_id,
             "NIC": self.NIC,
             "firstName": self.first_name,
             "lastName": self.last_name,
@@ -55,6 +55,7 @@ class Patient(Database.Model):
     def to_dict(self):
         return self.to_json()
 
+
 class Booking(Database.Model):
 
     __tablename__ = 'booking'
@@ -65,7 +66,7 @@ class Booking(Database.Model):
     first_name = Database.Column(Database.String(50), nullable=False)
     last_name = Database.Column(Database.String(50), nullable=False)
     telephone = Database.Column(Database.String(15), nullable=False)
-    doctor_name = Database.Column(Database.String(50), Database.ForeignKey('doctor.Doctor_name'), nullable=False)
+    doctor_name = Database.Column(Database.String(50), nullable=False)
     appointment_date = Database.Column(Database.Date, nullable=False)
     appointment_time = Database.Column(Database.Time, nullable=False)
 
@@ -117,45 +118,45 @@ class Login(Database.Model):
     def to_dict(self):
         return self.to_json()
       
-class Nurse(Database.Model):
+# class Nurse(Database.Model):
 
-    __tablename__ = 'nurse'
+#     __tablename__ = 'nurse'
 
-    id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
-    Nurse_name = Database.Column(Database.String(50), nullable=False, unique=True)
+#     id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+#     Nurse_name = Database.Column(Database.String(50), nullable=False, unique=True)
     
-    def __repr__(self):
-        return f'<Nurse {self.Nurse_name}>'
+#     def __repr__(self):
+#         return f'<Nurse {self.Nurse_name}>'
 
-    def to_json(self):
-        return {
-            "id": self.id,
-            "NurseName": self.Nurse_name
-        }
+#     def to_json(self):
+#         return {
+#             "id": self.id,
+#             "NurseName": self.Nurse_name
+#         }
 
-    def to_dict(self):
-        return self.to_json()
+#     def to_dict(self):
+#         return self.to_json()
     
-class Doctor(Database.Model):
+# class Doctor(Database.Model):
 
-    __tablename__ = 'doctor'
+#     __tablename__ = 'doctor'
 
-    id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
-    Doctor_First_name = Database.Column(Database.String(50), nullable=False, unique=True)
-    Doctor_Last_name = Database.Column(Database.String(50), nullable=False, unique=True)
-    Doctor_name = Doctor_First_name + " " + Doctor_Last_name
+#     id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+#     Doctor_First_name = Database.Column(Database.String(50), nullable=False, unique=True)
+#     Doctor_Last_name = Database.Column(Database.String(50), nullable=False, unique=True)
+#     Doctor_name = Doctor_First_name + " " + Doctor_Last_name
 
 
-    def __repr__(self):
-        return f'<Doctor {self.Doctor_name}>'
+#     def __repr__(self):
+#         return f'<Doctor {self.Doctor_name}>'
 
-    def to_json(self):
-        return {
-            "id": self.id,
-            "DoctorName": self.Doctor_name
-        }
+#     def to_json(self):
+#         return {
+#             "id": self.id,
+#             "DoctorName": self.Doctor_name
+#         }
 
-    def to_dict(self):
-        return self.to_json()
+#     def to_dict(self):
+#         return self.to_json()
     
 

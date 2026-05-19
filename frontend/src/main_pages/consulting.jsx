@@ -1,9 +1,5 @@
 
-
-
-
-
-function consulting() {
+function Consulting() {
 
     return (
         <section id="consulting_patient">
@@ -15,3 +11,5 @@ function consulting() {
 
     )
 }
+
+export default Consulting;

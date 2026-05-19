@@ -2,10 +2,28 @@ from flask import request, jsonify, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Application, Database
 from admin import init_admin
-from models import Patient, Booking, Login, UserRole, Nurse, Doctor
+from models import Patient, Booking, Login, UserRole
 # from login import login_access
 
 # login_access(Application)
+
+
+
+@Application.route("/", methods=["GET"])
+def main():
+    return {"message": "First Page of Nuvo Medical Platform Backend"}
+   
+@Application.route("/home", methods=["GET"])
+def home():
+    return {"message": "Welcome to the Home Page"}
+
+@Application.route("/patient", methods=["GET"])
+def patient():
+    return {"message": "Welcome to the Patient Page"}
+
+@Application.route("/booking", methods=["GET"])
+def booking():
+    return {"message": "Welcome to the Booking Page"}
 
 # =========================
 # ADD PATIENT
@@ -16,6 +34,7 @@ def add_patient():
     try:
         data = request.get_json()
         patient_id = data.get("NIC") or data.get("patientID") or data.get("PatientID")
+        NIC =data.get("NIC") 
         first_name = data.get("firstName")
         last_name = data.get("lastName")
         DOB = data.get("DOB") or data.get("dob")
@@ -32,7 +51,8 @@ def add_patient():
             return jsonify({"error": "Patient already exists"}), 409
 
         new_patient = Patient(
-            NIC=patient_id,
+            Patient_id=patient_id,
+            NIC=NIC,
             first_name=first_name,
             last_name=last_name,
             DOB=DOB,
@@ -96,6 +116,7 @@ def add_booking():
 
         data = request.get_json()
 
+        NIC = data.get("NIC")
         first_name = data.get("firstName")
         last_name = data.get("lastName")
         telephone = data.get("telephone")
@@ -106,6 +127,7 @@ def add_booking():
 
         if not all(
             [
+                NIC,
                 first_name,
                 last_name,
                 telephone,
@@ -184,6 +206,16 @@ def login():
             Database.session.rollback()
             return jsonify({"error": str(e)}), 500
     
+
+
+
+
+
+
+
+
+
+
 # =========================
 # MAIN
 # =========================

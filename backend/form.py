@@ -1,6 +1,7 @@
 class PatientForm:
-    def __init__(self, nic, first_name, last_name, dob, address, telephone, email):
-        self.nic = nic
+    def __init__(self, patient_id, nic, first_name, last_name, dob, address, telephone, email):
+        self.patient_id = patient_id
+        self.NIC = nic
         self.first_name = first_name
         self.last_name = last_name
         self.dob = dob
@@ -8,6 +9,17 @@ class PatientForm:
         self.telephone = telephone
         self.email = email
 
+    # def to_dict(self):
+    #     return {
+    #         "patient_id": self.patient_id,
+    #         "nic": self.nic,
+    #         "first_name": self.first_name,
+    #         "last_name": self.last_name,
+    #         "dob": self.dob,
+    #         "address": self.address,
+    #         "telephone": self.telephone,
+    #         "email": self.email
+    #     }
 
 class BookingForm:
     def __init__(self, first_name, last_name, telephone, patient_id, doctor_name, appointment_date, appointment_time):
