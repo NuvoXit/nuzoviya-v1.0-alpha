@@ -155,54 +155,7 @@ function Consulting() {
         </div>
       </div>
 
-      <div className="consulting-detail-wrap">
-        <div className="consulting-detail-card">
-          <div className="consulting-detail-info">
-            {selected ? (
-              <>
-                <p className="consulting-detail-id-name">
-                  <strong>{selected.patientId}</strong>
-                  &nbsp;&nbsp;
-                  {selected.name}
-                </p>
-
-                <p className="consulting-detail-age">Age : {selected.age}</p>
-              </>
-            ) : (
-              <p className="consulting-detail-placeholder">
-                Select a patient to view details
-              </p>
-            )}
-          </div>
-
-          <div className="consulting-checkup-tags">
-            {ALL_CHECKUPS.map((tag) => (
-              <span
-                key={tag}
-                className={`consulting-tag${
-                  activeCheckups.includes(tag) ? " consulting-tag--active" : ""
-                }${!selected ? " consulting-tag--disabled" : ""}`}
-                onClick={() => toggleCheckup(tag)}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="consulting-actions">
-          {["Prescription", "Feedback", "Surgical Procedure"].map((action) => (
-            <button
-              key={action}
-              className="consulting-action-btn"
-              disabled={!selected}
-              onClick={() => handleAction(action)}
-            >
-              {action}
-            </button>
-          ))}
-        </div>
-      </div>
+      
     </section>
   );
 }

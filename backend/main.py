@@ -4,10 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from config import Application, db
 from admin import init_admin
 from models import Patient, Booking, Login, UserRole, Nurse, Doctor
-# from login import login_access
-
-login_access(Application)
-CORS(Application)
 
 
 
