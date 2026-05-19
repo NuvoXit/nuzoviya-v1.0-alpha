@@ -42,12 +42,7 @@ function App() {
                     <Link to="/home" className="app-links">Home</Link>
                     <Link to="/patient" className="app-links">Patient</Link>
                     <Link to="/booking" className="app-links">Booking</Link>
-
                     <Link to="/cosult_patient_list" className="app-links">Patient List</Link>
-
-                    <Link to="/patient/all_patients" className="app-links">Patient List</Link>
-                    <Link to="/cosult_patient_list" className="app-links">Dashboard</Link>
-
                 </div>
                 <main className="app-content">
                     <Routes>
