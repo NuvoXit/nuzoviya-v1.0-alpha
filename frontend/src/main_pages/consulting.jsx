@@ -49,25 +49,30 @@ function Consulting() {
       .then(([bookingsData, patientsData]) => {
         const patientMap = {};
 
+        // map patients by telephone (backend returns `telephone` and bookings contain telephone)
         (Array.isArray(patientsData) ? patientsData : []).forEach((p) => {
-          patientMap[p.NIC] = p;
+          if (p && p.telephone) patientMap[p.telephone] = p;
         });
+
+        const normalize = (s) => (s || "").toString().replace(/\s+/g, " ").trim().toLowerCase();
 
         const filteredBookings = (Array.isArray(bookingsData) ? bookingsData : []).filter((b) => {
           if (role === "Doctor" && username) {
-            return b.doctor_name === username;
+            return normalize(b.doctor_name) === normalize(username);
           }
           return true;
         });
 
         const enriched = filteredBookings.map((b) => {
-          const patient = patientMap[b.patientNIC];
+          const patient = patientMap[b.telephone];
 
           return {
-            bookingId: b.id,
-            patientId: b.patientNIC,
-            name: `${b.firstName} ${b.lastName}`,
-            age: patient ? calcAge(patient.DOB) : "—",
+            bookingId: b.booking_id,
+            // use telephone as the patient identifier since bookings store telephone
+            patientId: b.telephone,
+            patientTelephone: b.telephone,
+            name: `${b.first_name} ${b.last_name}`,
+            age: patient ? calcAge(patient.dob) : "—",
           };
         });
 
