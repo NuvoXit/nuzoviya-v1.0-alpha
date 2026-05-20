@@ -21,10 +21,11 @@ class BookingForm:
 
 
 class LoginForm:
-    def __init__(self, login_id, username, password):
+    def __init__(self, login_id, username, password, role):
         self.login_id = login_id
         self.username = username
         self.password = password
+        self.role = role  # Role will be set after authentication
  
 class DoctorForm:
     def __init__(self, doctor_id, doctor_first_name, doctor_last_name):

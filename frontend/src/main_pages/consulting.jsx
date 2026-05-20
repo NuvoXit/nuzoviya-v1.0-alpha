@@ -33,6 +33,8 @@ function getNow() {
 
 function Consulting() {
   const navigate = useNavigate();
+  const username = localStorage.getItem("username");
+  const role = localStorage.getItem("role");
 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,18 +53,23 @@ function Consulting() {
           patientMap[p.NIC] = p;
         });
 
-        const enriched = (Array.isArray(bookingsData) ? bookingsData : []).map(
-          (b) => {
-            const patient = patientMap[b.patientNIC];
-
-            return {
-              bookingId: b.id,
-              patientId: b.patientNIC,
-              name: `${b.firstName} ${b.lastName}`,
-              age: patient ? calcAge(patient.DOB) : "—",
-            };
+        const filteredBookings = (Array.isArray(bookingsData) ? bookingsData : []).filter((b) => {
+          if (role === "Doctor" && username) {
+            return b.doctor_name === username;
           }
-        );
+          return true;
+        });
+
+        const enriched = filteredBookings.map((b) => {
+          const patient = patientMap[b.patientNIC];
+
+          return {
+            bookingId: b.id,
+            patientId: b.patientNIC,
+            name: `${b.firstName} ${b.lastName}`,
+            age: patient ? calcAge(patient.DOB) : "—",
+          };
+        });
 
         setBookings(enriched);
         setLoading(false);

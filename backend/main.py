@@ -1,6 +1,10 @@
+import binascii
+import hashlib
+
 from flask import request, jsonify
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 from config import Application, Database
 from admin import init_admin
 from models import Patient, Booking, Login, UserRole, Doctor, Nurse
@@ -210,13 +214,28 @@ def login():
         if not existing_user:
             return jsonify({"error": "Invalid username, password, or role"}), 401
 
+        password_valid = False
         try:
             password_valid = check_password_hash(existing_user.password, password)
-        except ValueError:
-            password_valid = existing_user.password == password
+        except (ValueError, TypeError):
+            password_valid = False
+
+        if not password_valid and existing_user.password == password:
+            password_valid = True
+
+        
 
         if password_valid:
-            return jsonify({"message": "Successfully Logged In"}), 200
+            if not existing_user.password.startswith("pbkdf2:"):
+                existing_user.password = generate_password_hash(password)
+                Database.session.commit()
+
+            return jsonify({
+                "message": "Successfully Logged In",
+                "username": existing_user.username,
+                "role": existing_user.role.value,
+                "id": existing_user.id,
+            }), 200
 
         return jsonify({"error": "Invalid username, password, or role"}), 401
 
@@ -253,6 +272,8 @@ def search_doctors():
 # =========================
 # MAIN
 # =========================
+
+
 
 if __name__ == "__main__":
     with Application.app_context():

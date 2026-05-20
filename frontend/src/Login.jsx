@@ -42,12 +42,12 @@ function Login({ onLogin }) {
         return;
       }
 
-      // FIXED: Adjusted from data.user.role to data.role to match your Flask keys
       localStorage.setItem("role", data.role);
       localStorage.setItem("username", data.username);
 
-      // Tell App.jsx to update sidebar/navigation immediately
-      onLogin(data.role);
+      if (onLogin) {
+        onLogin(data.username, data.role);
+      }
 
       alert(data.message);
       navigate("/home");

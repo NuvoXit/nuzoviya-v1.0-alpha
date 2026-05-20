@@ -1,5 +1,6 @@
 from datetime import datetime 
 from config import Database    
+from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm import validates
 import enum
 
@@ -99,9 +100,12 @@ class UserRole(enum.Enum):
 class Login(Database.Model):
 
     __tablename__ = 'login'
+    __table_args__ = (
+        UniqueConstraint('username', 'role', name='uq_username_role'),
+    )
 
     id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
-    username = Database.Column(Database.String(50), nullable=False, unique=True)
+    username = Database.Column(Database.String(50), nullable=False)
     password = Database.Column(Database.String(255), nullable=False)
     role = Database.Column(Database.Enum(UserRole), nullable=False)
 
@@ -112,6 +116,7 @@ class Login(Database.Model):
         return {
             "id": self.id,
             "username": self.username,
+            "password": self.password,
             "role": self.role.value
         }
 
