@@ -9,13 +9,10 @@ function calcAge(dob) {
 
   const birth = new Date(dob);
   const today = new Date();
-
   let age = today.getFullYear() - birth.getFullYear();
   const m = today.getMonth() - birth.getMonth();
 
-  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {age--;}
 
   return age;
 }
@@ -135,16 +132,9 @@ function Consulting() {
         </div>
 
         <div className="consulting-list-body">
-          {loading ? (
-            <p style={{ padding: "12px 16px", color: "#888" }}>Loading...</p>
-          ) : bookings.length === 0 ? (
-            <p style={{ padding: "12px 16px", color: "#888" }}>
-              No bookings found
-            </p>
-          ) : (
+          {loading ? (<p style={{ padding: "12px 16px", color: "#888" }}>Loading...</p>) : bookings.length === 0 ? (<p style={{ padding: "12px 16px", color: "#888" }}>No bookings found</p>) : (
             bookings.map((b, i) => (
-              <div
-                key={b.bookingId}
+              <div key={b.bookingId}
                 className={`consulting-list-row${
                   selected?.bookingId === b.bookingId
                     ? " consulting-list-row--active"
