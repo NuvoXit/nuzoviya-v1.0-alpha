@@ -258,7 +258,7 @@ def search_doctors():
 
         # Search by full name (concatenated) or individual names
         Doctors = Doctor.query.filter(
-            func.concat(Doctor.doctor_first_name, ' ', Doctor.doctor_last_name).ilike(f"%{query}%") | # Here func functtion is used to concatenate first and last name for searching full name
+          func.concat(Doctor.doctor_first_name, ' ', Doctor.doctor_last_name).ilike(f"%{query}%") | # Here func function is used to concatenate first and last name for searching full name
             (Doctor.doctor_first_name.ilike(f"%{query}%")) |
             (Doctor.doctor_last_name.ilike(f"%{query}%"))
         ).all()
