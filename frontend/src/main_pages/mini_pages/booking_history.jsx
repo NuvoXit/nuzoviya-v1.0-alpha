@@ -33,7 +33,7 @@ function BookingHistory() {
                         <tr>
                             <th>ID</th>
                             <th>Patient Name</th>
-                            <th>Patient NIC</th>
+                            <th>Telephone</th>
                             <th>Doctor</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -44,7 +44,7 @@ function BookingHistory() {
                             <tr key={b.id}>
                                 <td>{b.booking_id}</td>
                                 <td>{b.first_name} {b.last_name}</td>
-                                <td>{b.nic || "NIC not found"}</td>
+                                <td>{b.telephone}</td>
                                 <td>{b.doctor_name}</td>
                                 <td>{b.appointmentDate}</td>
                                 <td>{b.appointmentTime}</td>
