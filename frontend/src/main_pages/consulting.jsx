@@ -108,17 +108,16 @@ function Consulting() {
       navigate(`${base}/surgical_procedure`);
     }
 
-    if (action === "Feedback") {
-      navigate("/patient/all_patients/feedback", {
-        state: {
-          patient: {
-            ...selected,
-            checkups: activeCheckups,
-          },
-        },
-      });
-    }
-  };
+   if (action === "Feedback") {
+  navigate(`${base}/feedback`, {
+    state: {
+      patient: {
+        ...selected,
+        checkups: activeCheckups,
+      },
+    },
+  });
+}
 
   return (
     <section className="consulting-section">
