@@ -22,7 +22,7 @@ function PatientDashboard() {
         fetch("http://127.0.0.1:5000/patient/all_patients")
             .then((r) => r.json())
             .then((data) => {
-                const found = (Array.isArray(data) ? data : []).find((p) => p.NIC === id);
+                const found = (Array.isArray(data) ? data : []).find((p) => p.nic === id);
                 setPatient(found ?? null);
                 setLoading(false);
             })
@@ -47,9 +47,9 @@ function PatientDashboard() {
             ) : (
                 <div className="dashboard-card">
                     <div className="dashboard-info">
-                        <p className="dashboard-name"><strong>{patient.NIC}</strong> &nbsp; {patient.first_name} {patient.last_name}</p>
-                        <p>Age: {calcAge(patient.DOB)}</p>
-                        <p>DOB: {patient.DOB}</p>
+                       <p className="dashboard-name"><strong>{patient.nic}</strong> &nbsp; {patient.first_name} {patient.last_name}</p>
+                       <p>Age: {calcAge(patient.dob)}</p>
+                       <p>DOB: {patient.dob}</p>
                         <p>Address: {patient.address}</p>
                         <p>Telephone: {patient.telephone}</p>
                         <p>Email: {patient.email}</p>
