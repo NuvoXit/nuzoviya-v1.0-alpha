@@ -17,17 +17,20 @@ import Feedback from "./main_pages/mini_pages/feedback.jsx";
 
 import "./App.css";
 
-function App() {
+function App({ user: userProp, onLogout: onLogoutProp }) {
 
-    const [user, setUser] = useState({
+    const [localUser, setLocalUser] = useState({
         username: localStorage.getItem("username"),
         role: localStorage.getItem("role"),
     });
 
+    const user = userProp ?? localUser;
+
     const handleLogout = () => {
         localStorage.removeItem("username");
         localStorage.removeItem("role");
-        setUser({ username: null, role: null });
+        setLocalUser({ username: null, role: null });
+        if (onLogoutProp) onLogoutProp();
     };
 
     const requireRole = (role, element) => {
@@ -43,7 +46,7 @@ function App() {
     return (
         <>
             <header className="navigation">
-                <Link to="/" className="mainheading">Hospital Managment System</Link>
+               <Link to="/" className="mainheading">Hospital Management System</Link>
                 <nav>
                         {user.username ? `Welcome, ${user.username} (${user.role})` : "Not logged in"}
                         <Link to="/login" className="app-links" onClick={handleLogout}>Logout</Link>
