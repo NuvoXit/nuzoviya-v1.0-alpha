@@ -41,7 +41,7 @@ function BookingHistory() {
                     </thead>
                     <tbody>
                         {bookings.map((b) => (
-                            <tr key={b.id}>
+                           <tr key={b.booking_id}>
                                 <td>{b.booking_id}</td>
                                 <td>{b.first_name} {b.last_name}</td>
                                 <td>{b.telephone}</td>
