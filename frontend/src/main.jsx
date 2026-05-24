@@ -8,19 +8,37 @@ import ProtectedRoute from './ProtectedRoute';
 
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
+function Root() {
+    const [user, setUser] = useState({
+        username: localStorage.getItem("username"),
+        role: localStorage.getItem("role"),
+    });
+
+    const handleLogin = (username, role) => {
+        setUser({ username, role });
+    };
+
+    const handleLogout = () => {
+        setUser({ username: null, role: null });
+    };
+
+    return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login onLogin={handleLogin} />} />
                 <Route path="/*" element={
-                        <ProtectedRoute>
-                            <App />
-                        </ProtectedRoute>
-                    }
-                />
+                    <ProtectedRoute>
+                        <App user={user} onLogout={handleLogout} />
+                    </ProtectedRoute>
+                } />
             </Routes>
         </BrowserRouter>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <Root />
     </React.StrictMode>
 );
 
