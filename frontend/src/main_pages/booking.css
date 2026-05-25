@@ -1,63 +1,50 @@
-/* Main Content */
-.booking-main-content {
-    padding: 30px;
-}
+.booking-main-content { padding: 10px 0; }
 
-/* Card Grid */
 .booking-card-grid {
-    display: flex;
-    gap: 90px;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  flex-wrap: wrap;
 }
 
-/* Card */
 .booking-card {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 30px 20px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    width: 180px;
-    height: 150px;
-    background-color: #fff;
-    color: #333;
-    transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  width: 190px;
+  height: 170px;
+  background: var(--surface);
+  color: var(--text);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  box-shadow: var(--shadow);
+  gap: 12px;
 }
 
 .booking-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
 }
 
-/* Icon container */
-.booking-card-icon {
-    margin: 0 auto 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.booking-card span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
 }
 
-/* Image (small, no crop) */
-.bookingimg {
-    width: 85px;
-    height: 85px;
-    object-fit:fill;
-    display: block;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-}
+.booking-card:hover span { color: var(--primary-dark); }
 
-.appointedimg {
-    width: 85px;
-    height: 85px;
-    object-fit:fill;
-    display: block;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
+.bookingimg, .appointedimg {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
 }
