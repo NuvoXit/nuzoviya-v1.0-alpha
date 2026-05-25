@@ -1,69 +1,86 @@
+/* ── Top Nav ── */
 .navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2bbbef;
-  padding: 20px 90px;
-  
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  padding: 0 32px;
+  height: 60px;
+  box-shadow: 0 2px 8px rgba(2,132,199,.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .mainheading {
-    font-weight: bold;
-    font-size: 24px;
-    color: #000000;
-    text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+  letter-spacing: -0.3px;
 }
 
+.navigation nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  color: rgba(255,255,255,.85);
+  font-weight: 500;
+}
 
+/* ── Layout ── */
 .navverticalbar {
   display: flex;
-  min-height: 100vh;
+  height: calc(100vh - 60px);
+  overflow: hidden;
 }
-
 
 .verticalbar {
   display: flex;
   flex-direction: column;
-  width: 200px;
-  min-height: 100vh;
-  padding: 20px;
-  background-color: #ecf0f1;
+  width: 210px;
+  min-height: 100%;
+  padding: 20px 14px;
+  background: #ffffff;
+  border-right: 1px solid var(--border);
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 .app-content {
   flex: 1;
-  padding: 20px;
-  background-color: #ffffff;
+  padding: 28px;
+  background: var(--surface-alt);
+  overflow-y: auto;
 }
 
+/* ── Sidebar links ── */
 .app-links {
-  color: rgb(255, 255, 255);
-  background-color: rgb(20, 78, 105);
-  padding: 10px;
-  border-radius: 5px;
-  text-decoration: none;
-  margin-bottom: 15px;
+  display: block;
+  color: var(--text-muted);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 14px;
   font-weight: 500;
-  text-align: center;
+  transition: background .15s ease, color .15s ease;
 }
 
 .app-links:hover {
-  color: #a6f011;
+  background: var(--primary-light);
+  color: var(--primary-dark);
 }
 
-.loginbut {
-    background-color: #a6f011;
-    padding: 5px 15px;
-    border-radius: 5px;
-    color: #000000;
-    font-weight: 500;
-    text-decoration: none;
-    margin-bottom: 15px;
-    font-weight: 500;
+/* logout link in nav */
+.navigation .app-links {
+  display: inline;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
 }
 
-.loginbut:hover {
-    background-color: #1b3300;
-    color: #ffffff;
-    cursor: pointer;
+.navigation .app-links:hover {
+  background: rgba(255,255,255,.28);
+  color: #fff;
 }
