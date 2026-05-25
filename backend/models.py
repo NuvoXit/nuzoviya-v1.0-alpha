@@ -166,3 +166,47 @@ class Nurse(Database.Model):
             "last_name": self.nurse_last_name,
             "nurse_full_name": self.nurse_full_name
         }
+    
+class MLT(Database.Model):
+    __tablename__ = 'mlt'
+
+    MLT_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    MLT_first_name = Database.Column(Database.String(50), nullable=False)
+    MLT_last_name = Database.Column(Database.String(50), nullable=False)
+
+    @property
+    def MLT_full_name(self):
+        return f"{self.MLT_first_name} {self.MLT_last_name}"
+
+    def __repr__(self):
+        return f"<MLT {self.MLT_full_name}>"
+
+    def to_dict(self):
+        return {
+            "MLT_id": self.MLT_id,
+            "first_name": self.MLT_first_name,
+            "last_name": self.MLT_last_name,
+            "MLT_full_name": self.MLT_full_name
+        }
+
+class Radiologist(Database.Model):
+    __tablename__ = 'radiologist'
+
+    radiologist_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    radiologist_first_name = Database.Column(Database.String(50), nullable=False)
+    radiologist_last_name = Database.Column(Database.String(50), nullable=False)
+
+    @property
+    def radiologist_full_name(self):
+        return f"{self.radiologist_first_name} {self.radiologist_last_name}"
+
+    def __repr__(self):
+        return f"<Radiologist {self.radiologist_full_name}>"
+
+    def to_dict(self):
+        return {
+            "radiologist_id": self.radiologist_id,
+            "first_name": self.radiologist_first_name,
+            "last_name": self.radiologist_last_name,
+            "radiologist_full_name": self.radiologist_full_name
+        }   

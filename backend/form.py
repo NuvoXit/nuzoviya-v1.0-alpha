@@ -19,7 +19,6 @@ class BookingForm:
         self.appointment_date = appointment_date
         self.appointment_time = appointment_time
 
-
 class LoginForm:
     def __init__(self, login_id, username, password, role):
         self.login_id = login_id
@@ -41,3 +40,16 @@ class NurseForm:
         self.nurse_last_name = nurse_last_name
         self.nurse_full_name = f"{nurse_first_name} {nurse_last_name}"
 
+class MLTForm:
+    def __init__(self, MLT_id, MLT_first_name, MLT_last_name):
+        self.MLT_id = MLT_id
+        self.MLT_first_name = MLT_first_name
+        self.MLT_last_name = MLT_last_name
+        self.MLT_full_name = f"{MLT_first_name} {MLT_last_name}"
+
+class RadiologistForm:
+    def __init__(self, radiologist_id, radiologist_first_name, radiologist_last_name):
+        self.radiologist_id = radiologist_id
+        self.radiologist_first_name = radiologist_first_name
+        self.radiologist_last_name = radiologist_last_name
+        self.radiologist_full_name = f"{radiologist_first_name} {radiologist_last_name}"
