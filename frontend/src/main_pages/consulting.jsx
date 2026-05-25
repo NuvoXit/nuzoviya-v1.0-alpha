@@ -117,7 +117,7 @@ function Consulting() {
       },
     },
   });
-}
+}}
 
   return (
     <section className="consulting-section">
