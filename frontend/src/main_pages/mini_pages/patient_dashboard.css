@@ -1,11 +1,79 @@
-.dashboard-section { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
-.dashboard-header { display: flex; align-items: center; gap: 16px; }
-.dashboard-title { margin: 0; font-size: 22px; }
-.dashboard-back-btn { padding: 8px 14px; background: #555; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
-.dashboard-back-btn:hover { background: #333; }
-.dashboard-card { background: #eaf2fc; border: 2px solid #b2e0ea; border-radius: 8px; padding: 20px 24px; }
-.dashboard-name { font-size: 20px; font-weight: 700; margin: 0 0 10px; }
-.dashboard-card p { margin: 4px 0; font-size: 14px; color: #333; }
-.dashboard-actions { display: flex; gap: 16px; }
-.dashboard-btn { flex: 1; padding: 14px; border: 1.5px solid #c5c5a0; border-radius: 6px; background: #f5f5e8; font-size: 15px; font-weight: 700; cursor: pointer; }
-.dashboard-btn:hover { background: #e8e8c8; }
+.dashboard-section {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
+}
+
+.dashboard-header { display: flex; align-items: center; gap: 14px; }
+
+.dashboard-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dashboard-back-btn {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+
+.dashboard-back-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.dashboard-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-shadow: var(--shadow);
+}
+
+.dashboard-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+.dashboard-card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+.dashboard-card p strong { color: #0284c7; }
+
+.dashboard-actions { display: flex; gap: 12px; }
+
+.dashboard-btn {
+  flex: 1;
+  padding: 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .1s;
+}
+
+.dashboard-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  transform: translateY(-1px);
+}
