@@ -1,164 +1,127 @@
-/* ── Page layout ── */
 .feedback-section {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    padding: 10px 0;
-    max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 680px;
+  padding: 10px 0;
 }
 
 .feedback-page-title {
-    font-size: 40px;
-    font-weight: 800;
-    color: #111;
-    margin: 0 0 4px;
-    letter-spacing: -1px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.4px;
 }
 
-/* ══════════════════════════════════════
-   FEEDBACK CARD
-══════════════════════════════════════ */
 .feedback-card {
-    border: 2px solid #c8daf0;
-    border-radius: 8px;
-    background: #eaf2fc;
-    overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
 }
 
-/* ── Card Header ── */
 .feedback-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 18px;
-    border-bottom: 2px solid #c8daf0;
-    background: #ddeef9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-alt);
 }
 
 .feedback-recipient {
-    font-size: 15px;
-    font-weight: 600;
-    color: #0e4f6e;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0284c7;
 }
 
 .feedback-datetime {
-    font-size: 13px;
-    font-weight: 600;
-    color: #333;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
-/* ── Card Body ── */
 .feedback-card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 18px 20px;
 }
 
-/* ── Shared input styles ── */
 .feedback-input {
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 1px solid #c8daf0;
-    background: transparent;
-    font-size: 14px;
-    color: #1a1a1a;
-    outline: none;
-    font-family: inherit;
-    transition: border-color 0.18s ease;
-    padding: 8px 4px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1.5px solid var(--border);
+  background: transparent;
+  font-size: 14px;
+  color: #1a1a1a;
+  outline: none;
+  font-family: inherit;
+  transition: border-color .18s ease;
+  padding: 8px 4px;
 }
 
-.feedback-input::placeholder {
-    color: #aaa;
-}
+.feedback-input::placeholder { color: #cbd5e1; }
+.feedback-input:focus { border-bottom-color: var(--primary); }
 
-.feedback-input:focus {
-    border-bottom-color: #2bbbef;
-}
+.feedback-subject { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.feedback-description { resize: none; margin-top: 4px; margin-bottom: 16px; line-height: 1.6; }
 
-.feedback-subject {
-    font-weight: 600;
-    font-size: 15px;
-    margin-bottom: 4px;
-}
-
-.feedback-description {
-    resize: none;
-    margin-top: 4px;
-    margin-bottom: 16px;
-    line-height: 1.6;
-}
-
-/* ── Footer row ── */
 .feedback-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 4px;
 }
 
-/* ── Stamp Button ── */
 .feedback-stamp-btn {
-    width: 110px;
-    height: 70px;
-    border: 1.5px solid #a8d5a2;
-    border-radius: 6px;
-    background: #e4f7e1;
-    color: #2e7d32;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: background 0.18s ease, box-shadow 0.18s ease;
+  width: 100px;
+  height: 64px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background .18s, border-color .18s;
 }
 
-.feedback-stamp-btn:hover {
-    background: #cdf0c8;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+.feedback-stamp-btn:hover { background: var(--primary-light); border-color: var(--primary); }
+.feedback-stamp-btn--filled { background: #f0fdf4; border-color: #22c55e; }
 
-.feedback-stamp-btn--filled {
-    background: #f0faf0;
-    border-color: #4caf50;
-}
+.feedback-stamp-preview { width: 100%; height: 100%; object-fit: cover; }
 
-.feedback-stamp-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* ── Send Button ── */
 .feedback-send-btn {
-    padding: 9px 28px;
-    border: 1.5px solid #aaa;
-    border-radius: 6px;
-    background: #f5f5f0;
-    color: #222;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.1s ease;
+  padding: 9px 26px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .18s, transform .1s, box-shadow .18s;
+  box-shadow: 0 3px 10px rgba(14,165,233,.25);
 }
 
 .feedback-send-btn:hover:not(:disabled) {
-    background: #e8e8de;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-    transform: translateY(-1px);
+  opacity: .9;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(14,165,233,.35);
 }
 
 .feedback-send-btn--sent {
-    background: #d4edda;
-    border-color: #5cb85c;
-    color: #2e7d32;
-    cursor: default;
+  background: #22c55e;
+  border-color: #16a34a;
+  cursor: default;
 }
 
-.feedback-send-btn:disabled {
-    opacity: 0.8;
-}
+.feedback-send-btn:disabled { opacity: .8; }
