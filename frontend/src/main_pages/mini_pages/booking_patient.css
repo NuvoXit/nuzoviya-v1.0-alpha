@@ -1,29 +1,62 @@
-.booking-patient-main-content {
-  padding: 30px;
-}
+.booking-patient-main-content { padding: 10px 0; }
 
-/*btn-back to the left corner and other page heading styling*/
 .booking-patient-page-header {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   margin-bottom: 24px;
 }
 
+.booking-patient-page-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
 .booking-patient-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: var(--shadow);
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns */
-  gap: 15px 20px; /* row gap + column gap */
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
 }
 
-/* each field block */
-.booking-patient-form-row {
-  display: flex;
-  flex-direction: column;
+.booking-patient-form-row { display: flex; flex-direction: column; }
+.booking-patient-form-row.full { grid-column: span 2; }
+.booking-patient-form-row.doctor-field { position: relative; }
+
+.booking-patient-form-row label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .4px;
 }
 
-.booking-patient-form-row.doctor-field {
-  position: relative;
+.required { color: var(--danger); }
+
+.booking-patient-form-row input {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  background: var(--surface-alt);
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  color: #1e293b;
+}
+
+.booking-patient-form-row input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(14,165,233,.12);
 }
 
 .doctor-suggestions {
@@ -31,96 +64,52 @@
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  max-height: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-height: 200px;
   overflow-y: auto;
   z-index: 10;
   list-style: none;
   margin: 0;
-  padding: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 4px 0;
+  box-shadow: var(--shadow-lg);
 }
 
 .doctor-suggestions li {
-  padding: 10px 12px;
+  padding: 10px 14px;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.2s;
-}
-
-.doctor-suggestions li:hover {
-  background-color: #f5f5f5;
-}
-
-.doctor-suggestions li:last-child {
-  border-bottom: none;
-}
-
-/* full width fields (like DOB or Address if needed) */
-.booking-patient-form-row.full {
-  grid-column: span 2;
-}
-
-/* labels aligned */
-.booking-patient-form-row label {
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #444;
-}
-
-.required {
-  color: red;
-}
-
-/* inputs perfectly aligned */
-.booking-patient-form-row input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
   font-size: 14px;
-  box-sizing: border-box;
+  border-bottom: 1px solid var(--border);
+  transition: background .12s;
 }
 
-/* focus style */
-.booking-patient-form-row input:focus {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
-}
+.doctor-suggestions li:hover { background: var(--primary-light); color: var(--primary-dark); }
+.doctor-suggestions li:last-child { border-bottom: none; }
 
-/* actions full width */
 .booking-patient-form-actions {
   grid-column: span 2;
   display: flex;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .booking-patient-form-actions .btn {
-  padding: 10px 20px;
-  background-color: #007bff;
+  padding: 10px 22px;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: opacity .2s, transform .15s;
+  box-shadow: 0 3px 10px rgba(14,165,233,.3);
 }
 
-.booking-patient-form-actions .btn:hover {
-  background-color: #0056b3;
-}
+.booking-patient-form-actions .btn:hover { opacity: .88; transform: translateY(-1px); }
 
-/* responsive */
 @media (max-width: 700px) {
-  .booking-patient-form {
-    grid-template-columns: 1fr; /* single column on mobile */
-  }
-
-  .booking-patient-form-actions {
-    grid-column: span 1;
-    flex-direction: column;
-  }
+  .booking-patient-form { grid-template-columns: 1fr; }
+  .booking-patient-form-row.full, .booking-patient-form-actions { grid-column: span 1; }
 }
