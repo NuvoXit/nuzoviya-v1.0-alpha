@@ -3,7 +3,7 @@ import hashlib
 
 from flask import request, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.exc import IntegrityError
 from config import Application, Database
 from admin import init_admin
@@ -256,17 +256,32 @@ def search_doctors():
         if not query:
             return jsonify([])
 
-        # Search by full name (concatenated) or individual names
+        search_pattern = f"%{query}%"
+        full_name_expr = Doctor.doctor_first_name + " " + Doctor.doctor_last_name
         Doctors = Doctor.query.filter(
-          func.concat(Doctor.doctor_first_name, ' ', Doctor.doctor_last_name).ilike(f"%{query}%") | # Here func function is used to concatenate first and last name for searching full name
-            (Doctor.doctor_first_name.ilike(f"%{query}%")) |
-            (Doctor.doctor_last_name.ilike(f"%{query}%"))
+            or_(
+                full_name_expr.ilike(search_pattern),
+                Doctor.doctor_first_name.ilike(search_pattern),
+                Doctor.doctor_last_name.ilike(search_pattern),
+            )
         ).all()
 
         return jsonify([d.to_dict() for d in Doctors])
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+def seed_default_doctors():
+    if Doctor.query.count() == 0:
+        Database.session.add_all([
+            Doctor(doctor_first_name="Leanne", doctor_last_name="Walker"),
+            Doctor(doctor_first_name="Sanjay", doctor_last_name="Patel"),
+            Doctor(doctor_first_name="Aisha", doctor_last_name="Khan"),
+            Doctor(doctor_first_name="John", doctor_last_name="Doe"),
+            Doctor(doctor_first_name="Emma", doctor_last_name="Brown"),
+        ])
+        Database.session.commit()
 
 
 # =========================
@@ -278,5 +293,6 @@ def search_doctors():
 if __name__ == "__main__":
     with Application.app_context():
         Database.create_all()
+        seed_default_doctors()
     init_admin(Application)
     Application.run(debug=True, host="0.0.0.0", port=5000)

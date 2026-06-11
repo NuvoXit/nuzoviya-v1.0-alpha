@@ -77,6 +77,7 @@ function BookingPatient() {
     try {
       const payload = {
         ...form,
+        patientID: form.patientNIC, // map NIC to ID for backend
       };
       const response = await fetch('http://127.0.0.1:5000/booking/add_booking', {
         method: 'POST',

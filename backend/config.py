@@ -5,7 +5,16 @@ from flask_cors import CORS
 
 Application = Flask(__name__)
 
-CORS(Application, origins=["http://localhost:5173"], supports_credentials=True)
+CORS(
+    Application,
+    origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    supports_credentials=True,
+)
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 instance_dir = os.path.join(base_dir, "instance")

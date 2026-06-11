@@ -1,0 +1,11 @@
+| Role         | First Name | Last Name | Password        |
+| ------------ | ---------- | --------- | --------------- |
+| Doctor       | Michael Anderson  | DrAnderson@2026 |
+| Doctor       | Sarah Thompson  | SarahT#2026     |
+| Doctor       | David Wilson    | DWilson!2026    |
+| Receptionist | Emily Carter    | EmilyC@2026     |
+| Receptionist | Jessica Brown     | JBrown#2026     |
+| Receptionist | Olivia Miller    | OliviaM!2026    |
+| Nurse        | Emma Davis     | EmmaD@2026      |
+| Nurse        | Sophia Garcia    | SophiaG#2026    |
+| Nurse        | Daniel Martinez  | DMartinez!2026  |
