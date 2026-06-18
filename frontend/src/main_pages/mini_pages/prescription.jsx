@@ -1,12 +1,30 @@
-import "./prescription.css"
+import { useNavigate } from "react-router-dom";
+import "./prescription.css";
 
 function Prescription() {
+    const navigate = useNavigate();
+
     return (
-        <form action="/consult_patient_list/prescription" className="form_prescription">
-            <fieldset>
-                <legend>Prescription</legend>
-                <h2>Patient Prescription Form</h2>
-                <p><b>Fill out the prescription details carefully</b></p>
+        <section className="prescription-section">
+            <div className="prescription-header">
+                <div>
+                    <h1 className="prescription-title">Prescription</h1>
+                    <p className="prescription-description">Fill out the prescription details carefully and submit when you are ready.</p>
+                </div>
+                <button
+                    type="button"
+                    className="prescription-back-btn"
+                    onClick={() => navigate('/consult_patient_list')}
+                >
+                    ← Back to Patient List
+                </button>
+            </div>
+
+            <form action="/consult_patient_list/prescription" className="form_prescription">
+                <fieldset>
+                    <legend>Prescription</legend>
+                    <h2>Patient Prescription Form</h2>
+                    <p>Fill out the prescription details carefully</p>
 
                 {/* Patient Information */}
                 <div className="form_group">
@@ -70,6 +88,7 @@ function Prescription() {
                 </div>
             </fieldset>
         </form>
+    </section>
     )
 }
 

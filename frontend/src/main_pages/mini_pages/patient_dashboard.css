@@ -1,164 +1,175 @@
 .dashboard-section {
-  padding: 10px 0;
+  padding: 16px 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-
-  max-width: 700px;
+  gap: 24px;
   width: 100%;
+  max-width: 100%;
 }
 
 .dashboard-header {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
 }
 
 .dashboard-title {
   margin: 0;
-
-  font-size: 20px;
-
-  font-weight: 700;
-
+  font-size: 24px;
+  font-weight: 800;
   color: #0f172a;
 }
 
+.dashboard-subtitle {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 15px;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
 .dashboard-back-btn {
-  padding: 8px 14px;
-
+  padding: 12px 18px;
   background: var(--surface);
-
   border: 1px solid var(--border);
-
   color: var(--text-muted);
-
-  border-radius: 8px;
-
+  border-radius: 12px;
   font-size: 13px;
-
-  font-weight: 500;
-
+  font-weight: 600;
   cursor: pointer;
-
-  transition:
-    background 0.15s,
-    border-color 0.15s,
-    transform 0.1s;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
 }
 
 .dashboard-back-btn:hover {
   background: var(--primary-light);
-
   border-color: var(--primary);
-
   color: var(--primary-dark);
-
   transform: translateY(-1px);
 }
 
 .dashboard-card {
   background: var(--surface);
-
   border: 1px solid var(--border);
-
-  border-radius: 14px;
-
-  padding: 22px 26px;
-
+  border-radius: 24px;
+  padding: 30px;
   box-shadow: var(--shadow);
+  display: grid;
+  gap: 28px;
+  width: 100%;
+  max-width: 100%;
 }
 
-.dashboard-info {
+.dashboard-info-heading {
   display: flex;
-
-  flex-direction: column;
-
-  gap: 4px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .dashboard-name {
-  font-size: 18px;
-
-  font-weight: 700;
-
+  font-size: 24px;
+  font-weight: 800;
   color: #0f172a;
-
-  margin: 0 0 12px;
+  margin: 0;
 }
 
-.dashboard-name strong {
-  color: #0284c7;
+.dashboard-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(2, 132, 199, 0.12);
+  color: #0369a1;
+  font-size: 13px;
+  font-weight: 700;
 }
 
-.dashboard-card p {
-  margin: 6px 0;
+.dashboard-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 24px;
+  margin: 0;
+  padding: 0;
+}
 
-  font-size: 14px;
+.dashboard-detail-row {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.03);
+  border-radius: 16px;
+}
 
-  color: #475569;
+.dashboard-detail-row dt {
+  font-size: 12px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dashboard-detail-row dd {
+  margin: 0;
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.6;
 }
 
 .dashboard-actions {
   display: flex;
-
-  gap: 12px;
-
+  gap: 14px;
   width: 100%;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .dashboard-btn {
   flex: 1;
-
-  padding: 13px;
-
+  min-width: 180px;
+  padding: 16px 20px;
   border: 1.5px solid var(--border);
-
-  border-radius: 10px;
-
+  border-radius: 14px;
   background: var(--surface);
-
   color: #0f172a;
-
-  font-size: 14px;
-
-  font-weight: 600;
-
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-
-  transition:
-    background 0.15s,
-    border-color 0.15s,
-    transform 0.1s;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
 }
 
 .dashboard-btn:hover {
   background: var(--primary-light);
-
   border-color: var(--primary);
-
   color: var(--primary-dark);
-
   transform: translateY(-1px);
 }
 
-/* Added:
-   Mobile support so buttons and header
-   do not overflow on small screens.
-*/
+.dashboard-status {
+  color: #475569;
+  font-size: 15px;
+}
 
-@media (max-width: 600px) {
+@media (max-width: 1080px) {
+  .dashboard-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
   .dashboard-header {
     flex-direction: column;
-
     align-items: flex-start;
+  }
+
+  .dashboard-details {
+    grid-template-columns: 1fr;
   }
 
   .dashboard-actions {
     flex-direction: column;
-  }
-
-  .dashboard-btn {
-    width: 100%;
   }
 }

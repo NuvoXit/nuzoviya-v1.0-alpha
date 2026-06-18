@@ -9,7 +9,6 @@ function calcAge(dob) {
   const today = new Date();
 
   let age = today.getFullYear() - birth.getFullYear();
-
   const m = today.getMonth() - birth.getMonth();
 
   if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
@@ -21,37 +20,20 @@ function calcAge(dob) {
 
 function PatientDashboard() {
   const { id } = useParams();
-
   const navigate = useNavigate();
-
-  // MODIFIED:
-  // Changed from patients array to single patient object
-  // because dashboard displays only one selected patient.
   const [patient, setPatient] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/patient/all_patients')
       .then((res) => res.json())
-
       .then((data) => {
-        // MODIFIED:
-        // Before: searched using NIC
-        // Now: searches using patient_id because Consulting.jsx
-        // sends patient_id in the URL.
         const found = Array.isArray(data) ? data.find((p) => String(p.patient_id) === String(id)) : null;
-
-        // MODIFIED:
-        // Store one patient instead of [patient]
         setPatient(found || null);
-
         setLoading(false);
       })
-
       .catch((err) => {
         console.error('Failed to load patient:', err);
-
         setLoading(false);
       });
   }, [id]);
@@ -65,66 +47,79 @@ function PatientDashboard() {
           ← Back
         </button>
 
-        <h2 className="dashboard-title">Patient Dashboard</h2>
+        <div>
+          <h2 className="dashboard-title">Patient Dashboard</h2>
+          <p className="dashboard-subtitle">Overview and actions for the selected patient</p>
+        </div>
       </div>
 
       {loading ? (
-        <p>Loading...</p>
+        <p className="dashboard-status">Loading...</p>
       ) : !patient ? (
-        <p>Patient not found.</p>
+        <p className="dashboard-status">Patient not found.</p>
       ) : (
-        <div className="dashboard-card">
+        <article className="dashboard-card">
           <div className="dashboard-info">
-            <p className="dashboard-name">
-              <strong>{patient.patient_id}</strong>
-              &nbsp;
-              {patient.first_name} {patient.last_name}
-            </p>
-
-            <p>Age: {calcAge(patient.dob)}</p>
-
-            <p>DOB: {patient.dob}</p>
-
-            <p>Address: {patient.address}</p>
-
-            <p>Telephone: {patient.telephone}</p>
-
-            <p>Email: {patient.email}</p>
-
-            <p>NIC: {patient.nic}</p>
+            <div className="dashboard-info-heading">
+              <p className="dashboard-name">
+                <strong>{patient.first_name} {patient.last_name}</strong>
+              </p>
+              <span className="dashboard-badge">ID {patient.patient_id}</span>
+            </div>
+            <br></br>
+            <dl className="dashboard-details">
+              <div className="dashboard-detail-row">
+                <dt>Age</dt>
+                <dd>{calcAge(patient.dob)}</dd>
+              </div>
+              <div className="dashboard-detail-row">
+                <dt>Date of birth</dt>
+                <dd>{patient.dob || '—'}</dd>
+              </div>
+              <div className="dashboard-detail-row">
+                <dt>Address</dt>
+                <dd>{patient.address || '—'}</dd>
+              </div>
+              <div className="dashboard-detail-row">
+                <dt>Telephone</dt>
+                <dd>{patient.telephone || '—'}</dd>
+              </div>
+              <div className="dashboard-detail-row">
+                <dt>Email</dt>
+                <dd>{patient.email || '—'}</dd>
+              </div>
+              <div className="dashboard-detail-row">
+                <dt>NIC</dt>
+                <dd>{patient.nic || '—'}</dd>
+              </div>
+            </dl>
           </div>
-        </div>
+
+          <div className="dashboard-actions">
+            <button className="dashboard-btn" onClick={() => navigate(`${base}/prescription`)}>
+              Prescription
+            </button>
+            <button
+              className="dashboard-btn"
+              onClick={() =>
+                navigate(`${base}/feedback`, {
+                  state: {
+                    patient: {
+                      patientId: patient.patient_id,
+                      name: `${patient.first_name} ${patient.last_name}`,
+                    },
+                  },
+                })
+              }
+            >
+              Feedback
+            </button>
+            <button className="dashboard-btn" onClick={() => navigate(`${base}/surgical_procedure`)}>
+              Surgical Procedure
+            </button>
+          </div>
+        </article>
       )}
-
-      <div className="dashboard-actions">
-        <button className="dashboard-btn" onClick={() => navigate(`${base}/prescription`)}>
-          Prescription
-        </button>
-
-        <button
-          className="dashboard-btn"
-          onClick={() =>
-            navigate(`${base}/feedback`, {
-              state: {
-                // MODIFIED:
-                // Sends real patient information
-                // instead of using URL id only.
-                patient: {
-                  patientId: patient?.patient_id,
-
-                  name: patient ? `${patient.first_name} ${patient.last_name}` : '',
-                },
-              },
-            })
-          }
-        >
-          Feedback
-        </button>
-
-        <button className="dashboard-btn" onClick={() => navigate(`${base}/surgical_procedure`)}>
-          Surgical Procedure
-        </button>
-      </div>
     </section>
   );
 }

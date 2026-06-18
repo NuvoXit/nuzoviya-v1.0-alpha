@@ -46,10 +46,20 @@ function Feedback() {
 
     return (
         <section className="feedback-section">
-            <h1 className="feedback-page-title">Feedback</h1>
+            <div className="feedback-page-header">
+                <div>
+                    <h1 className="feedback-page-title">Feedback</h1>
+                    <p className="feedback-page-copy">
+                        Send a message for the selected patient and attach a stamp image if needed.
+                    </p>
+                </div>
+
+                <button className="feedback-back-btn" onClick={() => navigate('/consult_patient_list')}>
+                    ← Back to patient Dashboard
+                </button>
+            </div>
 
             <div className="feedback-card">
-                {/* ── Header ── */}
                 <div className="feedback-card-header">
                     <span className="feedback-recipient">
                         Feedback to&nbsp;<strong>{patient.name}</strong>
@@ -57,7 +67,6 @@ function Feedback() {
                     <span className="feedback-datetime">{getNow()}</span>
                 </div>
 
-                {/* ── Body ── */}
                 <div className="feedback-card-body">
                     <input
                         className="feedback-input feedback-subject"
@@ -69,13 +78,12 @@ function Feedback() {
 
                     <textarea
                         className="feedback-input feedback-description"
-                        placeholder="Describe about it……………………………"
+                        placeholder="Describe about it…"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        rows={5}
+                        rows={6}
                     />
 
-                    {/* ── Footer row: stamp + send ── */}
                     <div className="feedback-footer">
                         <button
                             className={`feedback-stamp-btn${stampPreview ? " feedback-stamp-btn--filled" : ""}`}
