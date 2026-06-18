@@ -272,16 +272,16 @@ def search_doctors():
         return jsonify({"error": str(e)}), 500
 
 
-def seed_default_doctors():
-    if Doctor.query.count() == 0:
-        Database.session.add_all([
-            Doctor(doctor_first_name="Leanne", doctor_last_name="Walker"),
-            Doctor(doctor_first_name="Sanjay", doctor_last_name="Patel"),
-            Doctor(doctor_first_name="Aisha", doctor_last_name="Khan"),
-            Doctor(doctor_first_name="John", doctor_last_name="Doe"),
-            Doctor(doctor_first_name="Emma", doctor_last_name="Brown"),
-        ])
-        Database.session.commit()
+# def seed_default_doctors():
+#     if Doctor.query.count() == 0:
+#         Database.session.add_all([
+#             Doctor(doctor_first_name="Leanne", doctor_last_name="Walker"),
+#             Doctor(doctor_first_name="Sanjay", doctor_last_name="Patel"),
+#             Doctor(doctor_first_name="Aisha", doctor_last_name="Khan"),
+#             Doctor(doctor_first_name="John", doctor_last_name="Doe"),
+#             Doctor(doctor_first_name="Emma", doctor_last_name="Brown"),
+#         ])
+#         Database.session.commit()
 
 
 # =========================
@@ -293,6 +293,6 @@ def seed_default_doctors():
 if __name__ == "__main__":
     with Application.app_context():
         Database.create_all()
-        seed_default_doctors()
+        # seed_default_doctors()
     init_admin(Application)
     Application.run(debug=True, host="0.0.0.0", port=5000)

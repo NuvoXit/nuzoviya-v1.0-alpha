@@ -62,7 +62,7 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
                         </>
                     )}
                     {user.role === "Doctor" && (
-                        <Link to="/cosult_patient_list" className="app-links">Patient List</Link>
+                        <Link to="/consult_patient_list" className="app-links">Patient List</Link>
                     )}
                 </div>
                 <main className="app-content">
@@ -79,11 +79,11 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
 
 
                         {/*Patient List Button Routes*/}
-                        <Route path="/cosult_patient_list" element={requireRole("Doctor", <Consulting />)} />
-                        <Route path="/cosult_patient_list/:id/dashboard" element={requireRole("Doctor", <PatientDashboard />)} />
-                        <Route path="/cosult_patient_list/:id/dashboard/prescription" element={requireRole("Doctor", <Prescription />)} />
-                        <Route path="/cosult_patient_list/:id/dashboard/surgical_procedure" element={requireRole("Doctor", <SurgicalProcedure />)} />
-                        <Route path="/cosult_patient_list/:id/dashboard/feedback" element={requireRole("Doctor", <Feedback />)} />
+                        <Route path="/consult_patient_list" element={requireRole("Doctor", <Consulting />)} />
+                        <Route path="/consult_patient_list/:id/dashboard" element={requireRole("Doctor", <PatientDashboard />)} />
+                        <Route path="/consult_patient_list/:id/dashboard/prescription" element={requireRole("Doctor", <Prescription />)} />
+                        <Route path="/consult_patient_list/:id/dashboard/surgical_procedure" element={requireRole("Doctor", <SurgicalProcedure />)} />
+                        <Route path="/consult_patient_list/:id/dashboard/feedback" element={requireRole("Doctor", <Feedback />)} />
 
                         <Route path="/" element={<Navigate to="/home" replace />} />
                     </Routes>

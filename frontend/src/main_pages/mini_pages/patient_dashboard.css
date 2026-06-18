@@ -3,77 +3,162 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
   max-width: 700px;
+  width: 100%;
 }
 
-.dashboard-header { display: flex; align-items: center; gap: 14px; }
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
 .dashboard-title {
   margin: 0;
+
   font-size: 20px;
+
   font-weight: 700;
+
   color: #0f172a;
 }
 
 .dashboard-back-btn {
   padding: 8px 14px;
+
   background: var(--surface);
+
   border: 1px solid var(--border);
+
   color: var(--text-muted);
+
   border-radius: 8px;
+
   font-size: 13px;
+
   font-weight: 500;
+
   cursor: pointer;
-  transition: background .15s, border-color .15s;
+
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.1s;
 }
 
 .dashboard-back-btn:hover {
   background: var(--primary-light);
+
   border-color: var(--primary);
+
   color: var(--primary-dark);
+
+  transform: translateY(-1px);
 }
 
 .dashboard-card {
   background: var(--surface);
+
   border: 1px solid var(--border);
+
   border-radius: 14px;
+
   padding: 22px 26px;
+
   box-shadow: var(--shadow);
+}
+
+.dashboard-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
 }
 
 .dashboard-name {
   font-size: 18px;
+
   font-weight: 700;
+
   color: #0f172a;
+
   margin: 0 0 12px;
+}
+
+.dashboard-name strong {
+  color: #0284c7;
 }
 
 .dashboard-card p {
   margin: 6px 0;
+
   font-size: 14px;
+
   color: #475569;
 }
 
-.dashboard-card p strong { color: #0284c7; }
+.dashboard-actions {
+  display: flex;
 
-.dashboard-actions { display: flex; gap: 12px; }
+  gap: 12px;
+
+  width: 100%;
+}
 
 .dashboard-btn {
   flex: 1;
+
   padding: 13px;
+
   border: 1.5px solid var(--border);
+
   border-radius: 10px;
+
   background: var(--surface);
+
   color: #0f172a;
+
   font-size: 14px;
+
   font-weight: 600;
+
   cursor: pointer;
-  transition: background .15s, border-color .15s, transform .1s;
+
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.1s;
 }
 
 .dashboard-btn:hover {
   background: var(--primary-light);
+
   border-color: var(--primary);
+
   color: var(--primary-dark);
+
   transform: translateY(-1px);
+}
+
+/* Added:
+   Mobile support so buttons and header
+   do not overflow on small screens.
+*/
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .dashboard-actions {
+    flex-direction: column;
+  }
+
+  .dashboard-btn {
+    width: 100%;
+  }
 }

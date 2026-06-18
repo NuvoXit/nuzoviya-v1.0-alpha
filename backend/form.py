@@ -10,7 +10,7 @@ class PatientForm:
         self.email = email
 
 class BookingForm:
-    def __init__(self, booking_id, first_name, last_name, telephone, booked_patient_id, doctor_name, appointment_date, appointment_time):
+    def __init__(self, booking_id, first_name, last_name, telephone, doctor_name, appointment_date, appointment_time):
         self.booking_id = booking_id
         self.first_name = first_name
         self.last_name = last_name
