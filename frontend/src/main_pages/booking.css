@@ -35,13 +35,13 @@
   border-color: var(--primary);
 }
 
-.booking-card span {
+.booking-card p {
   font-size: 13px;
   font-weight: 600;
   color: var(--text-muted);
 }
 
-.booking-card:hover span { color: var(--primary-dark); }
+.booking-card:hover p { color: var(--primary-dark); }
 
 .bookingimg, .appointedimg {
   width: 72px;

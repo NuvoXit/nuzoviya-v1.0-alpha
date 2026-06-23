@@ -3,6 +3,7 @@ import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Home from "./main_pages/home.jsx";
 import Patient from "./main_pages/patient.jsx";
 import Booking from "./main_pages/booking.jsx";
+import Payment from "./main_pages/payment.jsx";
 import AddPatient from "./main_pages/mini_pages/add_patient.jsx";
 import AllPatient from "./main_pages/mini_pages/all_patient.jsx";
 import BookingPatient from "./main_pages/mini_pages/booking_patient.jsx";
@@ -63,6 +64,7 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
                         <>
                             <Link to="/patient" className="app-links">Patient</Link>
                             <Link to="/booking" className="app-links">Booking</Link>
+                            <Link to="/payment" className="app-links">Payment</Link>
                         </>
                     )}
                     {user.role === "Doctor" && (
@@ -81,6 +83,10 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
                         <Route path="/booking" element={requireRole("Receptionist", <Booking />)} />
                         <Route path="/booking/booking_patient" element={requireRole("Receptionist", <BookingPatient />)} />
                         <Route path="/booking/booking_history" element={requireRole("Receptionist", <BookingHistory />)} />
+
+                        <Route path="/payment" element={requireRole("Receptionist", <Payment />)} />
+
+
 
 
                         {/*Patient List Button Routes*/}
