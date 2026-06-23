@@ -193,6 +193,12 @@ def all_bookings():
     return jsonify([b.to_dict() for b in bookings])
 
 
+@Application.route("/nurse/all_nurses", methods=["GET"])
+def all_nurses():
+    nurses = Nurse.query.all()
+    return jsonify([n.to_dict() for n in nurses])
+
+
 @Application.route("/login", methods=["POST"])
 def login():
     try:
@@ -272,16 +278,6 @@ def search_doctors():
         return jsonify({"error": str(e)}), 500
 
 
-# def seed_default_doctors():
-#     if Doctor.query.count() == 0:
-#         Database.session.add_all([
-#             Doctor(doctor_first_name="Leanne", doctor_last_name="Walker"),
-#             Doctor(doctor_first_name="Sanjay", doctor_last_name="Patel"),
-#             Doctor(doctor_first_name="Aisha", doctor_last_name="Khan"),
-#             Doctor(doctor_first_name="John", doctor_last_name="Doe"),
-#             Doctor(doctor_first_name="Emma", doctor_last_name="Brown"),
-#         ])
-#         Database.session.commit()
 
 
 # =========================

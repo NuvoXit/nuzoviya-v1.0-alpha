@@ -9,3 +9,15 @@
 | Nurse        | Emma Davis     | EmmaD@2026      |
 | Nurse        | Sophia Garcia    | SophiaG#2026    |
 | Nurse        | Daniel Martinez  | DMartinez!2026  |
+
+
+# def seed_default_doctors():
+#     if Doctor.query.count() == 0:
+#         Database.session.add_all([
+#             Doctor(doctor_first_name="Leanne", doctor_last_name="Walker"),
+#             Doctor(doctor_first_name="Sanjay", doctor_last_name="Patel"),
+#             Doctor(doctor_first_name="Aisha", doctor_last_name="Khan"),
+#             Doctor(doctor_first_name="John", doctor_last_name="Doe"),
+#             Doctor(doctor_first_name="Emma", doctor_last_name="Brown"),
+#         ])
+#         Database.session.commit()

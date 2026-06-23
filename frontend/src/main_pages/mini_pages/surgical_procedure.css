@@ -1,0 +1,319 @@
+.surgical-procedure-stage {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: #f8fafc;
+  font-family: Arial, sans-serif;
+}
+
+.surgical-box {
+  width: min(1100px, 95%);
+  min-height: 90vh;
+  background: #ffffff;
+  padding: 25px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Patient area */
+
+.patient-panel {
+  display: flex;
+  gap: 20px;
+  background: #ffffff;
+  margin-bottom: 20px;
+}
+
+.patient-panel-row {
+  flex: 1;
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.patient-panel-label {
+  color: #0284c7;
+  font-weight: bold;
+}
+
+.patient-panel-value {
+  color: #111827;
+  font-weight: bold;
+}
+
+/* Procedure */
+
+.procedure-fieldset {
+  position: relative;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 25px;
+  background: white;
+}
+
+.procedure-legend {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.add-people-btn {
+  background: #0284c7;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-people-btn:hover {
+  background: #0369a1;
+}
+
+/* Selected nurse */
+
+.selected-nurses-bar {
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.selected-nurse-pill {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background: white;
+
+  border: 1px solid #bae6fd;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  color: #111827;
+
+  font-weight: bold;
+}
+
+.selected-nurse-dot {
+  width: 18px;
+
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #0284c7;
+}
+
+.selected-nurse-close {
+  width: 22px;
+
+  height: 22px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #e0f2fe;
+
+  color: #0284c7;
+
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.selected-nurse-close:hover {
+  background: #0284c7;
+
+  color: white;
+}
+
+/* Nurse dropdown */
+
+.nurse-picker {
+  position: absolute;
+
+  top: 60px;
+
+  left: 25px;
+
+  width: 360px;
+
+  background: white;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 10px;
+
+  padding: 45px 15px 15px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+  z-index: 10;
+}
+
+.nurse-picker-close {
+  position: absolute;
+
+  right: 10px;
+
+  top: 10px;
+
+  width: 30px;
+
+  height: 30px;
+
+  border: none;
+
+  background: #f1f5f9;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-size: 20px;
+}
+
+.nurse-picker-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 12px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nurse-picker-label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.nurse-avatar {
+  width: 35px;
+
+  height: 35px;
+
+  border-radius: 50%;
+
+  background: #bae6fd;
+}
+
+.nurse-info {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.nurse-info small {
+  color: #64748b;
+}
+
+.nurse-add-btn {
+  width: 32px;
+
+  height: 32px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #0284c7;
+
+  color: white;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+/* Text area */
+
+.surgery-area {
+  margin-top: 25px;
+}
+
+.display-box {
+  width: 100%;
+
+  min-height: 150px;
+
+  margin-bottom: 15px;
+
+  padding: 18px;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  background: #ffffff;
+
+  resize: vertical;
+}
+
+.display-box:focus {
+  outline: none;
+
+  border-color: #0284c7;
+}
+
+/* Send */
+
+.send-btn {
+  float: right;
+
+  padding: 10px 30px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background: #0284c7;
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.send-btn:hover {
+  background: #0369a1;
+}
+
+@media (max-width: 700px) {
+  .patient-panel {
+    flex-direction: column;
+  }
+
+  .procedure-legend {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .nurse-picker {
+    width: 90%;
+  }
+}

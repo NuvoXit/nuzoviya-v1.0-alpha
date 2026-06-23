@@ -72,25 +72,32 @@ function PatientDashboard() {
                 <dt>Age</dt>
                 <dd>{calcAge(patient.dob)}</dd>
               </div>
-              <div className="dashboard-detail-row">
-                <dt>Date of birth</dt>
-                <dd>{patient.dob || '—'}</dd>
-              </div>
+
               <div className="dashboard-detail-row">
                 <dt>Address</dt>
                 <dd>{patient.address || '—'}</dd>
               </div>
+
+              <div className="button-column">
+                <button type="button" className="dashboard-detail-row-edit" aria-label="Blood checkup">
+                  <span className="dashboard-detail-edit">Blood Checkup</span>
+                </button>
+                <button type="button" className="dashboard-detail-row-edit" aria-label="X Ray result">
+                  <span className="dashboard-detail-edit">X‑Ray Result</span>
+                </button>
+                <button type="button" className="dashboard-detail-row-edit" aria-label="Lab results">
+                  <span className="dashboard-detail-edit">Lab Results</span>
+                </button>
+              </div>
+
               <div className="dashboard-detail-row">
                 <dt>Telephone</dt>
                 <dd>{patient.telephone || '—'}</dd>
               </div>
+
               <div className="dashboard-detail-row">
-                <dt>Email</dt>
-                <dd>{patient.email || '—'}</dd>
-              </div>
-              <div className="dashboard-detail-row">
-                <dt>NIC</dt>
-                <dd>{patient.nic || '—'}</dd>
+                <dt>Name</dt>
+                <dd>{patient.first_name} {patient.last_name}</dd>
               </div>
             </dl>
           </div>

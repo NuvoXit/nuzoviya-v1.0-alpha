@@ -91,8 +91,10 @@
 
 .dashboard-details {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px 24px;
+  /* two flexible columns and a narrow right column for button stack */
+  grid-template-columns: 1fr 1fr minmax(160px, 220px);
+  grid-auto-rows: minmax(64px, auto);
+  gap: 18px 20px;
   margin: 0;
   padding: 0;
 }
@@ -103,6 +105,47 @@
   padding: 16px;
   background: rgba(15, 23, 42, 0.03);
   border-radius: 16px;
+}
+
+.dashboard-detail-row.button-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.button-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  justify-content: center;
+  /* place on the right column and span both rows */
+  grid-column: 3 / 4;
+  grid-row: 1 / span 2;
+}
+
+.dashboard-detail-row-edit {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s, transform 0.08s, box-shadow 0.12s;
+  width: 100%;
+}
+
+.dashboard-detail-row-edit:hover {
+  background: color-mix(in srgb, var(--primary) 70%, black 10%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2,132,199,0.12);
+}
+
+.dashboard-detail-row-edit:focus {
+  outline: 3px solid color-mix(in srgb, var(--primary) 40%, white 60%);
+  outline-offset: 2px;
 }
 
 .dashboard-detail-row dt {
@@ -155,7 +198,13 @@
 
 @media (max-width: 1080px) {
   .dashboard-details {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* collapse to two columns: details + buttons on right */
+    grid-template-columns: 1fr minmax(160px, 220px);
+    grid-auto-rows: minmax(56px, auto);
+  }
+  .button-column {
+    grid-column: 2 / 3;
+    grid-row: 1 / span 2;
   }
 }
 
@@ -167,6 +216,16 @@
 
   .dashboard-details {
     grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .button-column {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    align-items: stretch;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
   }
 
   .dashboard-actions {
