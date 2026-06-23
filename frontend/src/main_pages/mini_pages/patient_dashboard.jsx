@@ -78,7 +78,7 @@ function PatientDashboard() {
                 <dd>{patient.address || '—'}</dd>
               </div>
 
-              <div className="button-column">
+              {/* <div className="button-column">
                 <button type="button" className="dashboard-detail-row-edit" aria-label="Blood checkup">
                   <span className="dashboard-detail-edit">Blood Checkup</span>
                 </button>
@@ -88,7 +88,7 @@ function PatientDashboard() {
                 <button type="button" className="dashboard-detail-row-edit" aria-label="Lab results">
                   <span className="dashboard-detail-edit">Lab Results</span>
                 </button>
-              </div>
+              </div> */}
 
               <div className="dashboard-detail-row">
                 <dt>Telephone</dt>

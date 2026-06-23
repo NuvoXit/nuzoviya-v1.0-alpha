@@ -53,3 +53,10 @@ class RadiologistForm:
         self.radiologist_first_name = radiologist_first_name
         self.radiologist_last_name = radiologist_last_name
         self.radiologist_full_name = f"{radiologist_first_name} {radiologist_last_name}"
+
+class OpticianForm:
+    def __init__(self, optician_id, optician_first_name, optician_last_name):
+        self.optician_id = optician_id
+        self.optician_first_name = optician_first_name
+        self.optician_last_name = optician_last_name
+        self.optician_full_name = f"{optician_first_name} {optician_last_name}"

@@ -15,6 +15,10 @@ import SurgicalProcedure from "./main_pages/mini_pages/surgical_procedure.jsx";
 import Prescription from "./main_pages/mini_pages/prescription.jsx";
 import Feedback from "./main_pages/mini_pages/feedback.jsx";
 
+
+
+
+
 import "./App.css";
 
 function App({ user: userProp, onLogout: onLogoutProp }) {
@@ -64,6 +68,7 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
                     {user.role === "Doctor" && (
                         <Link to="/consult_patient_list" className="app-links">Patient List</Link>
                     )}
+                    
                 </div>
                 <main className="app-content">
                     <Routes>
@@ -84,6 +89,9 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
                         <Route path="/consult_patient_list/:id/dashboard/prescription" element={requireRole("Doctor", <Prescription />)} />
                         <Route path="/consult_patient_list/:id/dashboard/surgical_procedure" element={requireRole("Doctor", <SurgicalProcedure />)} />
                         <Route path="/consult_patient_list/:id/dashboard/feedback" element={requireRole("Doctor", <Feedback />)} />
+
+                        
+                        
 
                         <Route path="/" element={<Navigate to="/home" replace />} />
                     </Routes>
