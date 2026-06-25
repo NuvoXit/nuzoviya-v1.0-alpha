@@ -83,6 +83,7 @@ function Login({ onLogin }) {
               <option value="" disabled>Select Your Role in Hospital</option>
               <option value="Doctor">Doctor</option>
               <option value="Receptionist">Receptionist</option>
+              <option value="MLT">MLT</option>
               {/* <option value="Nurse">Nurse</option> */}
             </select>
           </div>

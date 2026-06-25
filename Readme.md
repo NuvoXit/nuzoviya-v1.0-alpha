@@ -7,3 +7,4 @@
     env/scripts/activate
     $env:FLASK_APP = "main.py"
     flask run
+    python main.py

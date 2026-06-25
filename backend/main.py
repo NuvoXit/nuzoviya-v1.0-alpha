@@ -281,8 +281,8 @@ def search_doctors():
 # =========================
 # Payment Route
 # =========================
-@Application.route("/payment", methods=["POST"])
-def payment():
+# @Application.route("/payment", methods=["POST"])
+# def payment():
     
 
 # =========================
@@ -294,5 +294,6 @@ def payment():
 if __name__ == "__main__":
     with Application.app_context():
         Database.create_all()
+        # seed_default_doctors()
     init_admin(Application)
     Application.run(debug=True, host="0.0.0.0", port=5000)
