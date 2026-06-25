@@ -278,7 +278,12 @@ def search_doctors():
         return jsonify({"error": str(e)}), 500
 
 
-
+# =========================
+# Payment Route
+# =========================
+@Application.route("/payment", methods=["POST"])
+def payment():
+    
 
 # =========================
 # MAIN
@@ -289,6 +294,5 @@ def search_doctors():
 if __name__ == "__main__":
     with Application.app_context():
         Database.create_all()
-        # seed_default_doctors()
     init_admin(Application)
     Application.run(debug=True, host="0.0.0.0", port=5000)

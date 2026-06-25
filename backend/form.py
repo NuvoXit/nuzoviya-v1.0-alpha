@@ -19,6 +19,22 @@ class BookingForm:
         self.appointment_date = appointment_date
         self.appointment_time = appointment_time
 
+class PaymentForm:
+    def __init__(self, payment_id, first_name, last_name, telephone, hospital_fee, doctor_fee, mlt_fee, radiologist_fee, optician_fee, additional_reason, additional_charge, total_amount, payment_date):
+        self.payment_id = payment_id
+        self.first_name = first_name
+        self.last_name = last_name
+        self.telephone = telephone
+        self.hospital_fee = hospital_fee
+        self.doctor_fee = doctor_fee
+        self.mlt_fee = mlt_fee
+        self.radiologist_fee = radiologist_fee
+        self.optician_fee = optician_fee
+        self.additional_reason = additional_reason
+        self.additional_charge = additional_charge
+        self.total_amount = total_amount
+        self.payment_date = payment_date
+
 class LoginForm:
     def __init__(self, login_id, username, password, role):
         self.login_id = login_id
