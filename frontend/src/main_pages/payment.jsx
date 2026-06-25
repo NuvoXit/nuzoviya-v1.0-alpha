@@ -1,48 +1,278 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import ADDpaymentImg from './assets/Payment.svg';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './payment.css';
 
-function Payment({ user, onLogout }) {
-  const [data, setData] = useState(null);
+function Payment() {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // optional: load payment-related data if API exists
-    fetch('http://127.0.0.1:5000/payment')
-      .then((response) => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-      })
-      .then((result) => setData(result))
-      .catch((error) => {
-        // keep this quiet in UI but log for debugging
-        console.debug('Payment fetch error:', error);
-      });
-  }, []);
+  const HOSPITAL_FEE = 500;
+  const DOCTOR_FEE = 2000;
+
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    telephone: '',
+
+    doctorName: '',
+    doctorId: null,
+
+    hospitalFeeSelected: false,
+    doctorFeeSelected: false,
+
+    additionalReason: '',
+    additionalCharge: '',
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const [doctors, setDoctors] = useState([]);
+
+  const totalAmount = (form.hospitalFeeSelected ? HOSPITAL_FEE : 0) + (form.doctorFeeSelected ? DOCTOR_FEE : 0) + (Number(form.additionalCharge) || 0);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+
+      [name]: value,
+    }));
+
+    if (name === 'doctorName') {
+      handleDoctorSearch(value);
+    }
+  };
+
+  const handleDoctorSearch = async (query) => {
+    if (!query.trim()) {
+      setDoctors([]);
+
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/booking/search_doctors?query=${encodeURIComponent(query)}`);
+
+      const data = await response.json();
+
+      setDoctors(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.log(error);
+
+      setDoctors([]);
+    }
+  };
+
+  const handleClear = () => {
+    setForm({
+      firstName: '',
+      lastName: '',
+      telephone: '',
+
+      doctorName: '',
+      doctorId: null,
+
+      hospitalFeeSelected: false,
+      doctorFeeSelected: false,
+
+      additionalReason: '',
+      additionalCharge: '',
+    });
+
+    setDoctors([]);
+  };
+
+  const handlePay = async () => {
+    if (!form.firstName || !form.lastName || !form.telephone || !form.doctorId) {
+      alert('Please fill all required fields');
+
+      return;
+    }
+
+    if (!form.hospitalFeeSelected && !form.doctorFeeSelected && !form.additionalCharge) {
+      alert('Please select payment item');
+
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const payload = {
+        firstName: form.firstName,
+
+        lastName: form.lastName,
+
+        telephone: form.telephone,
+
+
+        hospitalFee: form.hospitalFeeSelected ? HOSPITAL_FEE : 0,
+
+        doctorFee: form.doctorFeeSelected ? DOCTOR_FEE : 0,
+
+        additionalReason: form.additionalReason,
+
+        additionalCharge: Number(form.additionalCharge) || 0,
+
+        totalAmount: totalAmount,
+      };
+
+      const response = await fetch(
+        'http://127.0.0.1:5000/payment',
+
+        {
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Payment failed');
+      }
+
+      alert(data.message || 'Payment successful');
+
+      handleClear();
+
+      navigate('/booking');
+    } catch (error) {
+      console.log(error);
+
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="payment-main-content">
-
-      <div className="payment-card-grid">
-        <Link to="/payment/doctor_payment" className="payment-card" aria-label="New booking">
-          <img src={ADDpaymentImg} alt="Add Patient" className="payment-card-icon"/>
-          <p className="payment-card-label">Doctor Payment</p>
+    <div className="booking-patient-main-content">
+      <div className="booking-patient-page-header">
+        <Link to="/booking" className="back-btn">
+          ←
         </Link>
 
-        <Link to="/payment/mlt_payment" className="payment-card" aria-label="Booked history">
-          <img src={ADDpaymentImg} alt="Add Patient" className="payment-card-icon"/>
-          <p className="payment-card-label">MLT Payment</p>
-        </Link>
+        <h3>Payment Details</h3>
+      </div>
 
-        <Link to="/payment/radiologist_payment" className="payment-card" aria-label="Booked history">
-          <img src={ADDpaymentImg} alt="Add Patient" className="payment-card-icon"/>
-          <p className="payment-card-label">Radiologist Payment</p>
-        </Link>
+      <div className="booking-patient-form">
+        <div className="booking-patient-form-row">
+          <label>First Name *</label>
 
-        <Link to="/payment/optometrist_payment" className="payment-card" aria-label="Booked history">
-          <img src={ADDpaymentImg} alt="Add Patient" className="payment-card-icon"/>
-          <p className="payment-card-label">Optometrist Payment</p>
-        </Link>
+          <input type="text" name="firstName" value={form.firstName} onChange={handleChange} />
+        </div>
+
+        <div className="booking-patient-form-row">
+          <label>Last Name *</label>
+
+          <input type="text" name="lastName" value={form.lastName} onChange={handleChange} />
+        </div>
+
+        <div className="booking-patient-form-row">
+          <label>Telephone *</label>
+
+          <input type="text" name="telephone" value={form.telephone} onChange={handleChange} />
+        </div>
+
+        <br></br>
+
+        <div className="booking-patient-form-row">
+          <label>Payment Items</label>
+
+          <label>
+            <input
+              type="checkbox"
+              checked={form.hospitalFeeSelected}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+
+                  hospitalFeeSelected: e.target.checked,
+                }))
+              }
+            />
+            Hospital Fee (Rs.500)
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              checked={form.doctorFeeSelected}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+
+                  doctorFeeSelected: e.target.checked,
+                }))
+              }
+            />
+            Doctor Fee (Rs.2000)
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              checked={form.mltFeeSelected}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+
+                  mltFeeSelected: e.target.checked,
+                }))
+              }
+            />
+            MLT Fee (Rs.1000)
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              checked={form.radiologistFeeSelected}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+
+                  radiologistFeeSelected: e.target.checked,
+                }))
+              }
+            />
+            Radiologist Fee (Rs.1000)
+          </label>
+        </div>
+        <br></br>
+        <div className="booking-patient-form-row">
+          <label>Additional Description</label>
+
+          <input type="text" name="additionalReason" value={form.additionalReason} onChange={handleChange} placeholder="Medicine, Lab Test, X-Ray..." />
+        </div>
+
+        <div className="booking-patient-form-row">
+          <label>Additional Amount</label>
+
+          <input type="number" name="additionalCharge" value={form.additionalCharge} onChange={handleChange} placeholder="Enter amount" />
+        </div>
+
+        <div className="booking-patient-form-row">
+          <label>Total Amount</label>
+
+          <input value={`Rs. ${totalAmount}`} readOnly />
+        </div>
+
+        <div className="booking-patient-form-actions">
+          <button className="btn" onClick={handlePay} disabled={loading}>
+            {loading ? 'Processing...' : 'Pay'}
+          </button>
+
+          <button className="btn" onClick={handleClear} disabled={loading}>
+            Clear Form
+          </button>
+        </div>
       </div>
     </div>
   );

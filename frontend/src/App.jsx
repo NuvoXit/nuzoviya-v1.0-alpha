@@ -9,6 +9,8 @@ import AllPatient from "./main_pages/mini_pages/all_patient.jsx";
 import BookingPatient from "./main_pages/mini_pages/booking_patient.jsx";
 import BookingHistory from "./main_pages/mini_pages/booking_history.jsx";
 
+
+
 import Consulting from "./main_pages/consulting.jsx";
 import PatientDashboard from "./main_pages/mini_pages/patient_dashboard.jsx";
 import SurgicalProcedure from "./main_pages/mini_pages/surgical_procedure.jsx";
@@ -85,7 +87,7 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
                         <Route path="/booking/booking_history" element={requireRole("Receptionist", <BookingHistory />)} />
 
                         <Route path="/payment" element={requireRole("Receptionist", <Payment />)} />
-
+                       
 
 
 

@@ -1,16 +1,21 @@
-from datetime import datetime 
-from config import Database    
+from datetime import date
+from datetime import datetime
+from config import Database
 from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm import validates
 import enum
 
 # Date Validation Functions
+
+
 def _to_date(value):
     if isinstance(value, str):
         return datetime.strptime(value, '%Y-%m-%d').date()
     return value
 
 # Time Validation Functions
+
+
 def _to_time(value):
     if isinstance(value, str):
         return datetime.strptime(value, '%H:%M').time()
@@ -20,10 +25,9 @@ def _to_time(value):
 class Patient(Database.Model):
     __tablename__ = 'patient'
 
-    patient_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
-    
+    patient_id = Database.Column(
+        Database.Integer, primary_key=True, autoincrement=True)
 
-    
     first_name = Database.Column(Database.String(50), nullable=False)
     last_name = Database.Column(Database.String(50), nullable=False)
     nic = Database.Column(Database.String(10), nullable=True)
@@ -38,14 +42,15 @@ class Patient(Database.Model):
 
     def __repr__(self):
         return f'<Patient {self.nic}>'
-    
+
     def to_json(self):
         return {
             "patient_id": self.patient_id,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "nic": self.nic,
-            "dob": self.dob.isoformat() if self.dob else None, # Attribute Error Fix Happened Here
+            # Attribute Error Fix Happened Here
+            "dob": self.dob.isoformat() if self.dob else None,
             "address": self.address,
             "telephone": self.telephone,
             "email": self.email
@@ -54,11 +59,13 @@ class Patient(Database.Model):
     def to_dict(self):
         return self.to_json()
 
+
 class Booking(Database.Model):
 
     __tablename__ = 'booking'
 
-    booking_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    booking_id = Database.Column(
+        Database.Integer, primary_key=True, autoincrement=True)
 
     first_name = Database.Column(Database.String(50), nullable=False)
     last_name = Database.Column(Database.String(50), nullable=False)
@@ -92,10 +99,12 @@ class Booking(Database.Model):
     def to_dict(self):
         return self.to_json()
 
+
 class UserRole(enum.Enum):
     Doctor = "Doctor"
     Receptionist = "Receptionist"
     Nurse = "Nurse"
+
 
 class Login(Database.Model):
 
@@ -104,7 +113,8 @@ class Login(Database.Model):
         UniqueConstraint('username', 'role', name='uq_username_role'),
     )
 
-    id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    id = Database.Column(
+        Database.Integer, primary_key=True, autoincrement=True)
     username = Database.Column(Database.String(50), nullable=False)
     password = Database.Column(Database.String(255), nullable=False)
     role = Database.Column(Database.Enum(UserRole), nullable=False)
@@ -122,11 +132,13 @@ class Login(Database.Model):
 
     def to_dict(self):
         return self.to_json()
-      
+
+
 class Doctor(Database.Model):
     __tablename__ = 'doctor'
 
-    doctor_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    doctor_id = Database.Column(
+        Database.Integer, primary_key=True, autoincrement=True)
     doctor_first_name = Database.Column(Database.String(50), nullable=False)
     doctor_last_name = Database.Column(Database.String(50), nullable=False)
 
@@ -144,11 +156,13 @@ class Doctor(Database.Model):
             "first_name": self.doctor_first_name,
             "last_name": self.doctor_last_name
         }
-    
+
+
 class Nurse(Database.Model):
     __tablename__ = 'nurse'
 
-    nurse_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    nurse_id = Database.Column(
+        Database.Integer, primary_key=True, autoincrement=True)
     nurse_first_name = Database.Column(Database.String(50), nullable=False)
     nurse_last_name = Database.Column(Database.String(50), nullable=False)
 
@@ -166,7 +180,186 @@ class Nurse(Database.Model):
             "last_name": self.nurse_last_name,
             "nurse_full_name": self.nurse_full_name
         }
-    
+
+
+
+
+class Payment(Database.Model):
+    __tablename__ = 'payment'
+
+
+    # Fixed fees
+    HOSPITAL_FEE = 500
+    DOCTOR_FEE = 2000
+    MLT_FEE = 1000
+    RADIOLOGIST_FEE = 1000
+    OPTICIAN_FEE = 1000
+
+
+
+    payment_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    first_name = Database.Column(Database.String(50), nullable=False)
+    last_name = Database.Column(Database.String(50), nullable=False)
+    telephone = Database.Column(Database.String(15), nullable=False)
+
+    # Payment details
+    hospital_fee = Database.Column(Database.Integer, default=HOSPITAL_FEE)
+    doctor_fee = Database.Column(Database.Integer, default=DOCTOR_FEE)
+    mlt_fee = Database.Column(Database.Integer, default=MLT_FEE)
+    radiologist_fee = Database.Column(Database.Integer, default=RADIOLOGIST_FEE)
+    optician_fee = Database.Column(Database.Integer, default=OPTICIAN_FEE)
+
+
+    additional_reason = Database.Column(Database.String(200), nullable=True)
+    additional_charge = Database.Column(Database.Integer, default=0)
+
+    total_amount = Database.Column(Database.Integer, nullable=False, default=0)
+    payment_date = Database.Column(Database.Date, default=date.today)
+
+
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.total_amount = ((self.hospital_fee or 0) + (self.doctor_fee or 0) + (self.mlt_fee or 0) + (self.radiologist_fee or 0) + (self.optician_fee or 0) + (self.additional_charge or 0))
+
+
+
+    @validates('payment_date')
+    def validate_payment_date(self, key, value):
+        if isinstance(value, str):
+            return date.fromisoformat(value)
+        return value
+
+
+    def __repr__(self):
+        return f'<Payment {self.payment_id}>'
+
+
+    def to_json(self):
+        return {
+            "payment_id": self.payment_id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "telephone": self.telephone,
+            "hospital_fee": self.hospital_fee,
+            "doctor_fee": self.doctor_fee,
+            "mlt_fee": self.mlt_fee,
+            "radiologist_fee": self.radiologist_fee,
+            "optician_fee": self.optician_fee,
+            "additional_reason": self.additional_reason,
+            "additional_charge": self.additional_charge,
+            "total_amount": self.total_amount,
+            "payment_date":
+                self.payment_date.isoformat()
+                if self.payment_date
+                else None
+
+        }
+
+    def to_dict(self):
+        return self.to_json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # class MLT(Database.Model):
 #     __tablename__ = 'mlt'
 
@@ -209,8 +402,8 @@ class Nurse(Database.Model):
 #             "first_name": self.radiologist_first_name,
 #             "last_name": self.radiologist_last_name,
 #             "radiologist_full_name": self.radiologist_full_name
-#         }   
-    
+#         }
+
 # class Optician(Database.Model):
 #     __tablename__ = 'optician'
 

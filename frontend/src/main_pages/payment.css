@@ -1,81 +1,230 @@
-.payment-main-content {
+.booking-patient-main-content {
   padding: 10px 0;
 }
 
-.payment-title {
-  margin: 0 0 18px 0;
-  font-size: 22px;
-  font-weight: 800;
-  color: #0f172a;
-  text-align: center;
-}
-
-.payment-card-grid {
+.booking-patient-page-header {
   display: flex;
-  gap: 24px;
-  justify-content: center;
   align-items: center;
-  height: 60vh;
-  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 
-.payment-card {
+.booking-patient-page-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.back-btn {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.booking-patient-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+}
+
+.booking-patient-form-row {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+}
+
+.booking-patient-form-row.full {
+  grid-column: span 2;
+}
+
+.booking-patient-form-row.doctor-field {
+  position: relative;
+}
+
+.booking-patient-form-row label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.required {
+  color: var(--danger);
+}
+
+.booking-patient-form-row input {
+  width: 100%;
+  padding: 10px 13px;
   border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 24px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  width: 190px;
-  height: 170px;
-  background: var(--surface);
-  color: var(--text);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  box-shadow: var(--shadow);
-  gap: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  background: var(--surface-alt);
+  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  color: #1e293b;
 }
 
-.payment-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+.booking-patient-form-row input:focus {
   border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
 }
 
-.payment-card-icon {
-  font-size: 36px;
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  line-height: 1;
-}
-
-.payment-card-label {
+/* Doctor Search */
+.doctor-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  list-style: none;
   margin: 0;
-  font-size: 15px;
+  padding: 4px 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.doctor-suggestions li {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+
+.doctor-suggestions li:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.doctor-suggestions li:last-child {
+  border-bottom: none;
+}
+
+/* Payment Section */
+.payment-section {
+  grid-column: span 2;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.payment-section-title {
+  font-size: 13px;
   font-weight: 700;
-  color: var(--text);
+  color: #0f172a;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-@media (max-width: 780px) {
-  .payment-card-grid {
-    gap: 12px;
-  }
-
-  .payment-card {
-    width: calc(50% - 16px);
-    height: 140px;
-  }
+.payment-option {
+  margin-bottom: 12px;
 }
 
-@media (max-width: 420px) {
-  .payment-card {
-    width: 100%;
-    max-width: 360px;
-  }
+.payment-option label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
+.payment-option input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
 
+/* Additional Charges */
+.additional-charge {
+  grid-column: span 2;
+}
+
+/* Total Amount */
+.total-amount {
+  background: #f0f9ff !important;
+  border: 1.5px solid var(--primary) !important;
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* Buttons */
+.booking-patient-form-actions {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.booking-patient-form-actions .btn {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    transform 0.15s;
+}
+
+.booking-patient-form-actions .btn:first-child {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 3px 10px rgba(14, 165, 233, 0.3);
+}
+
+.booking-patient-form-actions .btn:last-child {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.booking-patient-form-actions .btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.booking-patient-form-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .booking-patient-form {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-patient-form-row.full,
+  .payment-section,
+  .additional-charge,
+  .booking-patient-form-actions {
+    grid-column: span 1;
+  }
+
+  .booking-patient-form-actions {
+    flex-direction: column;
+  }
+}
