@@ -7,18 +7,20 @@ function Payment() {
 
   const HOSPITAL_FEE = 500;
   const DOCTOR_FEE = 2000;
+  const MLT_FEE = 1000;
+  const RADIOLOGIST_FEE = 1000;
+
 
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
     telephone: '',
-
     doctorName: '',
     doctorId: null,
-
     hospitalFeeSelected: false,
     doctorFeeSelected: false,
-
+    mltFeeSelected: false,
+    radiologistFeeSelected: false,
     additionalReason: '',
     additionalCharge: '',
   });
@@ -27,7 +29,7 @@ function Payment() {
 
   const [doctors, setDoctors] = useState([]);
 
-  const totalAmount = (form.hospitalFeeSelected ? HOSPITAL_FEE : 0) + (form.doctorFeeSelected ? DOCTOR_FEE : 0) + (Number(form.additionalCharge) || 0);
+  const totalAmount = (form.hospitalFeeSelected ? HOSPITAL_FEE : 0) + (form.doctorFeeSelected ? DOCTOR_FEE : 0) + (form.mltFeeSelected ? MLT_FEE : 0) + (form.radiologistFeeSelected ? RADIOLOGIST_FEE : 0) + (Number(form.additionalCharge) || 0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,38 +45,15 @@ function Payment() {
     }
   };
 
-  const handleDoctorSearch = async (query) => {
-    if (!query.trim()) {
-      setDoctors([]);
-
-      return;
-    }
-
-    try {
-      const response = await fetch(`http://127.0.0.1:5000/booking/search_doctors?query=${encodeURIComponent(query)}`);
-
-      const data = await response.json();
-
-      setDoctors(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.log(error);
-
-      setDoctors([]);
-    }
-  };
-
   const handleClear = () => {
     setForm({
       firstName: '',
       lastName: '',
       telephone: '',
-
       doctorName: '',
       doctorId: null,
-
       hospitalFeeSelected: false,
       doctorFeeSelected: false,
-
       additionalReason: '',
       additionalCharge: '',
     });
@@ -83,7 +62,7 @@ function Payment() {
   };
 
   const handlePay = async () => {
-    if (!form.firstName || !form.lastName || !form.telephone || !form.doctorId) {
+    if (!form.firstName || !form.lastName || !form.telephone ) {
       alert('Please fill all required fields');
 
       return;

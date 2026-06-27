@@ -7,7 +7,8 @@ from sqlalchemy import func, or_
 from sqlalchemy.exc import IntegrityError
 from config import Application, Database
 from admin import init_admin
-from models import Patient, Booking, Login, UserRole, Doctor, Nurse
+from models import Patient, Booking, Login, Payment, UserRole, Doctor, Nurse, MLT, Radiologist, Optician
+
 
 # =========================
 # ROUTES
@@ -281,8 +282,100 @@ def search_doctors():
 # =========================
 # Payment Route
 # =========================
-# @Application.route("/payment", methods=["POST"])
-# def payment():
+@Application.route("/payment", methods=["POST"])
+def payment():
+    try:
+        data = request.get_json()
+
+        first_name = data.get("firstName")
+        last_name = data.get("lastName")
+        telephone = data.get("telephone")
+        hospital_fee_selected = data.get("hospitalFeeSelected")
+        doctor_fee_selected = data.get("doctorFeeSelected")
+        mlt_fee_selected = data.get("mltFeeSelected")
+        radiologist_fee_selected = data.get("radiologistFeeSelected")
+        optician_fee_selected = data.get("opticianFeeSelected")
+        additional_reason = data.get("additionalReason")
+        additional_charge = float(data.get("additionalCharge"))
+        total_amount = data.get("totalAmount")
+        payment_date = data.get("paymentDate")
+
+        # Validate required fields
+        if not all([first_name, last_name, telephone]):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        total_amount = 0
+        if hospital_fee_selected:
+            total_amount += 500
+        if doctor_fee_selected:
+            total_amount += 2000
+        if mlt_fee_selected:
+            total_amount += 1000
+        if radiologist_fee_selected:
+            total_amount += 1000
+        if optician_fee_selected:
+            total_amount += 1000
+        if additional_charge:
+            total_amount += additional_charge
+
+        
+        # Remove extra spaces
+        first_name = first_name.strip()
+        last_name = last_name.strip()
+        telephone = telephone.strip()
+
+        # Check if patient exists
+        patient = Patient.query.filter_by(
+            first_name=first_name, last_name=last_name, telephone=telephone
+        ).first()
+
+        # Create patient only if not found
+        if not patient:
+            new_patient = Patient(
+                first_name=first_name,
+                last_name=last_name,
+                telephone=telephone,
+                # hospital_fee=None,
+                # doctor_fee=None,         
+                # mlt_fee=None,
+                # radiologist_fee=None,
+                # optician_fee=None,
+                # additional_reason=None,
+                # additional_charge=None,
+                # total_amount=None,
+                # payment_date=None,
+            )
+
+            Database.session.add(new_patient)
+            Database.session.commit()
+
+        # Create payment record
+        new_payment = Payment(
+            first_name=first_name,
+            last_name=last_name,
+            telephone=telephone,
+            hospital_fee=hospital_fee_selected,
+            doctor_fee=doctor_fee_selected,         
+            mlt_fee=mlt_fee_selected,
+            radiologist_fee=radiologist_fee_selected,
+            optician_fee=optician_fee_selected,
+            additional_reason=additional_reason,
+            additional_charge=additional_charge,
+            total_amount=total_amount,
+            payment_date=payment_date,
+        )
+
+        Database.session.add(new_payment)
+        Database.session.commit()
+
+        return jsonify({"message": "Payment processed successfully"}), 201
+    
+
+    except Exception as e:
+        Database.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+            
     
 
 # =========================
