@@ -1,0 +1,156 @@
+.consulting-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 780px;
+}
+
+.consulting-list-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.consulting-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-alt);
+}
+
+.consulting-list-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.consulting-filter-icon { font-size: 11px; color: var(--text-muted); }
+
+.consulting-datetime {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.consulting-list-body { display: flex; flex-direction: column; }
+
+.consulting-list-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 11px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .12s ease;
+}
+
+.consulting-list-row:last-child { border-bottom: none; }
+.consulting-list-row:hover { background: #f0f9ff; }
+.consulting-list-row--active { background: #e0f2fe; }
+
+.consulting-list-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 22px;
+  padding-right: 12px;
+  border-right: 1px solid var(--border);
+}
+
+.consulting-list-id {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  min-width: 100px;
+}
+
+.consulting-list-name { font-size: 14px; color: #0f172a; flex: 1; font-weight: 500; }
+
+.consulting-list-age {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--primary-light);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.consulting-detail-wrap { display: flex; flex-direction: column; gap: 16px; }
+
+.consulting-detail-card {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.consulting-detail-info {
+  flex: 1;
+  padding: 20px 24px;
+  border-right: 1px solid var(--border);
+}
+
+.consulting-detail-id-name { font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 6px; }
+.consulting-detail-age { font-size: 13px; color: var(--text-muted); margin: 0; }
+.consulting-detail-placeholder { font-size: 13px; color: #cbd5e1; margin: 0; }
+
+.consulting-checkup-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+  justify-content: center;
+  min-width: 190px;
+}
+
+.consulting-tag {
+  display: block;
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--surface-alt);
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  opacity: .7;
+  cursor: pointer;
+  user-select: none;
+  transition: all .18s ease;
+}
+
+.consulting-tag--active { background: var(--primary); border-color: var(--primary-dark); color: #fff; opacity: 1; }
+.consulting-tag:hover:not(.consulting-tag--disabled) { opacity: .9; border-color: var(--primary); color: var(--primary-dark); }
+.consulting-tag--disabled { cursor: not-allowed; opacity: .25; }
+
+.consulting-actions { display: flex; gap: 12px; }
+
+.consulting-action-btn {
+  flex: 1;
+  padding: 12px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .1s ease;
+}
+
+.consulting-action-btn:hover:not(:disabled) {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.consulting-action-btn:disabled { opacity: .45; cursor: not-allowed; }

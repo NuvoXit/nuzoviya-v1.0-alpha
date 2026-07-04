@@ -4,19 +4,16 @@ import './consulting.css';
 
 const ALL_CHECKUPS = ['Blood Checkup', 'Eye Checkup', 'X-Ray Checkup', 'Other'];
 
+// Helper function to calculate age from date of birth
 function calcAge(dob) {
   if (!dob) return '—';
-
   const birth = new Date(dob);
   const today = new Date();
-
   let age = today.getFullYear() - birth.getFullYear();
   const m = today.getMonth() - birth.getMonth();
-
   if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
     age--;
   }
-
   return age;
 }
 

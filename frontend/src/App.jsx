@@ -16,6 +16,10 @@ import SurgicalProcedure from './main_pages/mini_pages/surgical_procedure.jsx';
 import Prescription from './main_pages/mini_pages/prescription.jsx';
 import Feedback from './main_pages/mini_pages/feedback.jsx';
 
+
+import Testing_Patient from './main_pages/Testing_Patient.jsx';
+import Test_Resources from './main_pages/mini_pages/test_resources.jsx';
+
 import './App.css';
 
 function App({ user: userProp, onLogout: onLogoutProp }) {
@@ -84,7 +88,7 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
 
           {user.role === 'MLT' && (
             <>
-              <Link to="/blood-test" className="app-links"> Testing Patient List </Link>
+              <Link to="/patient_test" className="app-links"> Testing Patient List </Link>
 
               {/* <Link to="/urine-test" className="app-links">
                 Urine Test
@@ -128,6 +132,10 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
             <Route path="/consult_patient_list/:id/dashboard/prescription" element={requireRole('Doctor', <Prescription />)} />
             <Route path="/consult_patient_list/:id/dashboard/surgical_procedure" element={requireRole('Doctor', <SurgicalProcedure />)} />
             <Route path="/consult_patient_list/:id/dashboard/feedback" element={requireRole('Doctor', <Feedback />)} />
+
+
+            <Route path="/patient_test" element={requireRole('MLT', <Testing_Patient />)} />
+            <Route path="/patient_test/:id/test_files" element={requireRole('MLT', <Test_Resources />)} />
 
             <Route path="/" element={<Navigate to="/home" replace />} />
           </Routes>

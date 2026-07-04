@@ -33,3 +33,6 @@ gunicorn
 pytest
 python-dateutil
 pytz
+
+# Testing
+pytest-mock

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './payment.css';
 
@@ -9,7 +9,6 @@ function Payment() {
   const DOCTOR_FEE = 2000;
   const MLT_FEE = 1000;
   const RADIOLOGIST_FEE = 1000;
-
 
   const [form, setForm] = useState({
     firstName: '',
@@ -27,9 +26,12 @@ function Payment() {
 
   const [loading, setLoading] = useState(false);
 
-  const [doctors, setDoctors] = useState([]);
-
-  const totalAmount = (form.hospitalFeeSelected ? HOSPITAL_FEE : 0) + (form.doctorFeeSelected ? DOCTOR_FEE : 0) + (form.mltFeeSelected ? MLT_FEE : 0) + (form.radiologistFeeSelected ? RADIOLOGIST_FEE : 0) + (Number(form.additionalCharge) || 0);
+  const totalAmount =
+    (form.hospitalFeeSelected ? HOSPITAL_FEE : 0) +
+    (form.doctorFeeSelected ? DOCTOR_FEE : 0) +
+    (form.mltFeeSelected ? MLT_FEE : 0) +
+    (form.radiologistFeeSelected ? RADIOLOGIST_FEE : 0) +
+    (Number(form.additionalCharge) || 0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,10 +41,6 @@ function Payment() {
 
       [name]: value,
     }));
-
-    if (name === 'doctorName') {
-      handleDoctorSearch(value);
-    }
   };
 
   const handleClear = () => {
@@ -54,15 +52,16 @@ function Payment() {
       doctorId: null,
       hospitalFeeSelected: false,
       doctorFeeSelected: false,
+      mltFeeSelected: false,
+      radiologistFeeSelected: false,
       additionalReason: '',
       additionalCharge: '',
     });
 
-    setDoctors([]);
   };
 
   const handlePay = async () => {
-    if (!form.firstName || !form.lastName || !form.telephone ) {
+    if (!form.firstName || !form.lastName || !form.telephone) {
       alert('Please fill all required fields');
 
       return;
@@ -84,16 +83,17 @@ function Payment() {
 
         telephone: form.telephone,
 
+        hospitalFeeSelected: form.hospitalFeeSelected,
 
-        hospitalFee: form.hospitalFeeSelected ? HOSPITAL_FEE : 0,
+        doctorFeeSelected: form.doctorFeeSelected,
 
-        doctorFee: form.doctorFeeSelected ? DOCTOR_FEE : 0,
+        mltFeeSelected: form.mltFeeSelected,
+
+        radiologistFeeSelected: form.radiologistFeeSelected,
 
         additionalReason: form.additionalReason,
 
         additionalCharge: Number(form.additionalCharge) || 0,
-
-        totalAmount: totalAmount,
       };
 
       const response = await fetch(

@@ -1,13 +1,9 @@
-import binascii
-import hashlib
-
 from flask import request, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
-from sqlalchemy import func, or_
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy import or_
 from config import Application, Database
 from admin import init_admin
-from models import Patient, Booking, Login, Payment, UserRole, Doctor, Nurse, MLT, Radiologist, Optician
+from models import Patient, Booking, Login, Payment, UserRole, Doctor, Nurse
 
 
 # =========================
@@ -90,6 +86,27 @@ def all_patients():
 
 
 # =========================
+# GET PAYMENTS FOR A PATIENT
+# =========================
+@Application.route("/payments", methods=["GET"])
+def all_payments():
+    payments = Payment.query.all()
+    return jsonify([pa.to_dict() for pa in payments])
+
+
+@Application.route("/payments/mlt", methods=["GET"])
+def mlt_payments():
+    payments = (
+        Payment.query.filter(Payment.mlt_fee >= Payment.MLT_FEE)
+        .order_by(Payment.payment_date.desc(), Payment.payment_id.desc())
+        .all()
+    )
+    return jsonify([pa.to_dict() for pa in payments])
+
+
+
+
+# =========================
 # DELETE PATIENT
 # =========================
 
@@ -97,10 +114,10 @@ def all_patients():
 @Application.route("/patient/delete/<int:patient_id>", methods=["DELETE"])
 def delete_patient(patient_id):
     try:
-        patient = Patient.query.get(patient_id)
-        if not patient:
+        existing_patient = Patient.query.get(patient_id)
+        if not existing_patient:
             return jsonify({"error": "Patient not found"}), 404
-        Database.session.delete(patient)
+        Database.session.delete(existing_patient)
         Database.session.commit()
         return jsonify({"message": "Patient deleted successfully"}), 200
     except Exception as e:
@@ -144,13 +161,13 @@ def add_booking():
         telephone = telephone.strip()
 
         # Check if patient exists
-        patient = Patient.query.filter_by(
+        existing_patient = Patient.query.filter_by(
             first_name=first_name, last_name=last_name, telephone=telephone
         ).first()
 
         # Create patient only if not found
-        if not patient:
-            patient = Patient(
+        if not existing_patient:
+            existing_patient = Patient(
                 first_name=first_name,
                 last_name=last_name,
                 nic=None,
@@ -253,8 +270,7 @@ def login():
 
 # =========================
 # Search Doctors
-
-
+# =========================
 @Application.route("/booking/search_doctors", methods=["GET"])
 def search_doctors():
     try:
@@ -285,19 +301,18 @@ def search_doctors():
 @Application.route("/payment", methods=["POST"])
 def payment():
     try:
-        data = request.get_json()
+        data = request.get_json() or {}
 
         first_name = data.get("firstName")
         last_name = data.get("lastName")
         telephone = data.get("telephone")
-        hospital_fee_selected = data.get("hospitalFeeSelected")
-        doctor_fee_selected = data.get("doctorFeeSelected")
-        mlt_fee_selected = data.get("mltFeeSelected")
-        radiologist_fee_selected = data.get("radiologistFeeSelected")
-        optician_fee_selected = data.get("opticianFeeSelected")
+        hospital_fee_selected = bool(data.get("hospitalFeeSelected"))
+        doctor_fee_selected = bool(data.get("doctorFeeSelected"))
+        mlt_fee_selected = bool(data.get("mltFeeSelected"))
+        radiologist_fee_selected = bool(data.get("radiologistFeeSelected"))
+        optician_fee_selected = bool(data.get("opticianFeeSelected"))
         additional_reason = data.get("additionalReason")
-        additional_charge = float(data.get("additionalCharge"))
-        total_amount = data.get("totalAmount")
+        additional_charge = float(data.get("additionalCharge") or 0)
         payment_date = data.get("paymentDate")
 
         # Validate required fields
@@ -325,25 +340,16 @@ def payment():
         telephone = telephone.strip()
 
         # Check if patient exists
-        patient = Patient.query.filter_by(
+        existing_patient = Patient.query.filter_by(
             first_name=first_name, last_name=last_name, telephone=telephone
         ).first()
 
         # Create patient only if not found
-        if not patient:
+        if not existing_patient:
             new_patient = Patient(
                 first_name=first_name,
                 last_name=last_name,
                 telephone=telephone,
-                # hospital_fee=None,
-                # doctor_fee=None,         
-                # mlt_fee=None,
-                # radiologist_fee=None,
-                # optician_fee=None,
-                # additional_reason=None,
-                # additional_charge=None,
-                # total_amount=None,
-                # payment_date=None,
             )
 
             Database.session.add(new_patient)
@@ -354,11 +360,11 @@ def payment():
             first_name=first_name,
             last_name=last_name,
             telephone=telephone,
-            hospital_fee=hospital_fee_selected,
-            doctor_fee=doctor_fee_selected,         
-            mlt_fee=mlt_fee_selected,
-            radiologist_fee=radiologist_fee_selected,
-            optician_fee=optician_fee_selected,
+            hospital_fee=500 if hospital_fee_selected else 0,
+            doctor_fee=2000 if doctor_fee_selected else 0,
+            mlt_fee=1000 if mlt_fee_selected else 0,
+            radiologist_fee=1000 if radiologist_fee_selected else 0,
+            optician_fee=1000 if optician_fee_selected else 0,
             additional_reason=additional_reason,
             additional_charge=additional_charge,
             total_amount=total_amount,
@@ -376,14 +382,9 @@ def payment():
         return jsonify({"error": str(e)}), 500
 
             
-    
-
 # =========================
 # MAIN
 # =========================
-
-
-
 if __name__ == "__main__":
     with Application.app_context():
         Database.create_all()
