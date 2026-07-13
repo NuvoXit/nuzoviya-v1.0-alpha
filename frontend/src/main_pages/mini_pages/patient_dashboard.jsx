@@ -78,17 +78,17 @@ function PatientDashboard() {
                 <dd>{patient.address || '—'}</dd>
               </div>
 
-              {/* <div className="button-column">
-                <button type="button" className="dashboard-detail-row-edit" aria-label="Blood checkup">
-                  <span className="dashboard-detail-edit">Blood Checkup</span>
+              <div className="button-column">
+                <button type="button" className="dashboard-detail-row-edit" aria-label="Lab result">
+                  <span className="dashboard-detail-edit">Lab Result</span>
                 </button>
-                <button type="button" className="dashboard-detail-row-edit" aria-label="X Ray result">
+                {/* <button type="button" className="dashboard-detail-row-edit" aria-label="X Ray result">
                   <span className="dashboard-detail-edit">X‑Ray Result</span>
                 </button>
-                <button type="button" className="dashboard-detail-row-edit" aria-label="Lab results">
-                  <span className="dashboard-detail-edit">Lab Results</span>
-                </button>
-              </div> */}
+                <button type="button" className="dashboard-detail-row-edit" aria-label="Blood results">
+                  <span className="dashboard-detail-edit">Blood Results</span>
+                </button> */}
+              </div>
 
               <div className="dashboard-detail-row">
                 <dt>Telephone</dt>
