@@ -76,3 +76,12 @@ class OpticianForm:
         self.optician_first_name = optician_first_name
         self.optician_last_name = optician_last_name
         self.optician_full_name = f"{optician_first_name} {optician_last_name}"
+
+class LabRecordForm:
+    def __init__(self, test_id, patient_id, test_name, test_date, result):
+        self.test_id = test_id
+        self.patient_id = patient_id
+        self.test_name = test_name
+        self.test_date = test_date
+        self.result = result
+        

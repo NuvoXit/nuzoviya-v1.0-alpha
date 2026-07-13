@@ -98,22 +98,27 @@ function Testing_Patient() {
           ) : payments.length === 0 ? (
             <p style={{ padding: '12px 16px', color: '#888' }}>No patients on list</p>
           ) : (
-            payments.map((pa, i) => (
-              <div
-                key={pa.paymentId}
-                className={`consulting-list-row ${selected?.paymentId === pa.paymentId ? 'consulting-list-row--active' : ''}`}
-                onClick={() => handleSelect(pa)}
-                style={{ cursor: 'pointer' }}
-              >
-                <span className="consulting-list-num">{String(i + 1).padStart(2, '0')}</span>
-
-                <span className="consulting-list-id">{pa.patientTelephone}</span>
-
-                <span className="consulting-list-name">{pa.name}</span>
-
-                <span className="consulting-list-age">Age: {pa.age}</span>
+            <>
+              <div className="consulting-list-row consulting-list-row--header">
+                <span className="consulting-list-num">#</span>
+                <span className="consulting-list-id">Phone</span>
+                <span className="consulting-list-name">Patient Name</span>
+                <span className="consulting-list-age">Age</span>
               </div>
-            ))
+              {payments.map((pa, i) => (
+                <div
+                  key={pa.paymentId}
+                  className={`consulting-list-row ${selected?.paymentId === pa.paymentId ? 'consulting-list-row--active' : ''}`}
+                  onClick={() => handleSelect(pa)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className="consulting-list-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="consulting-list-id">{pa.patientTelephone}</span>
+                  <span className="consulting-list-name">{pa.name}</span>
+                  <span className="consulting-list-age">{pa.age}</span>
+                </div>
+              ))}
+            </>
           )}
         </div>
       </div>

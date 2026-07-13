@@ -3,6 +3,8 @@ from datetime import datetime
 from config import Database
 from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm import validates
+
+from PIL import Image 
 import enum
 
 # Date Validation Functions
@@ -266,8 +268,39 @@ class Payment(Database.Model):
 
 
 
+from sqlalchemy.orm import validates
 
+class LabRecord(Database.Model):
+    __tablename__ = "lab_records"
 
+    test_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    patient_id = Database.Column(Database.Integer, Database.ForeignKey("patient.patient_id"), nullable=False)
+    test_name = Database.Column(Database.String(100), nullable=False)
+    test_date = Database.Column(Database.Date, nullable=False)
+
+    # Stores the lab report image path or filename
+    result = Database.Column(Database.String(500), nullable=True)
+
+    
+
+    @validates("test_date")
+    def validate_test_date(self, key, value):
+        return _to_date(value)
+
+    def __repr__(self):
+        return f"<LabRecord {self.lab_record_id}>"
+
+    def to_dict(self):
+        return {
+            "lab_record_id": self.lab_record_id,
+            "patient_id": self.patient_id,
+            "test_name": self.test_name,
+            "test_date": self.test_date.isoformat() if self.test_date else None,
+            "result": self.result,
+        }
+
+    def to_json(self):
+        return self.to_dict()
 
 
 

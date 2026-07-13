@@ -1,10 +1,11 @@
 from flask import request, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import or_
+from datetime import date
 from config import Application, Database
 from admin import init_admin
 from models import Patient, Booking, Login, Payment, UserRole, Doctor, Nurse
-
+from models import LabRecord
 
 # =========================
 # ROUTES
@@ -83,6 +84,14 @@ def add_patient():
 def all_patients():
     patients = Patient.query.all()
     return jsonify([p.to_dict() for p in patients])
+
+
+@Application.route("/patient/<int:patient_id>", methods=["GET"])
+def get_patient(patient_id):
+    patient = Patient.query.get(patient_id)
+    if not patient:
+        return jsonify({"error": "Patient not found"}), 404
+    return jsonify(patient.to_dict())
 
 
 # =========================
@@ -216,6 +225,7 @@ def all_nurses():
     nurses = Nurse.query.all()
     return jsonify([n.to_dict() for n in nurses])
 
+# @Application.route("payment/all_payments", methods=["GET"])
 
 @Application.route("/login", methods=["POST"])
 def login():
@@ -381,7 +391,51 @@ def payment():
         Database.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-            
+
+@Application.route("/MLT_Records", methods=["POST"])
+def MLT_Records():
+    try:
+        patient_id = request.form.get("patientId")
+        test_name = request.form.get("testName")
+        test_result_file = request.files.get("testResult")
+        
+        # Validate required fields
+        if not all([patient_id, test_name, test_result_file]):
+            return jsonify({"error": "Missing required fields"}), 400
+        
+        # Check if patient exists
+        patient = Patient.query.get(patient_id)
+        if not patient:
+            return jsonify({"error": "Patient not found"}), 404
+        
+        # Save uploaded file
+        import os
+        from werkzeug.utils import secure_filename
+        
+        upload_folder = "static/uploads/lab_reports"
+        os.makedirs(upload_folder, exist_ok=True)
+        
+        filename = secure_filename(test_result_file.filename)
+        filepath = os.path.join(upload_folder, filename)
+        test_result_file.save(filepath)
+        
+        # Create lab record
+        new_lab_record = LabRecord(
+            patient_id=patient_id,
+            test_name=test_name,
+            test_date=date.today(),
+            result=filename
+        )
+        
+        Database.session.add(new_lab_record)
+        Database.session.commit()
+        
+        return jsonify({"message": "Lab record created successfully", "test_id": new_lab_record.test_id}), 201
+    
+    except Exception as e:
+        Database.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 # =========================
 # MAIN
 # =========================
