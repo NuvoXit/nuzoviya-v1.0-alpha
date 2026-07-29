@@ -100,11 +100,10 @@ function AddPatient() {
   return (
     <div className="add-patient-main-content">
       <div className="add-patient-page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          {' '}
-          ←
-        </button>
         <h3>Adding New Patient</h3>
+        <button className="back-btn" onClick={() => navigate(-1)}>
+          ← Back
+        </button>
       </div>
 
       <div className="add-patient-form">

@@ -28,14 +28,25 @@ function getNow() {
 
 function Testing_Patient() {
   const navigate = useNavigate();
-
+  const role = localStorage.getItem('role');
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
+    // Determine which payment endpoint to fetch based on role
+    let paymentUrl = '';
+    if (role === 'MLT') {
+      paymentUrl = 'http://127.0.0.1:5000/payments/mlt';
+    } else if (role === 'Radiologist') {
+      paymentUrl = 'http://127.0.0.1:5000/payments/radiologist';
+    } else {
+      setLoading(false);
+      return;
+    }
+
     Promise.all([
-      fetch('http://127.0.0.1:5000/payments/mlt').then((r) => r.json()),
+      fetch(paymentUrl).then((r) => r.json()),
       fetch('http://127.0.0.1:5000/patient/all_patients').then((r) => r.json()),
     ])
       .then(([paymentsData, patientsData]) => {
@@ -60,7 +71,6 @@ function Testing_Patient() {
             patientTelephone: payment.telephone,
             name: patient ? `${patient.first_name} ${patient.last_name}` : `${payment.first_name || ''} ${payment.last_name || ''}`,
             age: patient ? calcAge(patient.dob) : '—',
-            mlt_fee: payment.mlt_fee,
           };
         });
 
@@ -71,12 +81,12 @@ function Testing_Patient() {
         console.error('Failed to load data:', err);
         setLoading(false);
       });
-  }, []);
+  }, [role]);
 
   const handleSelect = (pa) => {
     setSelected(pa);
     if (pa.patientId) {
-      navigate(`/patient_test/${pa.patientId}/test_files`);
+      navigate(`/diagnostic_services_patient_list/${pa.patientId}/test_files`);
     }
   };
 

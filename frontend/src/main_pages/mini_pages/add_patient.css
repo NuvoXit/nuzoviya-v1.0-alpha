@@ -1,8 +1,16 @@
-.add-patient-main-content { padding: 10px 0; }
+/* ══════════════════════════════════════════════
+   Add Patient — White & Green Glass Form
+   ══════════════════════════════════════════════ */
+
+.add-patient-main-content {
+  padding: 10px 0;
+  animation: fadeInUp 0.4s ease forwards;
+}
 
 .add-patient-page-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
   margin-bottom: 24px;
 }
@@ -11,13 +19,36 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-dark);
+}
+
+.back-btn {
+  text-decoration: none;
+  padding: 8px 16px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.back-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
 }
 
 .add-patient-form {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
   padding: 28px;
   box-shadow: var(--shadow);
   display: grid;
@@ -25,8 +56,14 @@
   gap: 18px 24px;
 }
 
-.add-patient-form-row { display: flex; flex-direction: column; }
-.add-patient-form-row.full { grid-column: span 2; }
+.add-patient-form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-patient-form-row.full {
+  grid-column: span 2;
+}
 
 .add-patient-form-row label {
   font-size: 12px;
@@ -39,21 +76,21 @@
 
 .add-patient-form-row input {
   width: 100%;
-  padding: 10px 13px;
+  padding: 11px 14px;
   border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 14px;
   background: var(--surface-alt);
   box-sizing: border-box;
   outline: none;
-  transition: border-color .2s, box-shadow .2s;
-  color: #1e293b;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  color: var(--text);
 }
 
 .add-patient-form-row input:focus {
   border-color: var(--primary);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(14,165,233,.12);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
 }
 
 .add-patient-form-actions {
@@ -64,30 +101,43 @@
 }
 
 .add-patient-form-actions button {
-  padding: 10px 22px;
-  border-radius: 8px;
+  padding: 11px 24px;
+  border-radius: var(--radius);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: opacity .2s, transform .15s;
+  transition: all .2s ease;
 }
 
-.add-patient-form-actions button[type="submit"] {
-  background: var(--primary);
+.add-patient-form-actions .btn:first-child {
+  background: var(--gradient-green);
   color: #fff;
-  box-shadow: 0 3px 10px rgba(14,165,233,.3);
+  box-shadow: var(--shadow-green);
 }
 
-.add-patient-form-actions button[type="reset"] {
-  background: var(--surface-alt);
-  color: var(--text-muted);
-  border: 1.5px solid var(--border);
+.add-patient-form-actions .btn:first-child:hover {
+  box-shadow: var(--shadow-green-lg);
+  transform: translateY(-2px);
 }
 
-.add-patient-form-actions button:hover { opacity: .88; transform: translateY(-1px); }
+.add-patient-form-actions .btn:last-child {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid var(--border);
+}
+
+.add-patient-form-actions button:hover {
+  opacity: .92;
+}
 
 @media (max-width: 700px) {
-  .add-patient-form { grid-template-columns: 1fr; }
-  .add-patient-form-row.full, .add-patient-form-actions { grid-column: span 1; }
+  .add-patient-form {
+    grid-template-columns: 1fr;
+  }
+
+  .add-patient-form-row.full,
+  .add-patient-form-actions {
+    grid-column: span 1;
+  }
 }

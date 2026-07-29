@@ -1,85 +1,487 @@
-.login-container {
+/* ══════════════════════════════════════════════
+   Login Page - Split Screen Glassmorphism
+   Desktop + Mobile Responsive
+   ══════════════════════════════════════════════ */
+
+/* ===========================
+   MAIN LOGIN WRAPPER
+=========================== */
+
+.login-background {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+/* ===========================
+   LEFT SIDE - LOGO AREA (60%)
+=========================== */
+
+.login-logo {
+  width: 60%;
+  height: 100vh;
+
+  background: #ffffff;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #38bdf8 100%);
-  font-family: 'Inter', sans-serif;
+
+  overflow: hidden;
+
+  padding: 40px;
 }
 
-.login-form {
-  background: #ffffff;
-  padding: 40px 36px;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(2,132,199,.25);
-  width: 100%;
-  max-width: 400px;
+/* Logo Image */
+
+.logo-image {
+  width: auto;
+  height: auto;
+
+  max-width: 550px;
+  max-height: 75vh;
+
+  object-fit: contain;
+}
+
+/* Optional Logo Text */
+
+.logo-text {
+  margin-top: 20px;
+
+  font-size: 26px;
+  font-weight: 800;
+
+  color: #15803d;
+
   text-align: center;
 }
 
-.login-form h2 {
-  margin: 0 0 28px;
-  color: #0f172a;
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+/* ===========================
+   RIGHT SIDE - LOGIN AREA (40%)
+=========================== */
+
+.login-container {
+  width: 40%;
+  height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background: linear-gradient(135deg, #15803d 0%, #22c55e 30%, #4ade80 70%, #bbf7d0 100%);
 }
 
+/* ===========================
+   FLOATING GREEN LIGHT EFFECT
+=========================== */
+
+.login-container::before,
+.login-container::after {
+  content: '';
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(80px);
+
+  opacity: 0.35;
+
+  animation: float 8s ease-in-out infinite;
+}
+
+.login-container::before {
+  width: 420px;
+  height: 420px;
+
+  background: #4ade80;
+
+  top: -150px;
+  left: -150px;
+}
+
+.login-container::after {
+  width: 380px;
+  height: 380px;
+
+  background: #86efac;
+
+  bottom: -120px;
+  right: -120px;
+
+  animation-delay: -4s;
+}
+
+/* Floating Animation */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+}
+
+/* ===========================
+   LOGIN GLASS FORM
+=========================== */
+
+.login-form {
+  position: relative;
+
+  z-index: 2;
+
+  width: 90%;
+
+  max-width: 430px;
+
+  padding: 48px 42px;
+
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  backdrop-filter: blur(24px) saturate(180%);
+
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 8px 32px rgba(22, 163, 74, 0.12),
+    0 24px 60px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Form Animation */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   TITLE
+=========================== */
+
+.login-form h2 {
+  margin: 0 0 30px;
+
+  color: #14532d;
+
+  font-size: 30px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+}
+
+/* ===========================
+   FORM GROUP
+=========================== */
+
 .login-form-group {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+
   text-align: left;
 }
 
 .login-form-group label {
   display: block;
-  margin-bottom: 6px;
-  color: #374151;
-  font-weight: 600;
-  font-size: 13px;
+
+  margin-bottom: 8px;
+
+  color: #1e4620;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
   text-transform: uppercase;
-  letter-spacing: .4px;
+
+  letter-spacing: 0.6px;
 }
 
-.login-form-group input[type="text"],
-.login-form-group input[type="password"],
+/* ===========================
+   INPUT + SELECT
+=========================== */
+
+.login-form-group input,
 .login-form-group select {
   width: 100%;
-  padding: 12px 14px;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 14px;
-  background: #f8fafc;
-  outline: none;
+
+  padding: 14px 16px;
+
   box-sizing: border-box;
-  transition: border-color .2s, box-shadow .2s;
-  color: #1e293b;
+
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.6);
+
+  backdrop-filter: blur(8px);
+
+  -webkit-backdrop-filter: blur(8px);
+
+  outline: none;
+
+  font-size: 14.5px;
+
+  color: #1f2937;
+
+  transition: 0.25s;
+
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
 }
+
+.login-form-group input::placeholder {
+  color: #6b7280;
+}
+
+/* Focus Effect */
 
 .login-form-group input:focus,
 .login-form-group select:focus {
-  border-color: #0ea5e9;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(14,165,233,.12);
+  border-color: #22c55e;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 0 0 4px rgba(34, 197, 94, 0.15),
+    inset 0 2px 4px rgba(0, 0, 0, 0.02);
 }
+
+/* ===========================
+   LOGIN BUTTON
+=========================== */
 
 .login-form button {
   width: 100%;
-  padding: 13px;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
+
+  padding: 15px;
+
+  margin-top: 12px;
+
   border: none;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
+
+  border-radius: 12px;
+
   cursor: pointer;
-  margin-top: 8px;
-  transition: opacity .2s, transform .15s, box-shadow .2s;
-  box-shadow: 0 4px 14px rgba(14,165,233,.35);
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.3px;
+
+  background: linear-gradient(135deg, #15803d, #22c55e);
+
+  transition: 0.25s;
+
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
 }
 
 .login-form button:hover {
-  opacity: .93;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(14,165,233,.4);
+  transform: translateY(-2px);
+
+  box-shadow: 0 15px 35px rgba(34, 197, 94, 0.4);
+}
+
+.login-form button:active {
+  transform: translateY(0);
+
+  box-shadow: 0 3px 10px rgba(34, 197, 94, 0.25);
+}
+
+/* ===========================
+   TABLET RESPONSIVE
+=========================== */
+
+@media (max-width: 992px) {
+  .login-background {
+    flex-direction: column;
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: auto;
+  }
+
+  /* Logo Area */
+
+  .login-logo {
+    width: 100%;
+
+    height: 35vh;
+
+    padding: 20px;
+  }
+
+  .logo-image {
+    max-width: 320px;
+
+    max-height: 28vh;
+
+    object-fit: contain;
+  }
+
+  /* Login Area */
+
+  .login-container {
+    width: 100%;
+
+    height: 65vh;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+  }
+
+  .login-form {
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 40px 30px;
+  }
+}
+
+/* ===========================
+   MOBILE PHONE
+=========================== */
+
+@media (max-width: 576px) {
+  .login-background {
+    min-height: 100vh;
+
+    flex-direction: column;
+  }
+
+  /* Logo Section */
+
+  .login-logo {
+    width: 100%;
+
+    height: 30vh;
+
+    padding: 15px;
+  }
+
+  .logo-image {
+    width: auto;
+
+    max-width: 220px;
+
+    max-height: 22vh;
+  }
+
+  /* Gradient Login Section */
+
+  .login-container {
+    width: 100%;
+
+    height: 70vh;
+
+    padding: 15px;
+  }
+
+  /* Login Card */
+
+  .login-form {
+    width: 100%;
+
+    max-width: none;
+
+    padding: 30px 20px;
+
+    border-radius: 20px;
+  }
+
+  .login-form h2 {
+    font-size: 24px;
+
+    margin-bottom: 22px;
+  }
+
+  .login-form-group {
+    margin-bottom: 15px;
+  }
+
+  .login-form-group label {
+    font-size: 11px;
+  }
+
+  .login-form-group input,
+  .login-form-group select {
+    padding: 12px 14px;
+
+    font-size: 14px;
+  }
+
+  .login-form button {
+    padding: 13px;
+
+    font-size: 14px;
+  }
+}
+
+/* ===========================
+   SMALL PHONES
+   (iPhone SE / 320px width)
+=========================== */
+
+@media (max-width: 380px) {
+  .login-logo {
+    height: 25vh;
+  }
+
+  .logo-image {
+    max-width: 180px;
+
+    max-height: 18vh;
+  }
+
+  .login-container {
+    height: 75vh;
+  }
+
+  .login-form {
+    padding: 25px 15px;
+  }
+
+  .login-form h2 {
+    font-size: 22px;
+  }
 }

@@ -1,10 +1,16 @@
+/* ══════════════════════════════════════════════
+   Payment Page — White & Green Glass Form
+   ══════════════════════════════════════════════ */
+
 .booking-patient-main-content {
   padding: 10px 0;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 .booking-patient-page-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
   margin-bottom: 24px;
 }
@@ -13,20 +19,36 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-dark);
 }
 
 .back-btn {
   text-decoration: none;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.back-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
 }
 
 .booking-patient-form {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
   padding: 28px;
   box-shadow: var(--shadow);
   display: grid;
@@ -62,23 +84,21 @@
 
 .booking-patient-form-row input {
   width: 100%;
-  padding: 10px 13px;
+  padding: 11px 14px;
   border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 14px;
   background: var(--surface-alt);
   box-sizing: border-box;
   outline: none;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-  color: #1e293b;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  color: var(--text);
 }
 
 .booking-patient-form-row input:focus {
   border-color: var(--primary);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
 }
 
 /* Doctor Search */
@@ -87,9 +107,11 @@
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius);
   max-height: 200px;
   overflow-y: auto;
   z-index: 10;
@@ -104,7 +126,7 @@
   cursor: pointer;
   font-size: 14px;
   border-bottom: 1px solid var(--border);
-  transition: background 0.12s;
+  transition: background 0.15s;
 }
 
 .doctor-suggestions li:hover {
@@ -119,16 +141,16 @@
 /* Payment Section */
 .payment-section {
   grid-column: span 2;
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px;
+  background: var(--primary-lighter);
+  border: 1px solid var(--border-green);
+  border-radius: var(--radius-lg);
+  padding: 20px;
 }
 
 .payment-section-title {
   font-size: 13px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-dark);
   margin-bottom: 14px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -163,7 +185,7 @@
 
 /* Total Amount */
 .total-amount {
-  background: #f0f9ff !important;
+  background: var(--primary-lighter) !important;
   border: 1.5px solid var(--primary) !important;
   color: var(--primary-dark);
   font-weight: 700;
@@ -179,36 +201,40 @@
 }
 
 .booking-patient-form-actions .btn {
-  padding: 10px 22px;
+  padding: 11px 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    opacity 0.2s,
-    transform 0.15s;
+  transition: all .2s ease;
 }
 
 .booking-patient-form-actions .btn:first-child {
-  background: var(--primary);
+  background: var(--gradient-green);
   color: white;
-  box-shadow: 0 3px 10px rgba(14, 165, 233, 0.3);
+  box-shadow: var(--shadow-green);
+}
+
+.booking-patient-form-actions .btn:first-child:hover {
+  box-shadow: var(--shadow-green-lg);
+  transform: translateY(-2px);
 }
 
 .booking-patient-form-actions .btn:last-child {
-  background: #e2e8f0;
-  color: #334155;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid var(--border);
 }
 
-.booking-patient-form-actions .btn:hover {
-  opacity: 0.88;
-  transform: translateY(-1px);
+.booking-patient-form-actions .btn:last-child:hover {
+  background: #e2e8f0;
 }
 
 .booking-patient-form-actions .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 /* Mobile */

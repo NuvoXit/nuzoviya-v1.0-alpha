@@ -3,7 +3,7 @@ from datetime import datetime
 from config import Database
 from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm import validates
-
+from pypdf import PdfReader
 from PIL import Image 
 import enum
 
@@ -108,7 +108,6 @@ class UserRole(enum.Enum):
     Nurse = "Nurse"
     MLT = "MLT"
     Radiologist = "Radiologist"
-    Optician = "Optician"
 
 
 
@@ -144,8 +143,7 @@ class Login(Database.Model):
 class Doctor(Database.Model):
     __tablename__ = 'doctor'
 
-    doctor_id = Database.Column(
-        Database.Integer, primary_key=True, autoincrement=True)
+    doctor_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
     doctor_first_name = Database.Column(Database.String(50), nullable=False)
     doctor_last_name = Database.Column(Database.String(50), nullable=False)
 
@@ -200,7 +198,6 @@ class Payment(Database.Model):
     DOCTOR_FEE = 2000
     MLT_FEE = 1000
     RADIOLOGIST_FEE = 1000
-    OPTICIAN_FEE = 1000
 
 
 
@@ -214,7 +211,6 @@ class Payment(Database.Model):
     doctor_fee = Database.Column(Database.Integer, default=DOCTOR_FEE)
     mlt_fee = Database.Column(Database.Integer, default=MLT_FEE)
     radiologist_fee = Database.Column(Database.Integer, default=RADIOLOGIST_FEE)
-    optician_fee = Database.Column(Database.Integer, default=OPTICIAN_FEE)
 
 
     additional_reason = Database.Column(Database.String(200), nullable=True)
@@ -252,7 +248,6 @@ class Payment(Database.Model):
             "doctor_fee": self.doctor_fee,
             "mlt_fee": self.mlt_fee,
             "radiologist_fee": self.radiologist_fee,
-            "optician_fee": self.optician_fee,
             "additional_reason": self.additional_reason,
             "additional_charge": self.additional_charge,
             "total_amount": self.total_amount,
@@ -274,127 +269,63 @@ class LabRecord(Database.Model):
     __tablename__ = "lab_records"
 
     test_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
-    patient_id = Database.Column(Database.Integer, Database.ForeignKey("patient.patient_id"), nullable=False)
+    patient_id = Database.Column(Database.Integer, nullable=False)
+    patient_first_name = Database.Column(Database.String(100), nullable=False)
+    patient_last_name = Database.Column(Database.String(100), nullable=False)
     test_name = Database.Column(Database.String(100), nullable=False)
     test_date = Database.Column(Database.Date, nullable=False)
 
-    # Stores the lab report image path or filename
+    # Stores PDF or image file path
     result = Database.Column(Database.String(500), nullable=True)
-
-    
 
     @validates("test_date")
     def validate_test_date(self, key, value):
         return _to_date(value)
 
     def __repr__(self):
-        return f"<LabRecord {self.lab_record_id}>"
+        return f"<LabRecord {self.test_id}>"
 
     def to_dict(self):
         return {
-            "lab_record_id": self.lab_record_id,
+            "test_id": self.test_id,
             "patient_id": self.patient_id,
+            "patient_first_name": self.patient_first_name,
+            "patient_last_name": self.patient_last_name,
             "test_name": self.test_name,
             "test_date": self.test_date.isoformat() if self.test_date else None,
             "result": self.result,
         }
 
-    def to_json(self):
-        return self.to_dict()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class XrayRecord(Database.Model):
+    __tablename__ = "xray_records"
+
+    xray_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    patient_id = Database.Column(Database.Integer, nullable=False)
+    patient_first_name = Database.Column(Database.String(100), nullable=False)
+    patient_last_name = Database.Column(Database.String(100), nullable=False)
+    xray_type = Database.Column(Database.String(100), nullable=False)
+    xray_date = Database.Column(Database.Date, nullable=False)
+
+
+    xray_result = Database.Column(Database.String(500), nullable=True)
+
+    @validates("xray_date")
+    def validate_xray_date(self, key, value):
+        return _to_date(value)
+
+    def __repr__(self):
+        return f"<XrayRecord {self.xray_id}>"
+
+    def to_dict(self):
+        return {
+            "xray_id": self.xray_id,
+            "patient_id": self.patient_id,
+            "patient_first_name": self.patient_first_name,
+            "patient_last_name": self.patient_last_name,
+            "xray_type": self.xray_type,
+            "xray_date": self.xray_date.isoformat() if self.xray_date else None,
+            "xray_result": self.xray_result,
+        }
 
 
 
@@ -442,24 +373,64 @@ class Radiologist(Database.Model):
             "radiologist_full_name": self.radiologist_full_name
         }
 
-class Optician(Database.Model):
-    __tablename__ = 'optician'
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import validates
 
-    optician_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
-    optician_first_name = Database.Column(Database.String(50), nullable=False)
-    optician_last_name = Database.Column(Database.String(50), nullable=False)
 
-    @property
-    def optician_full_name(self):
-        return f"{self.optician_first_name} {self.optician_last_name}"
+class DoctorSchedule(Database.Model):
+    __tablename__ = "doctor_schedule"
 
-    def __repr__(self):
-        return f"<Optician {self.optician_full_name}>"
+    schedule_id = Database.Column(Database.Integer, primary_key=True, autoincrement=True)
+    doctor_id = Database.Column(
+        Database.Integer,
+        ForeignKey("doctor.doctor_id"),
+        nullable=False
+    )
+    # Stored as a plain string instead of a ForeignKey to a @property,
+    # because SQLAlchemy cannot create foreign keys referencing dynamic properties.
+    doctor_full_name = Database.Column(
+        Database.String(100),
+        nullable=False
+    )
+
+    available_date = Database.Column(
+        Database.Date,
+        nullable=False
+    )
+
+    available_initial_time = Database.Column(
+        Database.Time,
+        nullable=False
+    )
+
+    available_final_time = Database.Column(
+        Database.Time,
+        nullable=False
+    )
+
+    @validates("available_date")
+    def validate_available_date(self, key, value):
+        return _to_date(value)
+
+    @validates("available_initial_time", "available_final_time")
+    def validate_available_time(self, key, value):
+        return _to_time(value)
 
     def to_dict(self):
         return {
-            "optician_id": self.optician_id,
-            "first_name": self.optician_first_name,
-            "last_name": self.optician_last_name,
-            "optician_full_name": self.optician_full_name
+            "schedule_id": self.schedule_id,
+            "doctor_id": self.doctor_id,
+            "doctor_full_name": self.doctor_full_name,
+            "available_date": (
+                self.available_date.isoformat()
+                if self.available_date else None
+            ),
+            "available_initial_time": (
+                self.available_initial_time.strftime("%H:%M:%S")
+                if self.available_initial_time else None
+            ),
+            "available_final_time": (
+                self.available_final_time.strftime("%H:%M:%S")
+                if self.available_final_time else None
+            )
         }

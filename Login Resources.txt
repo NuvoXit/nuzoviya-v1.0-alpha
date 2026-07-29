@@ -30,3 +30,53 @@
 #             Doctor(doctor_first_name="Emma", doctor_last_name="Brown"),
 #         ])
 #         Database.session.commit()
+
+
+
+<table border="1" cellPadding="10">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Lab Report</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {bookings.map((booking) => {
+            const labRecord = labResults.find((lab) => lab.patient_first_name === booking.first_name && lab.patient_last_name === booking.last_name);
+
+            return (
+              <tr key={booking.booking_id || booking.id}>
+                <td>{booking.booking_id || booking.id}</td>
+
+                <td>
+                  {booking.first_name} {booking.last_name}
+                </td>
+
+                <td>{booking.doctor_name}</td>
+
+                <td>
+                  {labRecord ? (
+                    <>
+                      <Document file={`http://127.0.0.1:5000/lab_reports/${labRecord.result}`} onLoadError={(err) => console.log(err)}>
+                        <Page pageNumber={1} width={200} />
+                      </Document>
+
+                      <br />
+
+                      <a href={`http://127.0.0.1:5000/lab_reports/${labRecord.result}`} target="_blank" rel="noopener noreferrer">
+                        Open PDF
+                      </a>
+                    </>
+                  ) : (
+                    'No PDF'
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </section>

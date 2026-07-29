@@ -133,11 +133,10 @@ function Payment() {
   return (
     <div className="booking-patient-main-content">
       <div className="booking-patient-page-header">
-        <Link to="/booking" className="back-btn">
-          ←
-        </Link>
-
         <h3>Payment Details</h3>
+        <Link to="/booking" className="back-btn">
+          ← Back
+        </Link>
       </div>
 
       <div className="booking-patient-form">
@@ -161,68 +160,72 @@ function Payment() {
 
         <br></br>
 
-        <div className="booking-patient-form-row">
-          <label>Payment Items</label>
+        <div className="booking-patient-form-row payment-section">
+          <h4 className="payment-section-title">Payment Items</h4>
 
-          <label>
-            <input
-              type="checkbox"
-              checked={form.hospitalFeeSelected}
-              onChange={(e) =>
-                setForm((prev) => ({
-                  ...prev,
+          <div className="payment-option">
+            <label>
+              <input
+                type="checkbox"
+                checked={form.hospitalFeeSelected}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    hospitalFeeSelected: e.target.checked,
+                  }))
+                }
+              />
+              Hospital Fee (Rs.500)
+            </label>
+          </div>
 
-                  hospitalFeeSelected: e.target.checked,
-                }))
-              }
-            />
-            Hospital Fee (Rs.500)
-          </label>
+          <div className="payment-option">
+            <label>
+              <input
+                type="checkbox"
+                checked={form.doctorFeeSelected}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    doctorFeeSelected: e.target.checked,
+                  }))
+                }
+              />
+              Doctor Fee (Rs.2000)
+            </label>
+          </div>
 
-          <label>
-            <input
-              type="checkbox"
-              checked={form.doctorFeeSelected}
-              onChange={(e) =>
-                setForm((prev) => ({
-                  ...prev,
+          <div className="payment-option">
+            <label>
+              <input
+                type="checkbox"
+                checked={form.mltFeeSelected}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    mltFeeSelected: e.target.checked,
+                  }))
+                }
+              />
+              MLT Fee (Rs.1000)
+            </label>
+          </div>
 
-                  doctorFeeSelected: e.target.checked,
-                }))
-              }
-            />
-            Doctor Fee (Rs.2000)
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              checked={form.mltFeeSelected}
-              onChange={(e) =>
-                setForm((prev) => ({
-                  ...prev,
-
-                  mltFeeSelected: e.target.checked,
-                }))
-              }
-            />
-            MLT Fee (Rs.1000)
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              checked={form.radiologistFeeSelected}
-              onChange={(e) =>
-                setForm((prev) => ({
-                  ...prev,
-
-                  radiologistFeeSelected: e.target.checked,
-                }))
-              }
-            />
-            Radiologist Fee (Rs.1000)
-          </label>
+          <div className="payment-option">
+            <label>
+              <input
+                type="checkbox"
+                checked={form.radiologistFeeSelected}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    radiologistFeeSelected: e.target.checked,
+                  }))
+                }
+              />
+              Radiologist Fee (Rs.1000)
+            </label>
+          </div>
         </div>
         <br></br>
         <div className="booking-patient-form-row">

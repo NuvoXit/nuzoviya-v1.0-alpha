@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './surgical_procedure.css';
 
 function SurgicalProcedure() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [patient, setPatient] = useState(null);
   const [patientLoading, setPatientLoading] = useState(true);
@@ -45,12 +46,12 @@ function SurgicalProcedure() {
       .then((data) => {
         const mapped = Array.isArray(data)
           ? data.map((nurse) => ({
-              id: nurse.nurse_id,
+            id: nurse.nurse_id,
 
-              name: nurse.nurse_full_name,
+            name: nurse.nurse_full_name,
 
-              role: 'Nurse',
-            }))
+            role: 'Nurse',
+          }))
           : [];
 
         setNurses(mapped);
@@ -83,6 +84,14 @@ function SurgicalProcedure() {
 
   return (
     <section className="surgical-procedure-stage">
+      <div className="surgical-header">
+        <div>
+          <h2 className="surgical-title">Surgical Procedure</h2>
+        </div>
+        <button className="surgical-back-btn" onClick={() => navigate(`/consult_patient_list/${id}/dashboard`)}>
+          ← Back
+        </button>
+      </div>
       <div className="surgical-box">
         <div className="patient-panel">
           <div className="patient-panel-row">

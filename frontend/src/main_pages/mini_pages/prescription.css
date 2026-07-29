@@ -1,3 +1,7 @@
+/* ══════════════════════════════════════════════
+   Prescription — White & Green Glass Form
+   ══════════════════════════════════════════════ */
+
 .prescription-section {
   width: 100%;
   padding: 16px 0 28px;
@@ -5,6 +9,7 @@
   flex-direction: column;
   gap: 20px;
   box-sizing: border-box;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 .prescription-header {
@@ -18,7 +23,7 @@
 .prescription-title {
   font-size: 28px;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-dark);
   margin: 0;
 }
 
@@ -31,14 +36,16 @@
 
 .prescription-back-btn {
   padding: 12px 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
   color: var(--text-muted);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background .18s, border-color .18s, transform .1s;
+  transition: all .2s ease;
 }
 
 .prescription-back-btn:hover {
@@ -60,10 +67,12 @@
   width: 100%;
   max-width: 1100px;
   margin: 0;
-  border-radius: 24px;
+  border-radius: var(--radius-2xl);
   padding: 32px;
-  border: 1px solid var(--border);
-  background: var(--surface);
+  border: 1px solid var(--border-glass);
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -73,18 +82,34 @@
 .form_prescription legend {
   font-size: 20px;
   font-weight: 700;
-  color: #0284c7;
+  color: var(--primary-dark);
   padding: 0 10px;
 }
 
 .form_prescription h2,
 .form_prescription p,
-.form_buttons { grid-column: 1 / -1; margin: 0; }
+.form_buttons {
+  grid-column: 1 / -1;
+  margin: 0;
+}
 
-.form_prescription h2 { font-size: 22px; color: #0f172a; font-weight: 700; }
-.form_prescription > fieldset > p { color: var(--text-muted); font-size: 14px; margin-top: 8px; }
+.form_prescription h2 {
+  font-size: 22px;
+  color: var(--text-dark);
+  font-weight: 700;
+}
 
-.form_group { display: flex; flex-direction: column; gap: 10px; }
+.form_prescription>fieldset>p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
 .form_group label {
   font-size: 12px;
@@ -99,26 +124,33 @@
   width: 100%;
   padding: 14px 16px;
   border: 1.5px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   background: var(--surface-alt);
   font-size: 15px;
   outline: none;
   box-sizing: border-box;
-  transition: border-color .2s, box-shadow .2s;
+  transition: border-color .2s, box-shadow .2s, background .2s;
   font-family: inherit;
-  color: #1e293b;
+  color: var(--text);
 }
 
-.form_group textarea { resize: none; min-height: 120px; }
+.form_group textarea {
+  resize: none;
+  min-height: 120px;
+}
 
 .form_group input:focus,
 .form_group textarea:focus {
   border-color: var(--primary);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(14,165,233,.12);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
 }
 
-.form_buttons { display: flex; justify-content: flex-end; gap: 14px; }
+.form_buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
 
 .form_buttons button {
   padding: 12px 24px;
@@ -127,14 +159,19 @@
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity .2s, transform .15s;
+  transition: all .2s ease;
   font-family: inherit;
 }
 
 .form_buttons button[type="submit"] {
-  background: var(--primary);
+  background: var(--gradient-green);
   color: white;
-  box-shadow: 0 4px 14px rgba(14,165,233,.28);
+  box-shadow: var(--shadow-green);
+}
+
+.form_buttons button[type="submit"]:hover {
+  box-shadow: var(--shadow-green-lg);
+  transform: translateY(-2px);
 }
 
 .form_buttons button[type="reset"] {
@@ -143,15 +180,32 @@
   border: 1.5px solid var(--border);
 }
 
-.form_buttons button:hover { opacity: .92; transform: translateY(-1px); }
+.form_buttons button[type="reset"]:hover {
+  background: #f1f5f9;
+}
 
 @media (max-width: 950px) {
-  .form_prescription fieldset { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .form_prescription fieldset {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
-  .form_prescription fieldset { grid-template-columns: 1fr; }
-  .prescription-header { flex-direction: column; align-items: stretch; }
-  .form_buttons { flex-direction: column; align-items: stretch; }
-  .form_buttons button { width: 100%; }
+  .form_prescription fieldset {
+    grid-template-columns: 1fr;
+  }
+
+  .prescription-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form_buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form_buttons button {
+    width: 100%;
+  }
 }

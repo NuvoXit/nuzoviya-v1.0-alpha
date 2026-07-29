@@ -6,17 +6,17 @@ function Prescription() {
 
     return (
         <section className="prescription-section">
-            <div className="prescription-header">
+            <div className="prescription-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h1 className="prescription-title">Prescription</h1>
-                    <p className="prescription-description">Fill out the prescription details carefully and submit when you are ready.</p>
+                    <h1 className="prescription-title" style={{ margin: 0 }}>Prescription</h1>
+                    <p className="prescription-description" style={{ margin: 0 }}>Fill out the prescription details carefully and submit when you are ready.</p>
                 </div>
                 <button
                     type="button"
                     className="prescription-back-btn"
                     onClick={() => navigate('/consult_patient_list')}
                 >
-                    ← Back to Patient List
+                    ← Back
                 </button>
             </div>
 

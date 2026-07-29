@@ -68,13 +68,24 @@ function Consulting() {
         });
 
         const enriched = filteredBookings.map((b) => {
-          const p = patientMap[b.telephone];
+          // Try matching patient by telephone first
+          let p = patientMap[b.telephone];
+
+          // Fallback: match by first_name + last_name if telephone didn't match
+          if (!p) {
+            const allPatients = Array.isArray(patientsData) ? patientsData : [];
+            p = allPatients.find(
+              (pt) =>
+                normalize(pt.first_name) === normalize(b.first_name) &&
+                normalize(pt.last_name) === normalize(b.last_name)
+            );
+          }
 
           return {
             bookingId: b.booking_id,
 
-            // changed: patient id from Patients table (p)
-            patientId: p?.patient_id,
+            // Use patient_id from the matched patient, or booking_id as last fallback
+            patientId: p?.patient_id ?? b.patient_id ?? b.booking_id,
 
             patientTelephone: b.telephone,
 
@@ -96,22 +107,22 @@ function Consulting() {
   }, [role, username]);
 
   const handleSelect = (b) => {
+    if (!b.patientId) {
+      alert('Patient ID not found for this booking.');
+      return;
+    }
     setSelected(b);
-
     setActiveCheckups([]);
-
     navigate(`/consult_patient_list/${b.patientId}/dashboard`);
   };
 
   const toggleCheckup = (tag) => {
     if (!selected) return;
-
     setActiveCheckups((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   };
 
   const handleAction = (action) => {
     if (!selected) return;
-
     const base = `/consult_patient_list/${selected.patientId}/dashboard`;
 
     if (action === 'Prescription') {

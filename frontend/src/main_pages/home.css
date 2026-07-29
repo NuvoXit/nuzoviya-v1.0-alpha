@@ -1,12 +1,17 @@
+/* ══════════════════════════════════════════════
+   Home Page — White & Green Glass
+   ══════════════════════════════════════════════ */
+
 .home-container {
-  max-width: 860px;
+  max-width: 100%;
   padding: 0 0 24px;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 .home-container h1 {
   font-size: 26px;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: var(--text-dark);
   margin: 0 0 12px;
   letter-spacing: -0.4px;
 }
@@ -16,6 +21,7 @@
   line-height: 1.75;
   color: var(--text-muted);
   font-size: 14.5px;
+  text-align: justify;
 }
 
 .reviews {
@@ -27,17 +33,20 @@
 .review-card {
   flex: 1;
   min-width: 220px;
-  background: var(--surface);
-  border-radius: 14px;
-  padding: 20px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-lg);
+  padding: 22px;
   box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  transition: transform .2s ease, box-shadow .2s ease;
+  border: 1px solid var(--border-glass);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
 .review-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+  border-color: var(--border-green);
 }
 
 .review-top {
@@ -53,13 +62,14 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--primary-light);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.12);
 }
 
 .review-top h4 {
   margin: 0 0 2px;
   font-size: 15px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-dark);
 }
 
 .review-top span {
@@ -69,7 +79,7 @@
 
 .review-card p {
   color: #475569;
-  line-height: 1.6;
+  line-height: 1.65;
   font-size: 13.5px;
   margin: 0;
   font-style: italic;

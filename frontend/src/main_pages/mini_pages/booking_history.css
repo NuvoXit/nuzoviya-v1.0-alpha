@@ -1,11 +1,16 @@
+/* ══════════════════════════════════════════════
+   Booking History — White & Green Glass Table
+   ══════════════════════════════════════════════ */
+
 .booking-history-container {
   padding: 10px 0;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 .booking-history-container h2 {
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-dark);
   margin: 0 0 20px;
 }
 
@@ -13,14 +18,16 @@
   display: inline-block;
   text-decoration: none;
   padding: 8px 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
   color: var(--text-muted);
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 16px;
-  transition: background .15s, border-color .15s;
+  transition: all .2s ease;
 }
 
 .booking-history-back-btn:hover {
@@ -32,17 +39,21 @@
 .booking-history-container .booking_history_table {
   border-collapse: collapse;
   width: 100%;
-  background: var(--surface);
-  border-radius: 12px;
+  table-layout: fixed;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border-glass);
   margin: 0;
 }
 
 .booking-history-container th {
-  background: #0284c7;
+  background: var(--gradient-green);
   color: #fff;
-  padding: 12px 16px;
+  padding: 13px 16px;
   text-align: left;
   font-size: 12px;
   font-weight: 600;
@@ -50,15 +61,31 @@
   letter-spacing: .4px;
 }
 
+.booking-history-container th:first-child {
+  border-radius: var(--radius-lg) 0 0 0;
+}
+
+.booking-history-container th:last-child {
+  border-radius: 0 var(--radius-lg) 0 0;
+}
+
 .booking-history-container td {
-  padding: 11px 16px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--border);
   color: #334155;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.booking-history-container tr:last-child td { border-bottom: none; }
-.booking-history-container tr:hover td { background: #f0f9ff; }
+.booking-history-container tr:last-child td {
+  border-bottom: none;
+}
+
+.booking-history-container tr:hover td {
+  background: var(--primary-lighter);
+}
 
 .booking-history-container p {
   text-align: center;

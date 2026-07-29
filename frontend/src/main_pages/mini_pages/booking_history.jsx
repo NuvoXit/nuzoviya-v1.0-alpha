@@ -21,14 +21,16 @@ function BookingHistory() {
 
     return (
         <div className="booking-history-container" style={{ padding: "20px" }}>
-            <Link to="/booking" className="booking-history-back-btn" style={{ display: "inline-block", marginBottom: "16px" }}>
-                ← Back
-            </Link>
-            <h2>Booking History</h2>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                <h2 style={{ margin: 0 }}>Booking History</h2>
+                <Link to="/booking" className="booking-history-back-btn" style={{ display: "inline-block", margin: 0 }}>
+                    ← Back
+                </Link>
+            </div>
 
             {loading ? (<p>Loading...</p>) : bookings.length === 0 ? (<p>No bookings found</p>) : (
 
-                <table className="booking_history_table" border="1" cellPadding="10" style={{ width: "100%", marginTop: "12px" }}>
+                <table className="booking_history_table">
                     <thead>
                         <tr>
                             <th>ID</th>

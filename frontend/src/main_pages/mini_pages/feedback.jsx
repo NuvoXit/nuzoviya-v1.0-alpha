@@ -46,16 +46,16 @@ function Feedback() {
 
     return (
         <section className="feedback-section">
-            <div className="feedback-page-header">
+            <div className="feedback-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h1 className="feedback-page-title">Feedback</h1>
-                    <p className="feedback-page-copy">
+                    <h1 className="feedback-page-title" style={{ margin: 0 }}>Feedback</h1>
+                    <p className="feedback-page-copy" style={{ margin: 0 }}>
                         Send a message for the selected patient and attach a stamp image if needed.
                     </p>
                 </div>
 
                 <button className="feedback-back-btn" onClick={() => navigate('/consult_patient_list')}>
-                    ← Back to patient Dashboard
+                    ← Back
                 </button>
             </div>
 

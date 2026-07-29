@@ -20,7 +20,7 @@ class BookingForm:
         self.appointment_time = appointment_time
 
 class PaymentForm:
-    def __init__(self, payment_id, first_name, last_name, telephone, hospital_fee, doctor_fee, mlt_fee, radiologist_fee, optician_fee, additional_reason, additional_charge, total_amount, payment_date):
+    def __init__(self, payment_id, first_name, last_name, telephone, hospital_fee, doctor_fee, mlt_fee, radiologist_fee, additional_reason, additional_charge, total_amount, payment_date):
         self.payment_id = payment_id
         self.first_name = first_name
         self.last_name = last_name
@@ -29,7 +29,7 @@ class PaymentForm:
         self.doctor_fee = doctor_fee
         self.mlt_fee = mlt_fee
         self.radiologist_fee = radiologist_fee
-        self.optician_fee = optician_fee
+
         self.additional_reason = additional_reason
         self.additional_charge = additional_charge
         self.total_amount = total_amount
@@ -70,18 +70,24 @@ class RadiologistForm:
         self.radiologist_last_name = radiologist_last_name
         self.radiologist_full_name = f"{radiologist_first_name} {radiologist_last_name}"
 
-class OpticianForm:
-    def __init__(self, optician_id, optician_first_name, optician_last_name):
-        self.optician_id = optician_id
-        self.optician_first_name = optician_first_name
-        self.optician_last_name = optician_last_name
-        self.optician_full_name = f"{optician_first_name} {optician_last_name}"
+
 
 class LabRecordForm:
-    def __init__(self, test_id, patient_id, test_name, test_date, result):
+    def __init__(self, test_id, patient_id, patient_first_name, patient_last_name, test_name, test_date, result):
         self.test_id = test_id
         self.patient_id = patient_id
+        self.patient_first_name = patient_first_name
+        self.patient_last_name = patient_last_name
         self.test_name = test_name
         self.test_date = test_date
         self.result = result
-        
+
+class DoctorScheduleForm:
+    def __init__(self, schedule_id, doctor_id, doctor_full_name, available_date, available_initial_time, available_final_time):         
+        self.schedule_id = schedule_id
+        self.doctor_id = doctor_id
+        self.doctor_full_name = doctor_full_name
+        self.available_date = available_date
+        self.available_initial_time = available_initial_time
+        self.available_final_time = available_final_time
+            

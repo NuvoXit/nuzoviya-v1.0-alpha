@@ -53,10 +53,10 @@ function AllPatient() {
 
     return (
         <div className="all-patient-container" >
-            <div className="all-patient-header-row">
+            <div className="all-patient-header-row" style={{ justifyContent: "space-between" }}>
+                <h2>All Patients</h2>
                 <Link to="/patient" className="all-patient-back-btn">← Back</Link>
             </div>
-            <h2>All Patients</h2>
 
             {loading ? (<p>Loading...</p>) : patients.length === 0 ? (<p>No patients found</p>) : (
                 <table className="patient_table">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import Home from './main_pages/home.jsx';
 import Patient from './main_pages/patient.jsx';
 import Booking from './main_pages/booking.jsx';
@@ -8,6 +8,8 @@ import AddPatient from './main_pages/mini_pages/add_patient.jsx';
 import AllPatient from './main_pages/mini_pages/all_patient.jsx';
 import BookingPatient from './main_pages/mini_pages/booking_patient.jsx';
 import BookingHistory from './main_pages/mini_pages/booking_history.jsx';
+import Dashboard from './main_pages/dashboard.jsx';
+import DoctorSchedule from './main_pages/doctor_schedule.jsx';
 
 import Consulting from './main_pages/consulting.jsx';
 import PatientDashboard from './main_pages/mini_pages/patient_dashboard.jsx';
@@ -19,6 +21,9 @@ import Feedback from './main_pages/mini_pages/feedback.jsx';
 
 import Testing_Patient from './main_pages/Testing_Patient.jsx';
 import Test_Resources from './main_pages/mini_pages/test_resources.jsx';
+import LabTest from './main_pages/mini_pages/lab_test.jsx';
+import XrayTest from './main_pages/mini_pages/x-ray_test.jsx';
+import Test_History from './main_pages/mini_pages/test_history.jsx';
 
 import './App.css';
 
@@ -29,6 +34,11 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
   });
 
   const user = userProp ?? localUser;
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  // Helper to check if a sidebar link is active
+  const isActive = (path) => pathname === path || pathname.startsWith(path + '/');
 
   const handleLogout = () => {
     localStorage.removeItem('username');
@@ -41,7 +51,9 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
     if (!user.username) {
       return <Navigate to="/login" replace />;
     }
-    if (user.role !== role) {
+    // Support checking multiple roles
+    const roles = Array.isArray(role) ? role : [role];
+    if (!roles.includes(user.role)) {
       return <Navigate to="/home" replace />;
     }
     return element;
@@ -62,55 +74,49 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
       </header>
       <div className="navverticalbar">
         <div className="verticalbar">
-          <Link to="/home" className="app-links">
+
+          <Link to="/home" className={`app-links${isActive('/home') ? ' app-links--active' : ''}`}>
             Home
           </Link>
 
           {user.role === 'Receptionist' && (
             <>
-              <Link to="/patient" className="app-links">
+              <Link to="/patient" className={`app-links${isActive('/patient') ? ' app-links--active' : ''}`}>
                 Patient
               </Link>
-              <Link to="/booking" className="app-links">
+              <Link to="/booking" className={`app-links${isActive('/booking') ? ' app-links--active' : ''}`}>
                 Booking
               </Link>
-              <Link to="/payment" className="app-links">
+              <Link to="/payment" className={`app-links${isActive('/payment') ? ' app-links--active' : ''}`}>
                 Payment
+              </Link>
+              <Link to="/dashboard" className={`app-links${isActive('/dashboard') ? ' app-links--active' : ''}`}>
+                Dashboard
+              </Link>
+              <Link to="/doctor_schedule" className={`app-links${isActive('/doctor_schedule') ? ' app-links--active' : ''}`}>
+                Doctor Schedule
               </Link>
             </>
           )}
 
           {user.role === 'Doctor' && (
-            <Link to="/consult_patient_list" className="app-links">
+            <Link to="/consult_patient_list" className={`app-links${isActive('/consult_patient_list') ? ' app-links--active' : ''}`}>
               Patient List
             </Link>
           )}
 
-          {user.role === 'MLT' && (
+          {['MLT', 'Radiologist'].includes(user.role) && (
             <>
-              <Link to="/patient_test" className="app-links"> Testing Patient List </Link>
-
-              {/* <Link to="/urine-test" className="app-links">
-                Urine Test
+              <Link to="/diagnostic_services_patient_list" className={`app-links${isActive('/diagnostic_services_patient_list') ? ' app-links--active' : ''}`}>
+                Diagnostic Services Patient List
               </Link>
 
-              <Link to="/stool-test" className="app-links">
-                Stool Test
+              <Link to="/test_reports_history" className={`app-links${isActive('/test_reports_history') ? ' app-links--active' : ''}`}>
+                Test Reports History
               </Link>
-
-              <Link to="/microbiology-test" className="app-links">
-                Microbiology Test
-              </Link>
-
-              <Link to="/hormone-test" className="app-links">
-                Hormone Test
-              </Link>
-
-              <Link to="/test-reports" className="app-links">
-                Test Reports
-              </Link> */}
             </>
           )}
+
         </div>
         <main className="app-content">
           <Routes>
@@ -126,16 +132,22 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
 
             <Route path="/payment" element={requireRole('Receptionist', <Payment />)} />
 
+            <Route path="/dashboard" element={requireRole('Receptionist', <Dashboard />)} />
+            <Route path="/doctor_schedule" element={requireRole('Receptionist', <DoctorSchedule />)} />
+
             {/*Patient List Button Routes*/}
             <Route path="/consult_patient_list" element={requireRole('Doctor', <Consulting />)} />
             <Route path="/consult_patient_list/:id/dashboard" element={requireRole('Doctor', <PatientDashboard />)} />
             <Route path="/consult_patient_list/:id/dashboard/prescription" element={requireRole('Doctor', <Prescription />)} />
             <Route path="/consult_patient_list/:id/dashboard/surgical_procedure" element={requireRole('Doctor', <SurgicalProcedure />)} />
             <Route path="/consult_patient_list/:id/dashboard/feedback" element={requireRole('Doctor', <Feedback />)} />
+            <Route path="/consult_patient_list/:id/dashboard/lab_test" element={requireRole('Doctor', <LabTest />)} />
 
+            <Route path="/diagnostic_services_patient_list" element={requireRole(['MLT', 'Radiologist'], <Testing_Patient />)} />
+            <Route path="/diagnostic_services_patient_list/:id/test_files" element={requireRole(['MLT', 'Radiologist'], <Test_Resources />)} />
+            <Route path="/diagnostic_services_patient_list/:id/xray_test" element={requireRole(['Radiologist', 'Doctor'], <XrayTest />)} />
+            <Route path="/test_reports_history" element={requireRole(['MLT', 'Radiologist'], <Test_History />)} />
 
-            <Route path="/patient_test" element={requireRole('MLT', <Testing_Patient />)} />
-            <Route path="/patient_test/:id/test_files" element={requireRole('MLT', <Test_Resources />)} />
 
             <Route path="/" element={<Navigate to="/home" replace />} />
           </Routes>

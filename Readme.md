@@ -4,7 +4,7 @@
 
     cd backend
     pip install -r requirements.txt
+    .venv/Scripts/activate
     env/scripts/activate
-    $env:FLASK_APP = "main.py"
-    flask run
+    
     python main.py

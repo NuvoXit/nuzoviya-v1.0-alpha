@@ -42,15 +42,15 @@ function PatientDashboard() {
 
   return (
     <section className="dashboard-section">
-      <div className="dashboard-header">
+      <div className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <h2 className="dashboard-title" style={{ margin: 0 }}>Overview Patient Dashboard</h2>
+
+        </div>
+
         <button className="dashboard-back-btn" onClick={() => navigate('/consult_patient_list')}>
           ← Back
         </button>
-
-        <div>
-          <h2 className="dashboard-title">Patient Dashboard</h2>
-          <p className="dashboard-subtitle">Overview and actions for the selected patient</p>
-        </div>
       </div>
 
       {loading ? (
@@ -79,7 +79,7 @@ function PatientDashboard() {
               </div>
 
               <div className="button-column">
-                <button type="button" className="dashboard-detail-row-edit" aria-label="Lab result">
+                <button type="button" className="dashboard-detail-row-edit" aria-label="Lab result" onClick={() => navigate(`${base}/lab_test`)}>
                   <span className="dashboard-detail-edit">Lab Result</span>
                 </button>
                 {/* <button type="button" className="dashboard-detail-row-edit" aria-label="X Ray result">
