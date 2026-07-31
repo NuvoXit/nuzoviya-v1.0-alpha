@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════
-   Splash Screen — quiet handoff between login and workspace
+   Splash Screen — brand palette build
    ══════════════════════════════════════════════ */
 
 .splash-overlay {
@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #14261d;
+  background: #225500;
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -24,21 +24,16 @@
 }
 
 @keyframes splashFadeOut {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
-/* Faint fixed vignette instead of moving particles — quiet, not busy */
+/* Faint fixed glow, no motion — quiet, not busy */
 .splash-overlay::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.06), transparent 60%);
+  background: radial-gradient(circle at 50% 32%, rgba(102, 255, 0, 0.14), transparent 55%);
   pointer-events: none;
 }
 
@@ -54,10 +49,7 @@
 }
 
 @keyframes splashRise {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Mark ── */
@@ -73,21 +65,19 @@
 }
 
 .splash-mark-ring {
-  stroke: rgba(255, 255, 255, 0.28);
-  stroke-width: 1.5;
+  stroke: #66FF00;
+  stroke-width: 1.75;
   stroke-dasharray: 145;
   stroke-dashoffset: 145;
   animation: splashRingDraw 0.7s 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes splashRingDraw {
-  to {
-    stroke-dashoffset: 0;
-  }
+  to { stroke-dashoffset: 0; }
 }
 
 .splash-mark-check {
-  stroke: #d6ede0;
+  stroke: #FFFFFF;
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -97,9 +87,7 @@
 }
 
 @keyframes splashCheckDraw {
-  to {
-    stroke-dashoffset: 0;
-  }
+  to { stroke-dashoffset: 0; }
 }
 
 /* ── Text ── */
@@ -107,15 +95,15 @@
   margin: 0 0 6px 0;
   font-size: 13px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: #B3FF80;
   letter-spacing: 0.2px;
 }
 
 .splash-title {
   margin: 0;
   font-size: 26px;
-  font-weight: 600;
-  color: #f4f7f5;
+  font-weight: 700;
+  color: #FFFFFF;
   letter-spacing: -0.3px;
 }
 
@@ -123,36 +111,34 @@
   display: inline-block;
   margin-top: 10px;
   padding-bottom: 2px;
-  color: rgba(255, 255, 255, 0.55);
+  color: #CCFFAA;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid #66FF00;
 }
 
 /* ── Progress ── */
 .splash-progress {
   margin-top: 32px;
   width: 120px;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.14);
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
 .splash-progress-fill {
   height: 100%;
   width: 0%;
-  background: #6fd39a;
-  border-radius: 2px;
+  background: #66FF00;
+  border-radius: 3px;
   animation: splashProgress 2.1s 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes splashProgress {
-  to {
-    width: 100%;
-  }
+  to { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
