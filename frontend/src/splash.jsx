@@ -14,7 +14,7 @@ function Splash({ username, role, onFinish }) {
 
     const exitTimer = setTimeout(() => {
       setPhase('exit');
-    }, 2500);
+    }, 2600);
 
     const finishTimer = setTimeout(() => {
       // Direct page change here
@@ -32,7 +32,7 @@ function Splash({ username, role, onFinish }) {
       if (onFinish) {
         onFinish();
       }
-    }, 3100);
+    }, 3150);
 
     return () => {
       clearTimeout(enterTimer);
@@ -41,31 +41,48 @@ function Splash({ username, role, onFinish }) {
     };
   }, [navigate, role, onFinish]);
 
+  const greeting = getGreeting();
+
   return (
     <div className={`splash-overlay splash-overlay--${phase}`}>
-      <div className="splash-content">
-        <div className="splash-check-ring">
-          <svg className="splash-check-svg" viewBox="0 0 52 52">
-            <circle className="splash-check-circle" cx="26" cy="26" r="24" fill="none" />
+      <div className="splash-card">
+        {/* ── Left panel: welcome message ── */}
+        <div className="splash-panel splash-panel--text">
+          <p className="splash-eyebrow">{greeting}</p>
+          <h1 className="splash-title">Welcome, {username}</h1>
 
-            <path className="splash-check-path" fill="none" d="M14 27l7 7 16-16" />
-          </svg>
+          <p className="splash-line">
+            We know you're our <span className="splash-highlight">{role}</span>.
+          </p>
+          <p className="splash-paragraph">
+            Everything is set up and waiting for you — patients, schedules, and records are one click away.
+          </p>
+
+          <ul className="splash-list">
+            <li>Thank you for logging in.</li>
+            <li>We appreciate your dedication.</li>
+          </ul>
         </div>
 
-        <h1 className="splash-title">Welcome!</h1>
-
-        <p className="splash-username">{username}</p>
-
-        <span className="splash-role">{role}</span>
-
-        <div className="splash-dots">
-          <span></span>
-          <span></span>
-          <span></span>
+        {/* ── Right panel: animated mark ── */}
+        <div className="splash-panel splash-panel--mark">
+          <div className="splash-mark">
+            <svg className="splash-mark-svg" viewBox="0 0 52 52">
+              <circle className="splash-mark-ring" cx="26" cy="26" r="23" fill="none" />
+              <path className="splash-mark-check" fill="none" d="M15 27l7 7 15-15.5" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
   );
+}
+
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
 }
 
 export default Splash;
