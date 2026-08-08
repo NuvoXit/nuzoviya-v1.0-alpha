@@ -25,6 +25,8 @@ import LabTest from './main_pages/mini_pages/lab_test.jsx';
 import XrayTest from './main_pages/mini_pages/x-ray_test.jsx';
 import Test_History from './main_pages/mini_pages/test_history.jsx';
 
+import Logo from './main_pages/assets/Ndraw.svg';
+
 import './App.css';
 
 function App({ user: userProp, onLogout: onLogoutProp }) {
@@ -61,17 +63,30 @@ function App({ user: userProp, onLogout: onLogoutProp }) {
 
   return (
     <>
+      {/* Header and navigation bar */}
       <header className="navigation">
         <Link to="/" className="mainheading">
-          Hospital Management System
+          
+          <img src={Logo} alt="Logo" className="logo" />
         </Link>
         <nav>
-          {user.username ? `Welcome, ${user.username} (${user.role})` : 'Not logged in'}
+          <div className="DateTime">
+            {new Date().toLocaleDateString()} | {new Date().toLocaleTimeString()}
+          </div>
+            
+          <div className="user-info">
+            {user.username ? `Welcome, ${user.username} [${user.role}]` : 'Not logged in'}
+          </div>
           <Link to="/login" className="app-links" onClick={handleLogout}>
             Logout
           </Link>
         </nav>
       </header>
+
+
+
+
+      
       <div className="navverticalbar">
         <div className="verticalbar">
 

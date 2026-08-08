@@ -113,3 +113,32 @@
   color: var(--primary-darker);
   box-shadow: var(--shadow-green);
 }
+
+.DateTime {
+    display: inline-block;
+    padding: 8px 14px;
+    /* margin-right: 10px; */
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+    border-radius: 5px;
+    /* font-size: 14px;
+    font-weight: bold; */
+}
+
+.user-info {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+    background-color: transparent;
+    border-radius: 5px;
+    /* font-size: 14px; */
+    /* font-weight: bold; */
+}
+
+.logo {
+    height: 250px;
+    width: auto;
+    margin-top: 190px;
+    margin-left:-10px;
+}

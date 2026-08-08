@@ -6,7 +6,7 @@ Transform the entire Hospital Management System from a **blue theme** to a **gre
 
 | Issue | Fix |
 |---|---|
-| Blue theme everywhere | Switch to **green** (`#16a34a` / `#22c55e` / `#dcfce7`) palette |
+| Blue theme everywhere | Switch to **green** (`#16a34a` / `#22c55e` / `#DCFCE7`) palette |
 | Tables not fitting properly | Add `table-layout: fixed`, proper `width: 100%`, overflow wrappers, consistent cell padding |
 | Missing back buttons | Add `← Back` on pages: **Surgical Procedure**, **Lab Test**, **Test Resources** |
 | No hover color on table rows / buttons | Add `:hover` backgrounds across all tables & interactive elements |
@@ -23,7 +23,7 @@ Transform the entire Hospital Management System from a **blue theme** to a **gre
 - Change CSS variables from blue to green palette:
   - `--primary: #22c55e` (green-500)
   - `--primary-dark: #16a34a` (green-600)
-  - `--primary-light: #dcfce7` (green-100)
+  - `--primary-light: #DCFCE7` (green-100)
   - `--surface: #ffffff` (keep white)
   - `--surface-alt: #f8faf9` (subtle green-tinted white)
 - Body background stays light (`#f0f4f3` green-tinted neutral)
@@ -59,7 +59,7 @@ Transform the entire Hospital Management System from a **blue theme** to a **gre
 
 #### [MODIFY] [all_patient.css](file:///c:/Users/MG-PC/Works/nuvo-medical-platform/frontend/src/main_pages/mini_pages/all_patient.css)
 - Table header → green (`#16a34a`)
-- Row hover → `#dcfce7` (green-100)
+- Row hover → `#DCFCE7` (green-100)
 - Active row → green tint
 - Add `table-layout: fixed` + overflow wrapper
 - Back button hover → green
