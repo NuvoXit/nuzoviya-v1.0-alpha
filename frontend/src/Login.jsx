@@ -108,31 +108,28 @@ function Login({ onLogin }) {
 
               className="logo-image"
             />
+            <h1 className="login-brand-heading">Running the hospital floor, without the paperwork.</h1>
+            <p className="login-brand-sub">Patients, bookings, payments, and schedules — one workspace for every role on your team.</p>
           </div>
 
           {/* RIGHT LOGIN AREA */}
           <div className="login-container">
             <form className="login-form" onSubmit={handleSubmit}>
-              <h2
-                style={{
-                  fontFamily: 'Arial, sans-serif',
-                  fontSize: '30px',
-                  fontWeight: 'bold',
-                }}>
-                Kindly Get Your Access
-              </h2>
+              <span className="login-eyebrow">Nuvo Health</span>
+              <h2 className="login-title">Sign in to your workspace</h2>
+              <p className="login-subtitle">Enter your credentials to continue</p>
               <div className="login-form-group">
-                <label htmlFor="username">Username:</label>
-                <input type="text" id="username" value={formData.username} onChange={handleChange} required />
+                <label htmlFor="username">Username</label>
+                <input type="text" id="username" placeholder="e.g. reception1" value={formData.username} onChange={handleChange} required />
               </div>
 
               <div className="login-form-group">
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" value={formData.password} onChange={handleChange} required />
+                <label htmlFor="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" value={formData.password} onChange={handleChange} required />
               </div>
 
               <div className="login-form-group">
-                <label htmlFor="role">Role:</label>
+                <label htmlFor="role">Role</label>
                 <select id="role" value={formData.role} onChange={handleChange} required>
                   <option value="" disabled>
                     Select Your Role in Hospital
