@@ -1,0 +1,315 @@
+/* ══════════════════════════════════════════════
+   Doctor Consulting Page — Split Layout
+   Clean, stable clinical styling — Zero hover jump
+   ══════════════════════════════════════════════ */
+
+.testing-patient-split-container {
+  display: grid;
+  grid-template-columns: minmax(400px, 1.2fr) minmax(340px, 1fr);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@media (max-width: 1024px) {
+  .testing-patient-split-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.consulting-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 100%;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.testing-left-list {
+  width: 100%;
+}
+
+.consulting-list-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: none;
+  width: 100%;
+}
+
+.consulting-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--primary-lighter);
+}
+
+.consulting-list-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.consulting-patient-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #166534;
+  background: #dcfce7;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #bbf7d0;
+  white-space: nowrap;
+}
+
+.consulting-filter-icon {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.consulting-list-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.consulting-list-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.consulting-list-row:last-child {
+  border-bottom: none;
+}
+
+.consulting-list-row--active {
+  background: var(--primary-light);
+  border-left-color: var(--primary);
+}
+.consulting-list-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 22px;
+  padding-right: 12px;
+  border-right: 1px solid var(--border);
+}
+
+.consulting-list-id {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  min-width: 100px;
+}
+
+.consulting-list-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-dark);
+  flex: 1;
+}
+
+.consulting-list-age {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface-alt);
+  padding: 3px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* Right Side Panel — Stable Modern Cards */
+.testing-right-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.testing-side-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.testing-side-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 18px;
+  box-shadow: none;
+}
+
+.stat-pending-card,
+.stat-completed-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.side-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.green-icon {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.blue-icon {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.side-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-card-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 3px;
+}
+
+.side-card-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 5px 0;
+  line-height: 1.1;
+}
+
+.side-card-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.badge-amber {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.badge-green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* Large Wave Chart Card — Clean & Static */
+.testing-chart-large-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chart-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.chart-card-header h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 2px 0;
+}
+
+.chart-card-header p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.chart-period-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid #86efac;
+}
+
+.chart-wave-wrapper {
+  width: 100%;
+  overflow: visible;
+  padding: 8px 0;
+}
+
+.svg-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.chart-point {
+  cursor: default;
+}
+
+.chart-point-label {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* Chart Footer Metrics */
+.chart-footer-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.metric-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 3px;
+}
+
+.metric-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.metric-divider {
+  width: 1px;
+  height: 24px;
+  background: #e2e8f0;
+}

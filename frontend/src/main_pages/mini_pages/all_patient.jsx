@@ -1,0 +1,116 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./all_patient.css";
+
+function calcAge(dob) {
+    if (!dob) return "—";
+    const birth = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+    return age;
+}
+
+function AllPatient() {
+    const [patients, setPatients] = useState([]);
+    const [loading,  setLoading]  = useState(true);
+
+    const deduplicatePatients = (data) => {
+        if (!Array.isArray(data)) return [];
+        const uniqueMap = new Map();
+        for (const p of data) {
+            const fullName = `${p.first_name || ''} ${p.last_name || ''}`.trim().toLowerCase();
+            const key = fullName || String(p.patient_id || p.id);
+            if (!uniqueMap.has(key)) {
+                uniqueMap.set(key, { ...p });
+            } else {
+                const existing = uniqueMap.get(key);
+                if (!existing.nic && p.nic) existing.nic = p.nic;
+                if (!existing.dob && p.dob) existing.dob = p.dob;
+                if (!existing.address && p.address) existing.address = p.address;
+                if (!existing.email && p.email) existing.email = p.email;
+                if (!existing.telephone && p.telephone) existing.telephone = p.telephone;
+            }
+        }
+        return Array.from(uniqueMap.values());
+    };
+
+    const fetchPatients = () => {
+        setLoading(true);
+        fetch("http://127.0.0.1:5000/patient/all_patients")
+            .then((res) => res.json())
+            .then((data) => {
+                setPatients(deduplicatePatients(data));
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching patients:", error);
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => { fetchPatients(); }, []);
+
+
+
+    // Delete function with confirmation and error handling
+    const deletePatients = async (patient_id) => {
+        if (!window.confirm("Delete this patient?")) return;
+        try {
+            const res = await fetch(`http://127.0.0.1:5000/patient/delete/${patient_id}`,{method: "DELETE"});
+            if (!res.ok) {
+                const data = await res.json();
+                alert(data.error || "Could not delete patient.");
+                return;
+            }
+            fetchPatients();
+        } catch (error) {
+            console.error("Error deleting patient:", error);
+            alert("Could not delete patient.");
+        }
+    };
+
+    return (
+        <div className="all-patient-container" >
+            <div className="all-patient-header-row" style={{ justifyContent: "space-between" }}>
+                <h2>All Patients</h2>
+                <Link to="/patient" className="all-patient-back-btn">← Back</Link>
+            </div>
+
+            {loading ? (<p>Loading...</p>) : patients.length === 0 ? (<p>No patients found</p>) : (
+                <div className="all-patient-table-wrap">
+                    <table className="patient_table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>NIC</th>
+                                <th>Age</th>
+                                <th>Telephone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {patients.map((p) => (
+                                <tr key={p.patient_id || p.id}>
+                                    <td>{p.patient_id}</td>
+                                    <td>{p.first_name} {p.last_name}</td>
+                                    <td>{p.nic || "—"}</td>
+                                    <td>{calcAge(p.dob)}</td>
+                                    <td>{p.telephone}</td>
+                                    <td style={{ display: "flex", gap: "8px" }}>
+                                        <button className="btn-edit" onClick={() => alert("Edit not implemented yet.")}>Edit</button>
+                                        <button className="btn-delete" onClick={() => deletePatients(p.patient_id)}>Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </div>
+    );
+}
+
+export default AllPatient;

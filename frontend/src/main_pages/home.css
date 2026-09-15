@@ -1,0 +1,128 @@
+/* ══════════════════════════════════════════════
+   Nuzoviya Home Page
+   Clean • Professional • Justified
+   ══════════════════════════════════════════════ */
+
+.home-page-wrapper {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  animation: fadeInUp 0.35s ease-out;
+}
+
+.home-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main heading */
+.home-container h1 {
+  margin: 0 0 22px;
+  color: #0f172a;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+}
+
+/* Perfectly justified paragraphs */
+.home-container p {
+  margin: 0 0 18px;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.85;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Strong keywords */
+.home-container strong {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+/* Final contact section */
+.home-container .contact-text {
+  margin-top: 28px;
+  margin-bottom: 0;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  color: #334155;
+  font-weight: 500;
+}
+
+/* Subtle selection feel */
+.home-container p::selection,
+.home-container h1::selection {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+/* Entrance animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Tablet
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .home-container {
+    max-width: 100%;
+  }
+
+  .home-container h1 {
+    font-size: 28px;
+    letter-spacing: -0.4px;
+  }
+
+  .home-container p {
+    font-size: 14.5px;
+    line-height: 1.8;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Mobile
+   ══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .home-container h1 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .home-container p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.75;
+    text-align: justify;
+  }
+
+  .home-container .contact-text {
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Accessibility
+   ══════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .home-page-wrapper {
+    animation: none;
+  }
+}

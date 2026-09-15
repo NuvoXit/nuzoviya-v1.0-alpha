@@ -1,0 +1,1047 @@
+/* ══════════════════════════════════════════════
+   Prescription — White & Green Glass Form
+   ══════════════════════════════════════════════ */
+
+.prescription-section {
+  width: 100%;
+  padding: 16px 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.prescription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.prescription-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.prescription-description {
+  margin: 10px 0 0;
+  color: #475569;
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+.prescription-back-btn {
+  padding: 12px 18px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.prescription-back-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Form Container & Grid */
+.form_prescription {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form_prescription fieldset {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0;
+  border-radius: var(--radius-2xl);
+  padding: 32px;
+  border: 1px solid var(--border-glass);
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+}
+
+.form_prescription legend {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  padding: 0 10px;
+}
+
+.form_prescription h2,
+.form_prescription p,
+.form_buttons {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.form_prescription h2 {
+  font-size: 22px;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.form_prescription > fieldset > p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* Form Group & Input Styling */
+.form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form_group--full {
+  grid-column: 1 / -1;
+}
+
+.form_group--half {
+  grid-column: span 1;
+}
+
+.form_group label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form_group input,
+.form_group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-alt);
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.form_group textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.form_group input:focus,
+.form_group textarea:focus {
+  border-color: #16a34a;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.optional-tag {
+  font-size: 11px;
+  color: #16a34a;
+  text-transform: none;
+  font-weight: 600;
+  letter-spacing: 0;
+  background: #dcfce7;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.field-hint {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: -2px;
+}
+
+/* ==============================================
+   EMAIL-STYLE PROBLEM & DESCRIPTION CONTAINER
+   ============================================== */
+
+.problem-email-box {
+  background: var(--surface-alt);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.problem-email-box:focus-within {
+  border-color: #16a34a;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.problem-email-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(248, 250, 252, 0.8);
+}
+
+.problem-email-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #15803d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+.problem-email-subject {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--text-dark) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.problem-email-divider {
+  height: 1px;
+  background: #e2e8f0;
+  width: 100%;
+}
+
+.problem-email-body {
+  padding: 12px 16px;
+}
+
+.problem-email-textarea {
+  width: 100% !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: 14.5px !important;
+  color: var(--text) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  resize: vertical !important;
+  min-height: 90px !important;
+  line-height: 1.6 !important;
+}
+
+/* ==============================================
+   MEDICINES & DOSAGE LIST SECTION
+   ============================================== */
+
+.medicines-list-section {
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(22, 163, 74, 0.2);
+  border-radius: var(--radius-xl);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.05);
+}
+
+.medicines-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.medicines-section-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #14532d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.medicines-section-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin: 4px 0 0;
+}
+
+.add-medicine-btn {
+  padding: 8px 16px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.2);
+}
+
+.add-medicine-btn:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+}
+
+.medicines-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.medicine-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.medicine-row:focus-within {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.medicine-index {
+  font-size: 12px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 4px 8px;
+  border-radius: 6px;
+  min-width: 26px;
+  text-align: center;
+  user-select: none;
+}
+
+.medicine-input-field {
+  flex: 1;
+}
+
+.medicine-name-field {
+  flex: 1.2;
+}
+
+.medicine-dosage-field {
+  flex: 1.8;
+}
+
+.medicine-row input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  color: var(--text);
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.medicine-row input:focus {
+  background: #ffffff;
+  border-color: #16a34a;
+}
+
+.remove-medicine-btn {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.remove-medicine-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* ==============================================
+   SURGICAL PROCEDURE SECTION & AUTHORIZATION
+   ============================================== */
+
+.surgical-toggle-card {
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1.5px solid rgba(22, 163, 74, 0.25);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.06);
+  transition: all 0.25s ease;
+}
+
+.surgical-toggle-header {
+  padding: 18px 22px;
+  background: linear-gradient(135deg, rgba(240, 253, 244, 0.9) 0%, rgba(220, 252, 231, 0.6) 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.surgical-toggle-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+  flex: 1;
+}
+
+.surgical-toggle-checkbox {
+  width: 22px;
+  height: 22px;
+  accent-color: #16a34a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.surgical-toggle-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.surgical-toggle-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #14532d;
+  letter-spacing: 0.3px;
+}
+
+.surgical-toggle-subtitle {
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.surgical-active-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  padding: 4px 10px;
+  border-radius: 20px;
+  animation: pulseBadge 2s infinite ease-in-out;
+}
+
+@keyframes pulseBadge {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+.surgical-expanded-content {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.surgical-field-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #15803d;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Staff Section */
+.surgical-staff-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.surgical-staff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.add-people-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 7px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.add-people-btn:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+
+.selected-nurses-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.no-nurses-placeholder {
+  font-size: 13px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.selected-nurse-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid #86efac;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #14532d;
+  font-weight: 700;
+  font-size: 13.5px;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.08);
+}
+
+.selected-nurse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+.selected-nurse-close {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #ef4444;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.selected-nurse-close:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Nurse dropdown picker */
+.nurse-picker {
+  position: absolute;
+  top: 75px;
+  left: 24px;
+  width: 360px;
+  max-width: 90%;
+  background: #ffffff;
+  border: 1.5px solid #86efac;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  z-index: 20;
+}
+
+.nurse-picker-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 10px;
+}
+
+.nurse-picker-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #14532d;
+}
+
+.nurse-picker-close {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: #f1f5f9;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nurse-picker-close:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.nurse-picker-list {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nurse-picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+  transition: background 0.15s;
+}
+
+.nurse-picker-row:hover {
+  background: #f0fdf4;
+}
+
+.nurse-picker-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nurse-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #dcfce7;
+  border: 1.5px solid #86efac;
+  display: inline-block;
+}
+
+.nurse-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.nurse-info strong {
+  font-size: 13.5px;
+  color: #1f2937;
+}
+
+.nurse-info small {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.nurse-add-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: #16a34a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.nurse-add-btn:hover:not(:disabled) {
+  background: #15803d;
+  transform: scale(1.1);
+}
+
+.nurse-add-btn--selected {
+  background: #cbd5e1;
+  color: #475569;
+  cursor: default;
+}
+
+/* Surgery Textareas — One by One (Stacked Vertically) */
+.surgical-notes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.surgical-note-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.surgical-textarea {
+  width: 100% !important;
+  min-height: 95px !important;
+  padding: 12px 14px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.surgical-textarea:focus {
+  border-color: #16a34a !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1) !important;
+  outline: none;
+}
+
+/* Doctor Authorization Card (Left Text, Right Half Sized Click Button) */
+.surgical-authorization-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  border: 1.5px solid #86efac;
+  border-radius: 14px;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.08);
+}
+
+.surgical-auth-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.surgical-auth-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #14532d;
+}
+
+.surgical-auth-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.surgical-auth-right {
+  flex: 1;
+  max-width: 330px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.surgical-authorize-btn {
+  width: 100%;
+  padding: 12px 18px;
+  border: 2px dashed #16a34a;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.surgical-authorize-btn:hover {
+  background: #f0fdf4;
+  border-color: #15803d;
+  transform: translateY(-1px);
+}
+
+.surgical-auth-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #16a34a;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 900;
+  color: #16a34a;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.surgical-auth-btn-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #15803d;
+  white-space: nowrap;
+}
+
+.surgical-authorize-btn--confirmed {
+  border-style: solid;
+  border-color: #16a34a;
+  background: #16a34a;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
+}
+
+.surgical-authorize-btn--confirmed .surgical-auth-checkbox {
+  background: #ffffff;
+  color: #16a34a;
+  border-color: #ffffff;
+}
+
+.surgical-authorize-btn--confirmed .surgical-auth-btn-text {
+  color: #ffffff;
+}
+
+.surgical-authorize-btn--confirmed:hover {
+  background: #15803d;
+}
+
+/* Submit & Reset Buttons */
+.form_buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.form_buttons button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s ease;
+  font-family: inherit;
+}
+
+.form_buttons button[type="submit"] {
+  background: #16a34a;
+  color: white;
+  box-shadow: none;
+}
+
+.form_buttons button[type="submit"]:hover {
+  background: #15803d;
+  box-shadow: none;
+  transform: none;
+}
+
+.form_buttons button[type="button"] {
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+}
+
+.form_buttons button[type="button"]:hover {
+  background: #f1f5f9;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 850px) {
+  .form_prescription fieldset {
+    grid-template-columns: 1fr;
+  }
+
+  .surgical-authorization-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .surgical-auth-right {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .prescription-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form_buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form_buttons button {
+    width: 100%;
+  }
+}
+
+/* Surgery Schedule Date & Time */
+.surgical-schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #bbf7d0;
+}
+
+.surgical-schedule-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.surgical-input-schedule {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #86efac;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.surgical-input-schedule:focus {
+  border-color: #16a34a;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+@media (max-width: 650px) {
+  .surgical-schedule-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Surgery Slot Conflict Card & Alternative Durations */
+.surgery-conflict-card {
+  background: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeInUp 0.25s ease forwards;
+}
+
+.surgery-conflict-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.surgery-conflict-alert-tag {
+  color: #b91c1c;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.surgery-conflict-badge {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.surgery-conflict-reason {
+  margin: 0;
+  font-size: 13.5px;
+  color: #7f1d1d;
+  line-height: 1.55;
+}
+
+.surgery-alternative-durations {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed #fca5a5;
+}
+
+.alternative-durations-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #991b1b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.alternative-durations-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.alternative-duration-btn {
+  background: #ffffff;
+  border: 1.5px solid #ef4444;
+  color: #dc2626;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.alternative-duration-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}

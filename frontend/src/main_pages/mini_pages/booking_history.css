@@ -1,0 +1,102 @@
+/* ══════════════════════════════════════════════
+   Booking History — White & Green Glass Table
+   ══════════════════════════════════════════════ */
+
+.booking-history-container {
+  padding: 10px 0;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.booking-history-container h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 20px;
+}
+
+.booking-history-back-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 14px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all .2s ease;
+}
+
+.booking-history-back-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.booking-history-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.booking_history_table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  background: transparent;
+  font-size: 14px;
+  margin: 0;
+}
+
+.booking_history_table thead {
+  background: #dcfce7;
+}
+
+.booking_history_table th {
+  background: #dcfce7;
+  color: #166534;
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  border-bottom: 2px solid #bbf7d0;
+}
+
+.booking_history_table th:first-child {
+  border-radius: var(--radius-lg) 0 0 0;
+}
+
+.booking_history_table th:last-child {
+  border-radius: 0 var(--radius-lg) 0 0;
+}
+
+.booking_history_table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  color: #334155;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.booking_history_table tr:last-child td {
+  border-bottom: none;
+}
+
+.booking_history_table tr:hover td {
+  background: #f8fafc;
+}
+
+.booking-history-container p {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}

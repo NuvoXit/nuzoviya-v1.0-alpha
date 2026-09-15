@@ -1,0 +1,130 @@
+/* ══════════════════════════════════════════════
+   Test History — Clean White & Green Table
+   ══════════════════════════════════════════════ */
+
+.test-history-container {
+  padding: 10px 0;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.test-history-container h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.test-history-container > p {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ===== Table ===== */
+
+.records_table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+/* ===== Header ===== */
+
+.records_table thead th {
+  padding: 16px 18px;
+  text-align: left;
+  background: #f8fafc;
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #DCFCE7;
+}
+
+.records_table thead th:first-child {
+  border-top-left-radius: 16px;
+}
+
+.records_table thead th:last-child {
+  border-top-right-radius: 16px;
+}
+
+/* ===== Body ===== */
+
+.records_table tbody td {
+  padding: 15px 18px;
+  font-size: 14px;
+  color: #334155;
+  background: #ffffff;
+  border-bottom: 1px solid #eef2f7;
+  transition: background 0.2s ease;
+}
+
+.records_table tbody tr:hover td {
+  background: #f0fdf4;
+}
+
+.records_table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== Column Widths ===== */
+
+.records_table th:nth-child(1),
+.records_table td:nth-child(1) {
+  width: 10%;
+}
+
+.records_table th:nth-child(2),
+.records_table td:nth-child(2) {
+  width: 30%;
+}
+
+.records_table th:nth-child(3),
+.records_table td:nth-child(3) {
+  width: 20%;
+}
+
+.records_table th:nth-child(4),
+.records_table td:nth-child(4) {
+  width: 20%;
+}
+
+.records_table th:nth-child(5),
+.records_table td:nth-child(5) {
+  width: 20%;
+}
+
+/* ===== Text Overflow ===== */
+
+.records_table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.download-link {
+  color: #0ea5e9;
+  text-decoration: none;
+  font-weight: 500;
+}
+.download-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== Messages ===== */
+
+.loading-message,
+.empty-message {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 500;
+}

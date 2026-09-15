@@ -1,0 +1,342 @@
+/* ══════════════════════════════════════════════
+   Surgical Procedure — White & Green Glass
+   ══════════════════════════════════════════════ */
+
+.surgical-procedure-stage {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 80px;
+  gap: 20px;
+  font-family: inherit;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.surgical-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding-bottom: 10px;
+}
+
+.surgical-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.surgical-back-btn {
+  padding: 12px 18px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.surgical-back-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.surgical-box {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 25px;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+}
+
+/* Patient area */
+.patient-panel {
+  display: flex;
+  gap: 20px;
+  background: transparent;
+  margin-bottom: 20px;
+}
+
+.patient-panel-row {
+  flex: 1;
+  padding: 18px;
+  border: 1px solid var(--border-green);
+  background: var(--primary-lighter);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: border-color .2s ease;
+}
+
+.patient-panel-row:hover {
+  border-color: var(--primary);
+}
+
+.patient-panel-label {
+  color: var(--primary-dark);
+  font-weight: bold;
+}
+
+.patient-panel-value {
+  color: var(--text-dark);
+  font-weight: bold;
+}
+
+/* Procedure */
+.procedure-fieldset {
+  position: relative;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 25px;
+  background: var(--surface-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.procedure-legend {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.add-people-btn {
+  background: var(--gradient-green);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: bold;
+  transition: all .2s ease;
+  box-shadow: var(--shadow-green);
+}
+
+.add-people-btn:hover {
+  box-shadow: var(--shadow-green-lg);
+  transform: translateY(-1px);
+}
+
+/* Selected nurse */
+.selected-nurses-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.selected-nurse-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-glass-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-green);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  color: var(--text-dark);
+  font-weight: bold;
+  transition: border-color .2s ease;
+}
+
+.selected-nurse-pill:hover {
+  border-color: var(--primary);
+}
+
+.selected-nurse-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: none;
+}
+
+.selected-nurse-close {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.selected-nurse-close:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* Nurse dropdown */
+.nurse-picker {
+  position: absolute;
+  top: 60px;
+  left: 25px;
+  width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 45px 15px 15px;
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+}
+
+.nurse-picker-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: var(--surface-alt);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 20px;
+  transition: all .15s ease;
+}
+
+.nurse-picker-close:hover {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.nurse-picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+  border-radius: var(--radius);
+}
+
+.nurse-picker-row:hover {
+  background: var(--primary-lighter);
+}
+
+.nurse-picker-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nurse-picker-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.nurse-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  border: 2px solid var(--border-green);
+}
+
+.nurse-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.nurse-info small {
+  color: var(--text-muted);
+}
+
+.nurse-add-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: var(--gradient-green);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all .15s ease;
+  box-shadow: var(--shadow-green);
+}
+
+.nurse-add-btn:hover {
+  box-shadow: var(--shadow-green-lg);
+  transform: scale(1.1);
+}
+
+/* Text area */
+.surgery-area {
+  margin-top: 25px;
+}
+
+.display-box {
+  width: 100%;
+  min-height: 150px;
+  margin-bottom: 15px;
+  padding: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--surface);
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color .2s, box-shadow .2s;
+  box-sizing: border-box;
+  color: var(--text);
+}
+
+.display-box:focus {
+  outline: none;
+  border-color: #16a34a;
+}
+
+/* Send */
+.send-btn {
+  float: right;
+  padding: 11px 30px;
+  border: none;
+  border-radius: var(--radius);
+  background: #16a34a;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background .15s ease;
+  box-shadow: none;
+}
+
+.send-btn:hover {
+  background: #15803d;
+  box-shadow: none;
+  transform: none;
+}
+
+@media (max-width: 700px) {
+  .surgical-procedure-stage {
+    padding: 15px 16px;
+  }
+
+  .patient-panel {
+    flex-direction: column;
+  }
+
+  .procedure-legend {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nurse-picker {
+    width: 90%;
+  }
+}

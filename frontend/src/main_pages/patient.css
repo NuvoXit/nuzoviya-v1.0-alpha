@@ -1,0 +1,65 @@
+/* ══════════════════════════════════════════════
+   Patient Page — White & Green Glass Cards
+   ══════════════════════════════════════════════ */
+
+.patient-main-content {
+  padding: 10px 0;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.patient-card-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  flex-wrap: wrap;
+}
+
+.patient-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 30px 26px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  width: 200px;
+  height: 180px;
+  background: var(--surface);
+  color: var(--text);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  box-shadow: var(--shadow);
+  gap: 14px;
+}
+
+.patient-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: #16a34a;
+}
+
+.patient-card span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color .2s ease;
+}
+
+.patient-card:hover span {
+  color: var(--primary-dark);
+}
+
+.patientimg {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  transition: transform .25s ease;
+}
+
+.patient-card:hover .patientimg {
+  transform: scale(1.08);
+}

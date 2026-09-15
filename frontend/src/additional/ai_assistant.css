@@ -1,0 +1,30 @@
+/* ══════════════════════════════════════════════
+   May Be Available Soon — One-time Smooth Entrance, Then Static
+   ══════════════════════════════════════════════ */
+
+.available-soon-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 87.2px - 26px - 60px);
+  width: 100%;
+}
+
+.available-soon-page h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #334155;
+  margin: 0;
+  letter-spacing: -0.3px;
+  text-align: center;
+  animation: fadeInOnce 0.4s ease-out forwards;
+}
+
+@keyframes fadeInOnce {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

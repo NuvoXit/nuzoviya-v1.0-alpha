@@ -1,0 +1,111 @@
+"""
+LOGIN PAGE REDESIGN - PROCESS & CHANGES LOG
+=============================================
+Date: 2026-08-20
+Files Modified: frontend/src/Login.jsx, frontend/src/Login.css
+Dependencies Added: three, @react-three/fiber, @react-three/drei
+
+
+STEP 1: DEPENDENCY INSTALLATION
+---------------------------------
+Command: npm install three @react-three/fiber @react-three/drei
+Result:  Added 54 packages successfully
+
+  - three          : Core Three.js 3D library
+  - @react-three/fiber : React renderer for Three.js (Canvas, useFrame hooks)
+  - @react-three/drei  : Helper components (Float, Stars, etc.)
+
+
+STEP 2: INITIAL FULL REDESIGN (v1 - Dark Theme)
+-------------------------------------------------
+Changes made:
+  - LEFT SIDE: Replaced white logo panel with a dark 3D scene containing:
+      * Animated DNA double helix (200 green particles)
+      * Cross-bar connectors between DNA strands
+      * Pulsing ring around helix
+      * 30 floating green orbs
+      * 1500-star starfield background
+      * Nuzoviya logo overlaid with "Next-Gen Medical Platform" tagline
+
+  - RIGHT SIDE: Dark glassmorphism login form with:
+      * Dark green-black gradient background (#0a1a10 → #0d2415)
+      * Animated background blobs
+      * Form icon with pulse animation
+      * "Welcome Back" heading (changed from original)
+      * Input fields with inline SVG icons (user, lock, role)
+      * Custom styled select dropdown
+      * Gradient "Sign In" button with arrow icon
+      * Loading spinner state
+      * "Secured with encryption" badge
+
+  User Feedback: "Too dark, don't change the left side, keep original heading"
+
+
+STEP 3: REVISED DESIGN (v2 - Light Theme, Right Panel Only)
+-------------------------------------------------------------
+Changes made:
+  - LEFT SIDE: Restored to ORIGINAL design
+      * White background (#ffffff)
+      * Nuzoviya logo centered
+      * All original CSS preserved exactly
+
+  - RIGHT SIDE: Three.js effects on original green gradient:
+      * Kept original gradient: #15803d → #22c55e → #4ade80 → #bbf7d0
+      * Added Three.js Canvas behind the form (z-index: 0)
+      * Wireframe torus knot (rotating, translucent)
+      * 80 floating green particles drifting around
+      * 2 pulsing concentric rings
+      * 3 animated green blobs with blur
+      * Original glassmorphism form card preserved
+      * Heading restored to "Kindly Get Your Access"
+      * Added inline SVG icons to input fields
+      * Added loading spinner to button
+      * Custom select dropdown with SVG chevron
+      * Focus glow effect on inputs (green ring)
+
+  User Feedback: "Remove the 3D shape, add white sparks at top"
+
+
+STEP 4: FINAL REFINEMENT (v3 - Current)
+-----------------------------------------
+Changes made:
+  - REMOVED: GlowingKnot component (wireframe torus knot)
+  - REMOVED: Float import from @react-three/drei (no longer needed)
+  - ADDED: WhiteSparkles component
+      * 40 small white spheres clustered at the TOP of the panel
+      * Positions: spread wide (x), concentrated y = 2 to 7 (top area)
+      * Twinkle effect: opacity oscillates with sin() at varying speeds
+      * Gentle drift: particles slowly move in x and y
+      * Color: pure white (#ffffff) with emissive glow (intensity 1.5)
+      * Varying sizes: 0.015 to 0.05 radius
+
+
+FINAL FILE STRUCTURE:
+----------------------
+Login.jsx Three.js Components:
+  1. FloatingParticles  - 80 green particles drifting across the scene
+  2. WhiteSparkles      - 40 white twinkling sparkles at the top
+  3. PulseRings         - 2 concentric green rings that breathe in/out
+  4. ThreeScene         - Canvas composition with lights + all components
+
+Login.css Sections:
+  1. .login-logo         - Left panel (white, logo centered) - ORIGINAL
+  2. .login-container    - Right panel (green gradient + Three.js)
+  3. .blob-1/2/3         - Animated green blur blobs
+  4. .login-form         - Glassmorphism card - ORIGINAL style preserved
+  5. .input-wrapper      - Icon wrapper for form fields
+  6. .input-icon         - SVG icon inside inputs
+  7. Responsive          - Tablet (992px), Mobile (576px), Small (380px)
+
+
+COLOR PALETTE USED (unchanged from original):
+-----------------------------------------------
+  #14532d  - Darkest green  (heading text)
+  #1e4620  - Dark green     (labels)
+  #15803d  - Primary green  (gradient start, button hover)
+  #16a34a  - Button green   (button background)
+  #22c55e  - Medium green   (gradient, focus border, lights)
+  #4ade80  - Light green    (gradient, particles, blobs)
+  #86efac  - Lighter green  (particles, rings)
+  #bbf7d0  - Lightest green (gradient end, particles)
+"""

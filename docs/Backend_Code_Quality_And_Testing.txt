@@ -1,0 +1,84 @@
+"""
+BACKEND CODE FORMATTING & TESTING DOCUMENTATION
+================================================
+Date: 2026-08-20
+Target Folder: backend/
+
+OVERVIEW:
+---------
+Comprehensive review, PEP 8 reformatting, bug fixing, documentation, and automated
+test suite creation for the Nuzoviya Medical Platform Flask backend.
+
+FILES FORMATTED & IMPROVED:
+---------------------------
+1. config.py
+   - Clear module headers and section banners.
+   - Clean CORS configuration for Vite (port 5173) and React (port 3000).
+   - Structured SQLite absolute path resolution.
+
+2. models.py
+   - Removed duplicate imports (`validates`, `ForeignKey`, `PIL`, `pypdf`).
+   - Fixed bug in Payment.__init__ where non-existent `optician_fee` was referenced.
+   - Added complete docstrings for all models: Patient, Booking, Login, UserRole,
+     Doctor, Nurse, MLT, Radiologist, Payment, LabRecord, XrayRecord, DoctorSchedule.
+   - Standardized 2-line PEP 8 gaps between top-level classes and functions.
+   - Documented custom validators for date and time parsing.
+
+3. form.py
+   - Structured data transfer objects (DTOs) with clean field assignments and __repr__.
+   - Proper class-level docstrings and PEP 8 spacing.
+
+4. admin.py
+   - Fixed bug in XrayRecordAdmin where `form_overrides` and `form_args` targeted 'result'
+     instead of the correct model column 'xray_result'.
+   - Fixed unsupported `template_mode` parameter in Admin instantiation.
+   - Added categorized model views (Staff, Records, Schedules) with clear names.
+
+5. main.py
+   - Cleaned and organized imports at the top (standard lib -> 3rd party -> local).
+   - Removed repeated local imports inside handler functions.
+   - Modernized query lookups from legacy `Model.query.get()` to `Database.session.get(Model, id)`.
+   - Added comprehensive REST endpoint docstrings explaining JSON payloads, parameters, and status codes.
+   - Standardized 2-line PEP 8 gaps between route handler functions.
+   - Consistent database rollback handling on exception.
+
+PYTEST TEST SUITE (20/20 PASSED):
+----------------------------------
+Location: backend/tests/
+Runner Configuration: backend/pytest.ini
+
+1. tests/conftest.py:
+   - Sets up isolated in-memory SQLite database (`sqlite:///:memory:`).
+   - Provides Flask test client and automatic schema creation/teardown fixture per test.
+
+2. tests/test_models.py (9 tests):
+   - test_to_date_helper (date parsing)
+   - test_to_time_helper (time parsing)
+   - test_patient_model_creation_and_serialization
+   - test_booking_model_creation_and_serialization
+   - test_login_model (credentials and UserRole enum)
+   - test_staff_models (Doctor, Nurse, MLT, Radiologist full name properties)
+   - test_payment_model_total_calculation (automated fee calculations)
+   - test_lab_and_xray_records (lab and radiology record models)
+   - test_doctor_schedule_model (shift schedule validation)
+
+3. tests/test_routes.py (9 tests):
+   - test_welcome_endpoints (/, /home, /patient, /booking)
+   - test_add_and_get_patients (create, duplicates, list, get single, error cases)
+   - test_delete_patient (delete by ID and 404 check)
+   - test_add_and_list_bookings (booking creation, doctor search)
+   - test_login_endpoint (hashed password, plain text migration, wrong password, bad role)
+   - test_payment_endpoints (payment processing, MLT and Radiologist breakdown filters)
+   - test_lab_record_endpoints (file upload, duplicate check, patient query)
+   - test_xray_record_endpoints (xray file upload, patient query)
+   - test_doctor_schedule_endpoints (add, list by doctor, list all, delete)
+
+4. tests/test_forms_and_admin.py (2 tests):
+   - test_form_objects_initialization (validates all 10 form classes)
+   - test_admin_initialization (validates Flask-Admin view registration)
+
+HOW TO RUN TESTS:
+-----------------
+From the backend directory:
+    .\\.venv\\Scripts\\python.exe -m pytest -v
+"""

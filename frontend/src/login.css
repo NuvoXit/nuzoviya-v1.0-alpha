@@ -1,0 +1,585 @@
+/* ══════════════════════════════════════════════
+   Login Page - Three.js Right Panel + Classic Left
+   Desktop + Mobile Responsive
+   Color Palette: #15803d / #22c55e / #4ade80 / #86efac / #bbf7d0
+   ══════════════════════════════════════════════ */
+
+/* ===========================
+   MAIN LOGIN WRAPPER
+=========================== */
+
+.login-background {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+/* ===========================
+   LEFT SIDE - LOGO AREA (60%)
+   Kept original white design
+=========================== */
+
+.login-logo {
+  width: 60%;
+  height: 100vh;
+
+  background: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  padding: 40px;
+}
+
+/* Logo Image */
+
+.logo-image {
+  width: auto;
+  height: auto;
+  max-width: 700px;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+/* Optional Logo Text */
+
+.logo-text {
+  margin-top: 20px;
+
+  font-size: 26px;
+  font-weight: 800;
+
+  color: #15803d;
+
+  text-align: center;
+}
+
+/* ===========================
+   RIGHT SIDE - LOGIN AREA (40%)
+   Three.js + green gradient
+=========================== */
+
+.login-container {
+  width: 40%;
+  height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background: linear-gradient(135deg, #15803d 0%, #22c55e 30%, #4ade80 70%, #bbf7d0 100%);
+}
+
+/* ===========================
+   ANIMATED GREEN BLOBS
+   (on top of Three.js, behind form)
+=========================== */
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.blob-1 {
+  width: 420px;
+  height: 420px;
+  background: rgba(74, 222, 128, 0.3);
+  top: -150px;
+  left: -150px;
+  animation: blobFloat1 8s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 380px;
+  height: 380px;
+  background: rgba(134, 239, 172, 0.25);
+  bottom: -120px;
+  right: -120px;
+  animation: blobFloat2 10s ease-in-out infinite;
+}
+
+.blob-3 {
+  width: 200px;
+  height: 200px;
+  background: rgba(187, 247, 208, 0.2);
+  top: 45%;
+  left: 40%;
+  animation: blobFloat3 7s ease-in-out infinite;
+}
+
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.05); }
+}
+
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, -30px) scale(1.08); }
+}
+
+@keyframes blobFloat3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* ===========================
+   LOGIN GLASS FORM
+=========================== */
+
+.login-form {
+  position: relative;
+
+  z-index: 2;
+
+  width: 90%;
+
+  max-width: 430px;
+
+  padding: 48px 42px;
+
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  backdrop-filter: blur(24px) saturate(180%);
+
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 8px 32px rgba(22, 163, 74, 0.12),
+    0 24px 60px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Form Animation */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   TITLE
+=========================== */
+
+.login-form h2 {
+  margin: 0 0 30px;
+
+  color: #14532d;
+
+  font-size: 30px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+}
+
+/* ===========================
+   FORM GROUP
+=========================== */
+
+.login-form-group {
+  margin-bottom: 20px;
+
+  text-align: left;
+}
+
+.login-form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #1e4620;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+}
+
+/* ===========================
+   INPUT WRAPPER WITH ICON
+=========================== */
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: #16a34a;
+  pointer-events: none;
+  z-index: 1;
+  transition: color 0.25s ease;
+}
+
+.input-wrapper:focus-within .input-icon {
+  color: #15803d;
+}
+
+/* ===========================
+   INPUT + SELECT
+=========================== */
+
+.login-form-group input,
+.login-form-group select {
+  width: 100%;
+
+  padding: 14px 16px 14px 44px;
+
+  box-sizing: border-box;
+
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.6);
+
+  backdrop-filter: blur(8px);
+
+  -webkit-backdrop-filter: blur(8px);
+
+  outline: none;
+
+  font-size: 14.5px;
+
+  color: #1f2937;
+
+  transition: all 0.25s ease;
+
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.login-form-group input::placeholder {
+  color: #6b7280;
+}
+
+.login-form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2315803d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.login-form-group select.role-placeholder,
+.login-form-group select:invalid {
+  color: #6b7280;
+}
+
+/* Select Dropdown Option Styles */
+.login-form-group select option {
+  background-color: #ffffff;
+  color: #1f2937;
+  font-size: 14.5px;
+  font-weight: 500;
+  padding: 12px 16px;
+  line-height: 1.6;
+}
+
+.login-form-group select option[disabled] {
+  color: #9ca3af;
+  background-color: #f9fafb;
+  font-style: italic;
+}
+
+.login-form-group select option:checked {
+  background-color: #dcfce7;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.login-form-group select option:hover {
+  background-color: #f0fdf4;
+  color: #15803d;
+}
+
+/* Focus Effect */
+
+.login-form-group input:focus,
+.login-form-group select:focus {
+  border-color: #22c55e;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.02),
+    0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+/* ===========================
+   LOGIN BUTTON
+=========================== */
+
+.login-form button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background: #16a34a;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-form button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.login-form button:hover {
+  background: #15803d;
+  box-shadow: 0 6px 20px rgba(21, 128, 61, 0.3);
+  transform: translateY(-1px);
+}
+
+.login-form button:hover::after {
+  opacity: 1;
+}
+
+.login-form button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Loading spinner */
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===========================
+   TABLET RESPONSIVE
+=========================== */
+
+@media (max-width: 992px) {
+  .login-background {
+    flex-direction: column;
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: auto;
+  }
+
+  /* Logo Area */
+
+  .login-logo {
+    width: 100%;
+
+    height: 35vh;
+
+    padding: 20px;
+  }
+
+  .logo-image {
+    max-width: 320px;
+
+    max-height: 28vh;
+
+    object-fit: contain;
+  }
+
+  /* Login Area */
+
+  .login-container {
+    width: 100%;
+
+    height: 65vh;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+  }
+
+  .login-form {
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 40px 30px;
+  }
+}
+
+/* ===========================
+   MOBILE PHONE
+=========================== */
+
+@media (max-width: 576px) {
+  .login-background {
+    min-height: 100vh;
+
+    flex-direction: column;
+  }
+
+  /* Logo Section */
+
+  .login-logo {
+    width: 100%;
+
+    height: 30vh;
+
+    padding: 15px;
+  }
+
+  .logo-image {
+    width: auto;
+
+    max-width: 220px;
+
+    max-height: 22vh;
+  }
+
+  /* Gradient Login Section */
+
+  .login-container {
+    width: 100%;
+
+    height: 70vh;
+
+    padding: 15px;
+  }
+
+  /* Login Card */
+
+  .login-form {
+    width: 100%;
+
+    max-width: none;
+
+    padding: 30px 20px;
+
+    border-radius: 20px;
+  }
+
+  .login-form h2 {
+    font-size: 24px;
+
+    margin-bottom: 22px;
+  }
+
+  .login-form-group {
+    margin-bottom: 15px;
+  }
+
+  .login-form-group label {
+    font-size: 11px;
+  }
+
+  .login-form-group input,
+  .login-form-group select {
+    padding: 12px 14px 12px 40px;
+
+    font-size: 14px;
+  }
+
+  .login-form button {
+    padding: 13px;
+
+    font-size: 14px;
+  }
+
+  .blob-1 { width: 280px; height: 280px; }
+  .blob-2 { width: 240px; height: 240px; }
+  .blob-3 { width: 140px; height: 140px; }
+}
+
+/* ===========================
+   SMALL PHONES
+   (iPhone SE / 320px width)
+=========================== */
+
+@media (max-width: 380px) {
+  .login-logo {
+    height: 25vh;
+  }
+
+  .logo-image {
+    max-width: 180px;
+
+    max-height: 18vh;
+  }
+
+  .login-container {
+    height: 75vh;
+  }
+
+  .login-form {
+    padding: 25px 15px;
+  }
+
+  .login-form h2 {
+    font-size: 22px;
+  }
+}

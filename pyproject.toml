@@ -1,0 +1,6 @@
+[project]
+name = "nuzoviya-medical-platform"
+version = "1.0.0"
+description = "Nuzoviya Medical Platform"
+requires-python = ">=3.10"
+

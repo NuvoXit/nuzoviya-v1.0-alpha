@@ -1,0 +1,245 @@
+/* ══════════════════════════════════════════════
+   Diagnostic Testing Patient Page Split Layout
+   Patient List + Dashboard Card Only (Natural Height)
+   ══════════════════════════════════════════════ */
+
+.testing-patient-split-container {
+  display: grid;
+  grid-template-columns: minmax(380px, 1.15fr) minmax(340px, 1fr);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@media (max-width: 1024px) {
+  .testing-patient-split-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left List Column */
+.testing-left-list {
+  width: 100%;
+  max-width: 100% !important;
+}
+
+.consulting-list-card {
+  background: #ffffff;
+  border: 1px solid #dcfce7;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: none;
+  width: 100%;
+}
+
+.consulting-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #dcfce7;
+  background: #f0fdf4;
+}
+
+.consulting-list-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.consulting-patient-count {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 5px 12px;
+  border-radius: 16px;
+  border: 1px solid #86efac;
+  white-space: nowrap;
+}
+
+.consulting-filter-icon {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.consulting-list-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.consulting-list-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  background: #ffffff;
+  transition: background-color 0.15s ease, border-left-color 0.15s ease;
+}
+
+.consulting-list-row:last-child {
+  border-bottom: none;
+}
+
+.consulting-list-row:hover {
+  background: #f0fdf4;
+  border-left-color: #16a34a;
+}
+
+.consulting-list-row:hover .consulting-list-name {
+  color: #15803d;
+}
+
+.consulting-list-row--active {
+  background: #f0fdf4;
+  border-left-color: #16a34a;
+}
+
+.consulting-list-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  min-width: 22px;
+  padding-right: 12px;
+  border-right: 1px solid #e2e8f0;
+}
+
+.consulting-list-id {
+  font-size: 13px;
+  font-weight: 600;
+  color: #16a34a;
+  min-width: 95px;
+}
+
+.consulting-list-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0f172a;
+  flex: 1;
+}
+
+.consulting-list-age {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* Right Side Panel — Dashboard Card Only */
+.testing-right-side-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.testing-side-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 20px 22px;
+}
+
+.testing-chart-large-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chart-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.chart-card-header h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 3px 0;
+}
+
+.chart-card-header p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.chart-wave-wrapper {
+  width: 100%;
+  overflow: visible;
+  padding: 6px 0;
+}
+
+.svg-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* Chart Point Hover Effect matching Dashboard */
+.chart-point {
+  transition: r 0.15s ease;
+  cursor: pointer;
+}
+
+.chart-point-group:hover .chart-point {
+  r: 5;
+}
+
+.chart-point-label {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.chart-point-group:hover .chart-point-label {
+  opacity: 1;
+}
+
+/* Chart Footer Metrics */
+.chart-footer-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.metric-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.metric-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.metric-divider {
+  width: 1px;
+  height: 24px;
+  background: #e2e8f0;
+}

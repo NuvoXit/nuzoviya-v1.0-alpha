@@ -1,0 +1,261 @@
+# 🏥 Nuzoviya Medical Platform
+
+> **Nuzoviya Medical Platform v1.0.0 Alpha — Lite Edition**
+> A lightweight Hospital Information System (HIS) and Clinical Management Platform built with **React + Vite** and **Python Flask**.
+
+---
+
+## 📋 Overview
+
+Nuzoviya is designed to support common hospital and clinical workflows, including:
+
+* Patient registration and NIC-based patient identification
+* Doctor appointment scheduling
+* Doctor availability management
+* Cashier and hospital fee management
+* Payment-verified doctor consultations
+* Digital prescriptions
+* Laboratory testing workflows
+* Radiology workflows
+* Surgical procedure management
+* Role-Based Access Control (RBAC)
+* Flask-Admin staff and user management
+
+> ⚠️ **Alpha Notice:** This is an early release. Some features are still under development and may change in future versions.
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+
+* Python 3.10+
+* Flask
+* Flask-SQLAlchemy / SQLAlchemy
+* Flask-CORS
+* Flask-Admin
+* WTForms
+* Werkzeug
+* SQLite
+
+### Frontend
+
+* React 19
+* Vite
+* React Router
+* Three.js
+* React Three Fiber
+* React Datepicker
+* Responsive CSS
+
+### Development Tools
+
+* `uv` — Python environment and package management
+* `npm` — Frontend package management
+
+---
+
+## 🚀 Quick Start (First Install ALL Dependencies)
+
+### Windows
+
+Run the provided launcher:
+
+```cmd
+.\start_project.bat
+```
+
+This starts:
+
+```text
+Backend:  http://127.0.0.1:5000
+Frontend: http://localhost:5173
+```
+
+---
+
+## ⚙️ Manual Setup
+
+### Backend
+
+From the project root:
+
+```powershell
+uv venv
+```
+
+Activate the environment:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```powershell
+uv pip install -r backend/requirements.txt
+```
+
+Run Flask:
+
+```powershell
+python backend/main.py
+```
+
+### Frontend
+
+Open another terminal:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## 🔐 User Roles
+
+The platform supports the following roles:
+
+| Role         | Main Responsibilities                   |
+| ------------ | --------------------------------------- |
+| Admin        | System and staff management             |
+| Doctor       | Consultation, prescriptions, schedules  |
+| Nurse        | Patient and surgical support            |
+| MLT          | Laboratory testing and results          |
+| Radiologist  | Radiology and diagnostic reports        |
+| Receptionist | Registration, appointments and payments |
+
+---
+
+## 🏥 Core Modules
+
+* **Patient Management** — Registration and patient search using NIC.
+* **Appointment Booking** — Doctor selection and appointment scheduling.
+* **Doctor Schedule** — Manage available consultation slots.
+* **Payment** — Hospital, doctor, laboratory and radiology fees.
+* **Consulting** — Payment-verified consultation workflow.
+* **Prescription** — Digital prescriptions and clinical orders.
+* **Laboratory** — MLT testing queue and result management.
+* **Radiology** — X-Ray, CT and ultrasound workflows.
+* **Surgical Procedures** — Procedure management and nurse assignment.
+* **Test History** — Access previous diagnostic results.
+* **Admin Panel** — Manage staff and user accounts. [http://127.0.0.1:5000/admin]
+
+---
+
+## 📁 Project Structure
+
+```text
+nuzoviya-v1.0.0-alpha/
+│
+├── LICENSE.txt
+├── pyproject.toml
+├── README.md
+├── start_project.bat
+│
+├── backend/
+│   ├── requirements.txt
+│   ├── main.py
+│   ├── models.py
+│   ├── config.py
+│   ├── admin.py
+│   ├── form.py
+│   ├── instance/
+│   └── uploads/
+│
+└── frontend/
+    ├── package.json
+    ├── vite.config.js
+    ├── index.html
+    │
+    └── src/
+        ├── main.jsx
+        ├── app.jsx
+        ├── login.jsx
+        ├── splash.jsx
+        ├── protectedroute.jsx
+        ├── app.css
+        ├── dark.css
+        │
+        ├── main_pages/
+        │   ├── home.jsx
+        │   ├── patient.jsx
+        │   ├── booking.jsx
+        │   ├── payment.jsx
+        │   ├── consulting.jsx
+        │   ├── dashboard.jsx
+        │   ├── doctor_schedule.jsx
+        │   ├── testing_patient.jsx
+        │   └── test_history.jsx
+        │
+        └── assets/
+```
+
+---
+
+## 🔑 Admin Panel
+
+Staff and user accounts are managed through the Flask-Admin panel.
+
+```text
+http://127.0.0.1:5000/admin
+```
+
+There is intentionally **no public staff registration page**.
+
+Administrators can create and manage:
+
+* Doctors
+* Nurses
+* MLTs
+* Radiologists
+* Receptionists
+* User login accounts
+
+---
+
+## 🐛 Issues & Support
+
+Nuzoviya is currently an **Alpha project**, so bugs, unexpected behavior and incomplete features are possible.
+
+If you find a problem:
+
+1. Check the existing **GitHub Issues** first.
+2. If the issue has not already been reported, create a new issue.
+3. Include:
+
+   * A clear description of the problem
+   * Steps to reproduce it
+   * Expected behavior
+   * Actual behavior
+   * Error messages or screenshots
+   * Operating system and environment information
+
+### 💡 Feature Requests
+
+Feature suggestions and improvements are welcome.
+
+Please open a GitHub Issue and use a clear description of the proposed feature and its purpose.
+
+
+
+### 👤 Contributor
+
+**Sanithu** – [GitHub](https://github.com/Sanithu-2005) | [LinkedIn](https://www.linkedin.com/in/sanithukudaliyana)
+
+Contributions include:
+* Forms and data-transfer objects
+* Responsive CSS and UI components
+* Python testing
+* Frontend and clinical workflow improvements
+* Some backend work
+
+---
+
+## 📄 [License](LICENSE.txt)
+
+
+
+

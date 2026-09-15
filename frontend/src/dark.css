@@ -1,0 +1,1178 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   Nuzoviya MEDICAL PLATFORM — MESSAGING-APP-INSPIRED CLINICAL DARK THEME
+   ══════════════════════════════════════════════════════════════════════════════
+
+   The Nuzoviya Medical Platform dark theme is designed using the visual language
+   of modern communication applications such as Signal, WhatsApp, Telegram,
+   and Discord, while adapting their strengths for a professional clinical
+   environment. Instead of using harsh pure black, the interface uses a
+   layered charcoal palette with a deep canvas (#0b0f19), comfortable surface
+   containers (#111827), and elevated cards (#1e293b) to create clear visual
+   depth without excessive contrast. Off-white typography (#f8fafc) provides
+   comfortable readability, while muted slate text (#94a3b8) keeps secondary
+   information visually quiet. Inspired by WhatsApp and Signal, emerald green
+   (#22c55e / #4ade80) becomes the primary interaction color, communicating
+   active states, confirmation, safety, and successful actions. Medical blue
+   (#38bdf8) is reserved for patient information, clinical identifiers, links,
+   and trusted system information; warm amber (#fbbf24) draws attention to
+   appointments, waiting states, and scheduling reminders; and coral red
+   (#f87171) is used carefully for urgent alerts, errors, cancellation, and
+   destructive actions. Like modern messaging applications, the interface
+   relies on subtle borders, rounded surfaces, compact navigation, clear
+   status indicators, generous spacing, and strong visual hierarchy rather
+   than heavy shadows or excessive decoration. The result is a calm, familiar,
+   responsive, and trustworthy dark experience that feels as intuitive as
+   Signal or WhatsApp while remaining appropriate for long clinical shifts
+   and information-dense healthcare workflows.
+
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+:root[data-theme="dark"],
+body.dark-theme {
+  /* ── Canvas & Surface Layers (Signal/WhatsApp-style depth) ── */
+  --bg-dark:           #0b0f19;
+  --surface-dark:      #111827;
+  --surface-elevated:  #1e293b;
+  --card-dark:         #1e293b;
+  --card-hover:        #243244;
+
+  /* ── Subtle Structural Framing (Telegram-style thin borders) ── */
+  --border-dark:       #1e293b;
+  --border-subtle:     #2d3a4e;
+  --border-highlight:  #475569;
+
+  /* ── Ergonomic Text Hierarchy (Discord-style comfortable contrast) ── */
+  --text-main:         #f8fafc;
+  --text-secondary:    #cbd5e1;
+  --text-muted:        #94a3b8;
+  --text-faint:        #64748b;
+
+  /* ── WhatsApp/Signal Green (Primary Interaction Color) ── */
+  --accent-green:      #22c55e;
+  --accent-light:      #4ade80;
+  --accent-deep:       #064e3b;
+  --accent-glow:       rgba(34, 197, 94, 0.15);
+
+  /* ── Medical Blue (Trust, Identifiers & Links) ── */
+  --accent-blue:       #38bdf8;
+  --accent-blue-deep:  #0c4a6e;
+
+  /* ── Coral Red (Alerts, Errors & Destructive Actions) ── */
+  --accent-red:        #f87171;
+  --accent-red-deep:   #450a0a;
+
+  /* ── Amber (Appointments, Pending & Scheduling) ── */
+  --accent-amber:      #fbbf24;
+  --accent-amber-deep: #451a03;
+
+  /* ── Indigo (Research & Intelligence) ── */
+  --accent-purple:     #a78bfa;
+
+  background-color: var(--bg-dark) !important;
+  color: var(--text-main) !important;
+  color-scheme: dark;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   1. TOP HEADER (WhatsApp-style clean bar)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .navigation,
+body.dark-theme .navigation {
+  background: var(--surface-dark);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: none; /* Messaging-app style: no heavy shadows */
+}
+
+[data-theme="dark"] .mainheading,
+body.dark-theme .mainheading {
+  color: var(--text-main);
+  border-right-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .DateTime,
+body.dark-theme .DateTime,
+[data-theme="dark"] .user-info,
+body.dark-theme .user-info {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+  color: var(--accent-light);
+  border-radius: 8px; /* Signal-style rounded info pills */
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   2. SIDEBAR (Telegram-style compact vertical navigation)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .navverticalbar,
+body.dark-theme .navverticalbar {
+  background: var(--bg-dark);
+}
+
+[data-theme="dark"] .verticalbar,
+body.dark-theme .verticalbar {
+  background: var(--surface-dark);
+  border-right: 1px solid var(--border-subtle);
+}
+
+/* Navigation links (WhatsApp chat-list style: clean rows, green active) */
+[data-theme="dark"] .app-links,
+body.dark-theme .app-links {
+  background: var(--surface-dark);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+  border-left: 4px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+[data-theme="dark"] .app-links:hover,
+body.dark-theme .app-links:hover {
+  background: var(--card-hover);
+  color: var(--text-main);
+  border-left-color: rgba(34, 197, 94, 0.4); /* Subtle green tease on hover */
+}
+
+/* Active = WhatsApp selected chat: elevated surface + solid green indicator */
+[data-theme="dark"] .app-links--active,
+body.dark-theme .app-links--active {
+  background: var(--surface-elevated);
+  color: var(--text-main);
+  font-weight: 700;
+  border-left: 4px solid var(--accent-light);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Sidebar Communications (compact buttons like Discord channel list) */
+[data-theme="dark"] .sidebar-comm-section,
+body.dark-theme .sidebar-comm-section {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .sidebar-comm-title,
+body.dark-theme .sidebar-comm-title {
+  color: var(--accent-light);
+}
+
+[data-theme="dark"] .sidebar-comm-btn,
+body.dark-theme .sidebar-comm-btn {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: 6px; /* Rounded like Discord channel pills */
+}
+
+[data-theme="dark"] .sidebar-comm-btn:hover,
+body.dark-theme .sidebar-comm-btn:hover,
+[data-theme="dark"] .sidebar-comm-btn--active,
+body.dark-theme .sidebar-comm-btn--active {
+  background: var(--accent-deep);
+  border-color: var(--accent-green);
+  color: var(--accent-light);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   3. SESSION & THEME BAR (3-Cut Compact Bar)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .sidebar-bottom-bar,
+body.dark-theme .sidebar-bottom-bar {
+  background: var(--surface-dark);
+  border-top: 1.5px solid #7f1d1d;
+  border-bottom: 1.5px solid #7f1d1d;
+}
+
+[data-theme="dark"] .bottom-bar-logout,
+body.dark-theme .bottom-bar-logout {
+  color: var(--accent-red);
+  border-right: 1.5px solid #7f1d1d;
+}
+
+[data-theme="dark"] .bottom-bar-logout:hover,
+body.dark-theme .bottom-bar-logout:hover {
+  background: var(--accent-red-deep);
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .bottom-bar-center,
+body.dark-theme .bottom-bar-center {
+  color: var(--text-muted);
+  border-right: 1.5px solid #7f1d1d;
+}
+
+[data-theme="dark"] .bottom-bar-theme,
+body.dark-theme .bottom-bar-theme {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .bottom-bar-theme:hover,
+body.dark-theme .bottom-bar-theme:hover {
+  background: var(--surface-elevated);
+  color: var(--accent-light);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   4. MAIN CONTENT VIEWPORT & FOOTER
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .app-content,
+body.dark-theme .app-content {
+  background: var(--bg-dark);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .app-footer,
+body.dark-theme .app-footer {
+  background: #022c22;
+  border-top: 1.5px solid #065f46;
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .footer-content,
+body.dark-theme .footer-content {
+  color: #a7f3d0;
+}
+
+[data-theme="dark"] .footer-divider,
+body.dark-theme .footer-divider {
+  color: #059669;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   5. HOME PAGE & REVIEW CARDS (WhatsApp-style content cards)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .home-container h1,
+body.dark-theme .home-container h1,
+[data-theme="dark"] .home-page-wrapper h1,
+body.dark-theme .home-page-wrapper h1 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .home-container p,
+body.dark-theme .home-container p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .review-card,
+body.dark-theme .review-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px; /* Rounded card like Signal bubbles */
+  box-shadow: none; /* No heavy shadows — messaging-app minimal style */
+}
+
+[data-theme="dark"] .review-card:hover,
+body.dark-theme .review-card:hover {
+  border-color: var(--accent-green);
+  background: var(--surface-elevated);
+}
+
+[data-theme="dark"] .review-top h4,
+body.dark-theme .review-top h4 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .review-top span,
+body.dark-theme .review-top span {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .review-card p,
+body.dark-theme .review-card p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .review-top img,
+body.dark-theme .review-top img {
+  border-color: var(--accent-green);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   6. CONSULTING & DIAGNOSTIC PATIENT LISTS (WhatsApp contact-list style)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .consulting-section,
+body.dark-theme .consulting-section {
+  background: transparent;
+}
+
+[data-theme="dark"] .consulting-list-card,
+body.dark-theme .consulting-list-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .consulting-list-header,
+body.dark-theme .consulting-list-header {
+  background: var(--surface-dark);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+[data-theme="dark"] .consulting-list-title,
+body.dark-theme .consulting-list-title {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .consulting-patient-count,
+body.dark-theme .consulting-patient-count {
+  background: var(--accent-deep);
+  border-color: var(--accent-green);
+  color: var(--accent-light);
+  border-radius: 16px; /* WhatsApp unread-count badge style */
+}
+
+/* Patient rows — like WhatsApp chat list entries */
+[data-theme="dark"] .consulting-list-row,
+body.dark-theme .consulting-list-row {
+  border-bottom: 1px solid var(--border-dark);
+  color: var(--text-secondary);
+  transition: background 0.12s ease;
+}
+
+[data-theme="dark"] .consulting-list-row:hover,
+body.dark-theme .consulting-list-row:hover {
+  background: var(--card-hover);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .consulting-list-row--active,
+body.dark-theme .consulting-list-row--active {
+  background: var(--surface-elevated);
+  border-left: 4px solid var(--accent-light);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .consulting-list-row--header,
+body.dark-theme .consulting-list-row--header {
+  background: var(--surface-elevated);
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+[data-theme="dark"] .consulting-list-num,
+body.dark-theme .consulting-list-num {
+  color: var(--text-faint);
+}
+
+/* Phone identifiers in green */
+[data-theme="dark"] .consulting-list-id,
+body.dark-theme .consulting-list-id {
+  color: var(--accent-green);
+}
+
+[data-theme="dark"] .consulting-list-name,
+body.dark-theme .consulting-list-name {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .consulting-list-age,
+body.dark-theme .consulting-list-age {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .consulting-datetime,
+body.dark-theme .consulting-datetime {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .consulting-filter-icon,
+body.dark-theme .consulting-filter-icon {
+  color: var(--text-faint);
+}
+
+/* Diagnostic Services Patient List Right Side Panel */
+[data-theme="dark"] .testing-side-card,
+body.dark-theme .testing-side-card {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .side-card-value,
+body.dark-theme .side-card-value,
+[data-theme="dark"] .chart-card-header h4,
+body.dark-theme .chart-card-header h4,
+[data-theme="dark"] .metric-val,
+body.dark-theme .metric-val {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .side-card-label,
+body.dark-theme .side-card-label,
+[data-theme="dark"] .chart-card-header p,
+body.dark-theme .chart-card-header p,
+[data-theme="dark"] .metric-label,
+body.dark-theme .metric-label {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .chart-footer-metrics,
+body.dark-theme .chart-footer-metrics {
+  border-top-color: var(--border-dark);
+}
+
+[data-theme="dark"] .metric-divider,
+body.dark-theme .metric-divider {
+  background: var(--border-subtle);
+}
+
+[data-theme="dark"] .svg-chart text,
+body.dark-theme .svg-chart text {
+  fill: var(--text-muted);
+}
+
+[data-theme="dark"] .svg-chart line,
+body.dark-theme .svg-chart line {
+  stroke: var(--border-dark);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   7. DASHBOARD, STATS & CHARTS (Discord server-stats style)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .dashboard-main-title,
+body.dark-theme .dashboard-main-title {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .dashboard-subtitle,
+body.dark-theme .dashboard-subtitle {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .year-select,
+body.dark-theme .year-select {
+  background-color: var(--surface-elevated);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+  border-radius: 8px;
+}
+
+[data-theme="dark"] .stat-card,
+body.dark-theme .stat-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .stat-card:hover,
+body.dark-theme .stat-card:hover {
+  background: var(--surface-elevated);
+  border-color: var(--accent-green);
+}
+
+[data-theme="dark"] .stat-card-title,
+body.dark-theme .stat-card-title {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .stat-card-value,
+body.dark-theme .stat-card-value {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .stat-card-icon,
+body.dark-theme .stat-card-icon {
+  background: var(--accent-deep);
+  color: var(--accent-light);
+  border-radius: 10px;
+}
+
+[data-theme="dark"] .chart-card,
+body.dark-theme .chart-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .chart-title,
+body.dark-theme .chart-title {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .chart-badge,
+body.dark-theme .chart-badge {
+  background: var(--surface-elevated);
+  color: var(--text-muted);
+  border-radius: 6px;
+}
+
+[data-theme="dark"] .svg-chart text,
+body.dark-theme .svg-chart text {
+  fill: var(--text-muted);
+}
+
+[data-theme="dark"] .svg-chart line,
+body.dark-theme .svg-chart line {
+  stroke: var(--border-dark);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   8. TABLES, FORMS & DATA ENTRY (Telegram-style clean data surfaces)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .table-container,
+body.dark-theme .table-container,
+[data-theme="dark"] .all-patient-container,
+body.dark-theme .all-patient-container,
+[data-theme="dark"] .booking-history-container,
+body.dark-theme .booking-history-container,
+[data-theme="dark"] .payment-container,
+body.dark-theme .payment-container,
+[data-theme="dark"] .form-card,
+body.dark-theme .form-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+[data-theme="dark"] table,
+body.dark-theme table {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] th,
+body.dark-theme th {
+  background: var(--surface-elevated);
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+[data-theme="dark"] td,
+body.dark-theme td {
+  border-bottom: 1px solid var(--border-dark);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] tr:hover td,
+body.dark-theme tr:hover td {
+  background: var(--card-hover);
+}
+
+/* Form controls — Signal-style rounded, subtle-bordered inputs */
+[data-theme="dark"] input[type="text"],
+body.dark-theme input[type="text"],
+[data-theme="dark"] input[type="password"],
+body.dark-theme input[type="password"],
+[data-theme="dark"] input[type="date"],
+body.dark-theme input[type="date"],
+[data-theme="dark"] input[type="time"],
+body.dark-theme input[type="time"],
+[data-theme="dark"] input[type="email"],
+body.dark-theme input[type="email"],
+[data-theme="dark"] input[type="number"],
+body.dark-theme input[type="number"],
+[data-theme="dark"] select,
+body.dark-theme select,
+[data-theme="dark"] textarea,
+body.dark-theme textarea {
+  background: var(--surface-elevated);
+  color: var(--text-main);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+[data-theme="dark"] input::placeholder,
+body.dark-theme input::placeholder,
+[data-theme="dark"] textarea::placeholder,
+body.dark-theme textarea::placeholder {
+  color: var(--text-faint);
+}
+
+[data-theme="dark"] input:focus,
+body.dark-theme input:focus,
+[data-theme="dark"] select:focus,
+body.dark-theme select:focus,
+[data-theme="dark"] textarea:focus,
+body.dark-theme textarea:focus {
+  border-color: var(--accent-green);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-glow); /* WhatsApp-style green focus ring */
+}
+
+/* Buttons — WhatsApp send-button style green fills */
+[data-theme="dark"] button[type="submit"],
+body.dark-theme button[type="submit"] {
+  background: var(--accent-green);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+}
+
+[data-theme="dark"] button[type="submit"]:hover,
+body.dark-theme button[type="submit"]:hover {
+  background: var(--accent-light);
+  color: #0f172a;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   9. DOCTOR WORKFLOW (Prescription, Surgery, Feedback, Lab, X-Ray)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .prescription-container,
+body.dark-theme .prescription-container,
+[data-theme="dark"] .feedback-container,
+body.dark-theme .feedback-container,
+[data-theme="dark"] .lab-test-container,
+body.dark-theme .lab-test-container,
+[data-theme="dark"] .xray-test-container,
+body.dark-theme .xray-test-container,
+[data-theme="dark"] .patient-dashboard-container,
+body.dark-theme .patient-dashboard-container,
+[data-theme="dark"] .bigview-container,
+body.dark-theme .bigview-container {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  color: var(--text-main);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .patient-info-header,
+body.dark-theme .patient-info-header {
+  background: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 12px 12px 0 0;
+}
+
+[data-theme="dark"] .xray-multi-section,
+body.dark-theme .xray-multi-section {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .xray-multi-title,
+body.dark-theme .xray-multi-title {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .xray-multi-subtitle,
+body.dark-theme .xray-multi-subtitle {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .add-xray-btn,
+body.dark-theme .add-xray-btn {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  color: var(--accent-green);
+}
+
+[data-theme="dark"] .xray-table-wrapper,
+body.dark-theme .xray-table-wrapper,
+[data-theme="dark"] .xray-examination-table-wrapper,
+body.dark-theme .xray-examination-table-wrapper {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .xray-dynamic-table th,
+body.dark-theme .xray-dynamic-table th,
+[data-theme="dark"] .xray-examination-table th,
+body.dark-theme .xray-examination-table th {
+  background: var(--surface-elevated);
+  color: var(--text-muted);
+  border-bottom-color: var(--border-dark);
+}
+
+[data-theme="dark"] .xray-dynamic-table td,
+body.dark-theme .xray-dynamic-table td,
+[data-theme="dark"] .xray-examination-table td,
+body.dark-theme .xray-examination-table td {
+  border-bottom-color: var(--border-dark);
+}
+
+[data-theme="dark"] .xray-index-badge,
+body.dark-theme .xray-index-badge {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+  color: var(--accent-green);
+}
+
+[data-theme="dark"] .xray-item-tag,
+body.dark-theme .xray-item-tag {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+  color: var(--accent-blue);
+}
+
+[data-theme="dark"] .xray-file-badge,
+body.dark-theme .xray-file-badge {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .xray-test-download-btn-sm,
+body.dark-theme .xray-test-download-btn-sm {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .xray-test-download-btn-sm:hover,
+body.dark-theme .xray-test-download-btn-sm:hover {
+  background: var(--surface-dark);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   10. MLT ADDITIONAL RESEARCH HUB
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .research-header-area h2,
+body.dark-theme .research-header-area h2,
+[data-theme="dark"] .research-card-header h3,
+body.dark-theme .research-card-header h3,
+[data-theme="dark"] .param-cell,
+body.dark-theme .param-cell {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .research-subtitle,
+body.dark-theme .research-subtitle,
+[data-theme="dark"] .research-card-header p,
+body.dark-theme .research-card-header p {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .research-search-box,
+body.dark-theme .research-search-box {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  border-radius: 10px;
+}
+
+[data-theme="dark"] .research-search-box input,
+body.dark-theme .research-search-box input {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .research-card,
+body.dark-theme .research-card,
+[data-theme="dark"] .no-research-results,
+body.dark-theme .no-research-results {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+/* Category pills — Discord channel-tag style */
+[data-theme="dark"] .research-cat-btn,
+body.dark-theme .research-cat-btn {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: 20px;
+}
+
+[data-theme="dark"] .research-cat-btn:hover,
+body.dark-theme .research-cat-btn:hover {
+  background: var(--surface-elevated);
+  border-color: var(--accent-light);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .research-cat-btn.active,
+body.dark-theme .research-cat-btn.active {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #0f172a;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .research-card-badge,
+body.dark-theme .research-card-badge {
+  background: var(--accent-deep);
+  color: var(--accent-light);
+}
+
+[data-theme="dark"] .research-table-container,
+body.dark-theme .research-table-container {
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .research-table th,
+body.dark-theme .research-table th {
+  background: var(--surface-elevated);
+  color: var(--text-main);
+  border-bottom-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .research-table td,
+body.dark-theme .research-table td {
+  border-bottom-color: var(--border-dark);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .range-cell,
+body.dark-theme .range-cell {
+  color: var(--accent-light);
+}
+
+[data-theme="dark"] .critical-cell,
+body.dark-theme .critical-cell {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .critical-urgent,
+body.dark-theme .critical-urgent {
+  color: var(--accent-red) !important;
+}
+
+[data-theme="dark"] .quick-hub-card,
+body.dark-theme .quick-hub-card {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .quick-hub-card h4,
+body.dark-theme .quick-hub-card h4 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .quick-hub-card p,
+body.dark-theme .quick-hub-card p {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .quick-hub-card:hover,
+body.dark-theme .quick-hub-card:hover {
+  background: var(--surface-elevated);
+}
+
+[data-theme="dark"] .badge-critical,
+body.dark-theme .badge-critical {
+  background: var(--accent-red-deep);
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .badge-sample,
+body.dark-theme .badge-sample {
+  background: var(--accent-blue-deep);
+  color: #7dd3fc;
+}
+
+[data-theme="dark"] .badge-queue,
+body.dark-theme .badge-queue {
+  background: var(--accent-amber-deep);
+  color: #fde047;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   10.1 SAMPLE COLLECTION GUIDE
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .collection-header h2,
+body.dark-theme .collection-header h2,
+[data-theme="dark"] .order-header h3,
+body.dark-theme .order-header h3,
+[data-theme="dark"] .tube-title-area h4,
+body.dark-theme .tube-title-area h4,
+[data-theme="dark"] .panel-card-header h3,
+body.dark-theme .panel-card-header h3,
+[data-theme="dark"] .panel-list-item h5,
+body.dark-theme .panel-list-item h5 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .collection-subtitle,
+body.dark-theme .collection-subtitle,
+[data-theme="dark"] .order-subtitle,
+body.dark-theme .order-subtitle,
+[data-theme="dark"] .tube-dept-badge,
+body.dark-theme .tube-dept-badge,
+[data-theme="dark"] .spec-label,
+body.dark-theme .spec-label,
+[data-theme="dark"] .item-desc,
+body.dark-theme .item-desc {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .collection-search,
+body.dark-theme .collection-search {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  border-radius: 10px;
+}
+
+[data-theme="dark"] .collection-search input,
+body.dark-theme .collection-search input {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .order-of-draw-card,
+body.dark-theme .order-of-draw-card,
+[data-theme="dark"] .tube-card,
+body.dark-theme .tube-card,
+[data-theme="dark"] .panel-card,
+body.dark-theme .panel-card {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  border-radius: 14px;
+}
+
+[data-theme="dark"] .order-step-item,
+body.dark-theme .order-step-item,
+[data-theme="dark"] .panel-list-item,
+body.dark-theme .panel-list-item {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .order-step-info strong,
+body.dark-theme .order-step-info strong,
+[data-theme="dark"] .spec-value,
+body.dark-theme .spec-value {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .tube-card-top,
+body.dark-theme .tube-card-top {
+  background: var(--surface-elevated);
+  border-bottom-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .filter-btn,
+body.dark-theme .filter-btn {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .filter-btn:hover,
+body.dark-theme .filter-btn:hover {
+  background: var(--surface-elevated);
+  color: var(--text-main);
+  border-color: var(--accent-blue);
+}
+
+[data-theme="dark"] .filter-btn.active,
+body.dark-theme .filter-btn.active {
+  background: var(--accent-blue);
+  color: #0f172a;
+  border-color: var(--accent-blue);
+}
+
+[data-theme="dark"] .test-tag,
+body.dark-theme .test-tag {
+  background: var(--accent-blue-deep);
+  color: #7dd3fc;
+  border-color: #0369a1;
+}
+
+[data-theme="dark"] .tube-precaution-box,
+body.dark-theme .tube-precaution-box {
+  background: var(--accent-amber-deep);
+  border-left-color: var(--accent-amber);
+  color: #fde047;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   10.2 LABORATORY WORK QUEUE & SPECIMEN TRIAGE
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .queue-header h2,
+body.dark-theme .queue-header h2,
+[data-theme="dark"] .kpi-value,
+body.dark-theme .kpi-value,
+[data-theme="dark"] .lab-id-cell strong,
+body.dark-theme .lab-id-cell strong,
+[data-theme="dark"] .patient-name,
+body.dark-theme .patient-name,
+[data-theme="dark"] .test-cell strong,
+body.dark-theme .test-cell strong,
+[data-theme="dark"] .tat-text strong,
+body.dark-theme .tat-text strong {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .queue-subtitle,
+body.dark-theme .queue-subtitle,
+[data-theme="dark"] .kpi-label,
+body.dark-theme .kpi-label,
+[data-theme="dark"] .kpi-sub,
+body.dark-theme .kpi-sub,
+[data-theme="dark"] .accession-time,
+body.dark-theme .accession-time,
+[data-theme="dark"] .tube-name,
+body.dark-theme .tube-name,
+[data-theme="dark"] .analyzer-name,
+body.dark-theme .analyzer-name,
+[data-theme="dark"] .tat-text,
+body.dark-theme .tat-text {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .queue-search-bar,
+body.dark-theme .queue-search-bar {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .queue-search-bar input,
+body.dark-theme .queue-search-bar input {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .kpi-card,
+body.dark-theme .kpi-card,
+[data-theme="dark"] .queue-table-container,
+body.dark-theme .queue-table-container {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .stage-tabs,
+body.dark-theme .stage-tabs {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-subtle);
+}
+
+[data-theme="dark"] .stage-tab-btn,
+body.dark-theme .stage-tab-btn {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .stage-tab-btn.active,
+body.dark-theme .stage-tab-btn.active {
+  background: var(--surface-elevated);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .priority-pill-btn,
+body.dark-theme .priority-pill-btn {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .stage-select,
+body.dark-theme .stage-select {
+  background: var(--surface-elevated);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .tat-progress-bar,
+body.dark-theme .tat-progress-bar {
+  background: var(--surface-elevated);
+}
+
+[data-theme="dark"] .flag-btn,
+body.dark-theme .flag-btn {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .panic-modal,
+body.dark-theme .panic-modal {
+  background: var(--surface-dark);
+  border-color: var(--accent-red);
+}
+
+[data-theme="dark"] .panic-modal-header,
+body.dark-theme .panic-modal-header {
+  background: var(--accent-red-deep);
+  border-bottom-color: #7f1d1d;
+}
+
+[data-theme="dark"] .panic-modal-header h3,
+body.dark-theme .panic-modal-header h3 {
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .panic-modal-header p,
+body.dark-theme .panic-modal-header p {
+  color: #f87171;
+}
+
+[data-theme="dark"] .panic-patient-card,
+body.dark-theme .panic-patient-card,
+[data-theme="dark"] .panic-modal-footer,
+body.dark-theme .panic-modal-footer {
+  background: var(--surface-elevated);
+  border-color: var(--border-subtle);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .sop-checklist h4,
+body.dark-theme .sop-checklist h4 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .sop-checklist ol,
+body.dark-theme .sop-checklist ol {
+  color: var(--text-secondary);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   11. May Be Available Soon PAGES
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .available-soon-page h1,
+body.dark-theme .available-soon-page h1 {
+  color: var(--text-muted);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   12. LEGACY COMING SOON CARDS (Email & Messages, if any remain)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .coming-soon-card,
+body.dark-theme .coming-soon-card {
+  background: var(--surface-dark);
+  border-color: var(--border-subtle);
+  border-radius: 14px;
+}
+
+[data-theme="dark"] .coming-soon-card h2,
+body.dark-theme .coming-soon-card h2 {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .coming-soon-card p,
+body.dark-theme .coming-soon-card p {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .coming-soon-icon-circle,
+body.dark-theme .coming-soon-icon-circle {
+  background: var(--accent-deep);
+  border-color: var(--accent-green);
+}
+
+[data-theme="dark"] .coming-soon-icon-circle svg,
+body.dark-theme .coming-soon-icon-circle svg {
+  stroke: var(--accent-light);
+}
+
+[data-theme="dark"] .coming-soon-pill,
+body.dark-theme .coming-soon-pill {
+  background: var(--accent-deep);
+  color: var(--accent-light);
+  border-color: var(--accent-green);
+  border-radius: 20px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   13. GLOBAL SCROLLBAR (Telegram/Discord-style thin, quiet scrollbar)
+   ══════════════════════════════════════════════════════════════════════════════ */
+[data-theme="dark"] ::-webkit-scrollbar,
+body.dark-theme ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track,
+body.dark-theme ::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb,
+body.dark-theme ::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: var(--border-highlight);
+}

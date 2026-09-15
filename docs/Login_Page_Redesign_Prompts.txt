@@ -1,0 +1,38 @@
+"""
+LOGIN PAGE REDESIGN - AI PROMPTS LOG
+=====================================
+Date: 2026-08-20
+Files Modified: frontend/src/Login.jsx, frontend/src/Login.css
+Dependencies Added: three, @react-three/fiber, @react-three/drei
+
+
+PROMPT 1:
+---------
+"now let's on Login Page Design a New Look with Current Color
+@[frontend/src/Login.css] @[frontend/src/Login.jsx] use some Three.js and more"
+
+Purpose:
+  Redesign the login page with a modern look using Three.js 3D graphics
+  while keeping the existing green color palette.
+
+
+PROMPT 2:
+---------
+"But no Change the Main Heading Word, This is very Dark and Don't need to
+change the Left side picture that thing design on the right login panel"
+
+Purpose:
+  - Keep the original heading text "Kindly Get Your Access"
+  - The first version was too dark themed — make it lighter
+  - Keep the LEFT side exactly as it was (white background + Nuzoviya logo)
+  - Apply Three.js effects only on the RIGHT login panel
+
+
+PROMPT 3:
+---------
+"Remove the 3d shape, Little white spark on Login Portal Top side"
+
+Purpose:
+  - Remove the 3D wireframe torus knot shape from the right panel
+  - Add small white twinkling sparkle particles at the top of the login panel
+"""

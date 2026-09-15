@@ -1,0 +1,357 @@
+/* ══════════════════════════════════════════════
+   App Shell — header + sidebar (Light Green Theme)
+   ══════════════════════════════════════════════ */
+
+.navigation,
+.navverticalbar {
+  --ink:          #0f172a;
+  --muted:        #64748b;
+  --surface:      #ffffff;
+  --surface-alt:  #f8fafc; /* Soft matte background, removing shining green glare */
+  --border:       #dcfce7;
+  --accent:       #22c55e;
+  --accent-dark:  #16a34a;
+  --accent-soft:  #dcfce7;
+  --accent-mint:  #86efac;
+}
+
+/* ── Top Nav ── */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+  padding: 0 28px 0 0;
+  height: 87.2px; /* 87.2px header height */
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.mainheading {
+  width: 200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-right: 1px solid var(--border);
+  box-sizing: border-box;
+  padding: 8px 16px;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  height: 56px;
+  max-width: 175px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.03);
+}
+
+.navigation nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ── Layout ── */
+.navverticalbar {
+  display: flex;
+  height: calc(100vh - 87.2px - 26px);
+  overflow: hidden;
+  background: var(--surface-alt);
+}
+
+.verticalbar {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 100%;
+  padding: 0;
+  background: #ffffff;
+  border-right: 1px solid #dcfce7;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.verticalbar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 0 0 0;
+}
+
+.verticalbar-bottom {
+  margin-top: auto;
+  padding: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ── Full-Width Bottom Footer (Clean Light Green Bar) ── */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 26px;
+  background: #16a34a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1.5px solid #86efac;
+  z-index: 999;
+  box-sizing: border-box;
+  user-select: none;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #f0fdf4;
+}
+
+.footer-divider {
+  color: #86efac;
+  font-size: 10px;
+}
+
+/* ── Bottom Sidebar 3-Cut Bar: [ (⏻) | Expanded Session | (🌙/☀️) Theme ] ── */
+.sidebar-bottom-bar {
+  display: grid;
+  grid-template-columns: 56px 1fr 56px; /* Expanded Session middle section */
+  height: 42px;
+  background: #ffffff;
+  border-top: 1.5px solid #fca5a5;
+  border-bottom: 1.5px solid #fca5a5;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 -1px 0; /* Sits 100% flush against bottom footer, removing white gap */
+  padding: 0;
+}
+
+.bottom-bar-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  box-sizing: border-box;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+/* 1. Left Cut: Logout Cell */
+.bottom-bar-logout {
+  color: #dc2626;
+  border-right: 1.5px solid #fca5a5; /* Vertical separator cut */
+  cursor: pointer;
+}
+
+.bottom-bar-logout:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.bottom-bar-logout .shutdown-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* 2. Middle Cut: Expanded Center Word / Session Cell */
+.bottom-bar-center {
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  border-right: 1.5px solid #fca5a5; /* Vertical separator cut */
+  text-align: center;
+  padding: 0 8px;
+}
+
+/* 3. Right Cut: Theme Toggle Cell */
+.bottom-bar-theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bottom-bar-theme:hover {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.shutdown-icon {
+  width: 19px;
+  height: 19px;
+  transition: transform 0.25s ease;
+}
+
+.app-content {
+  flex: 1;
+  padding: 28px;
+  background: var(--surface-alt);
+  overflow-y: auto;
+}
+
+/* ── Sidebar links (Solid Black Text & Box Borders) ── */
+.app-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  background: #ffffff;
+  color: #000000; /* Solid black font color */
+  border-top: 1px solid #dcfce7;
+  border-bottom: 1px solid #dcfce7;
+  border-left: 4px solid transparent;
+  border-right: none;
+  border-radius: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-links:hover {
+  background: #f0fdf4;
+  color: #16a34a;
+  border-left-color: #86efac;
+  z-index: 2;
+}
+
+/* Active sidebar link (Solid highlight with left indicator bar like reference image) */
+.app-links--active {
+  background: #dcfce7; /* Solid active surface */
+  color: #000000; /* Solid black text */
+  font-weight: 700;
+  border-left: 4px solid #16a34a; /* Solid vertical indicator bar */
+  border-top: 1px solid #bbf7d0;
+  border-bottom: 1px solid #bbf7d0;
+  border-right: none;
+  border-radius: 0;
+  z-index: 3;
+}
+
+/* Header DateTime, User-Info, Logo (Light Green Accents) */
+.DateTime {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1.5px solid #86efac;
+  color: #16a34a;
+  background-color: #f0fdf4;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.user-info {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1.5px solid #86efac;
+  color: #16a34a;
+  background-color: #f0fdf4;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.logo {
+  height: 40px;
+  max-height: 44px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Sidebar Communication Section & Small Oval Square Buttons ── */
+.sidebar-comm-section {
+  margin: 10px 12px 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1.5px solid #dcfce7;
+  border-radius: 12px; /* Oval square frame */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-comm-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #16a34a;
+}
+
+.sidebar-comm-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-comm-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px; /* Small button */
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px; /* Small rounded rectangle */
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.sidebar-comm-btn svg {
+  color: #16a34a;
+  flex-shrink: 0;
+}
+
+.sidebar-comm-btn:hover {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
+.sidebar-comm-btn--active {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #15803d;
+  font-weight: 700;
+}
