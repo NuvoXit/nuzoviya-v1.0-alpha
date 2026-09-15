@@ -7,19 +7,11 @@
 
 ## 📋 Overview
 
-Nuzoviya is designed to support common hospital and clinical workflows, including:
+<div align="justify">
 
-* Patient registration and NIC-based patient identification
-* Doctor appointment scheduling
-* Doctor availability management
-* Cashier and hospital fee management
-* Payment-verified doctor consultations
-* Digital prescriptions
-* Laboratory testing workflows
-* Radiology workflows
-* Surgical procedure management
-* Role-Based Access Control (RBAC)
-* Flask-Admin staff and user management
+Nuzoviya is designed to support common hospital and clinical workflows, including patient registration and NIC-based patient identification, doctor appointment scheduling, doctor availability management, cashier and hospital fee management, payment-verified doctor consultations, digital prescriptions, laboratory testing workflows, radiology workflows, and surgical procedure management. The system also incorporates Role-Based Access Control (RBAC) to ensure secure and controlled access to information, along with Flask-Admin functionality for efficient staff and user management.
+
+</div>
 
 > ⚠️ **Alpha Notice:** This is an early release. Some features are still under development and may change in future versions.
 
@@ -27,31 +19,16 @@ Nuzoviya is designed to support common hospital and clinical workflows, includin
 
 ## 🛠️ Tech Stack
 
-### Backend
-
-* Python 3.10+
-* Flask
-* Flask-SQLAlchemy / SQLAlchemy
-* Flask-CORS
-* Flask-Admin
-* WTForms
-* Werkzeug
-* SQLite
-
-### Frontend
-
-* React 19
-* Vite
-* React Router
-* Three.js
-* React Three Fiber
-* React Datepicker
-* Responsive CSS
-
-### Development Tools
-
-* `uv` — Python environment and package management
-* `npm` — Frontend package management
+| **Backend** | **Frontend** | **Development Tools** |
+|---|---|---|
+| Python 3.10+ | React 19 | `uv` — Python environment and package management |
+| Flask | Vite | `npm` — Frontend package management |
+| Flask-SQLAlchemy / SQLAlchemy | React Router | |
+| Flask-CORS | Three.js | |
+| Flask-Admin | React Three Fiber | |
+| WTForms | React Datepicker | |
+| Werkzeug | Responsive CSS | |
+| SQLite | | |
 
 ---
 
@@ -131,18 +108,20 @@ The platform supports the following roles:
 
 ## 🏥 Core Modules
 
+> **Note:** Nuzoviya currently does not use any third-party email or SMS services. Integration with email and SMS services will be considered as a future enhancement.
+
 * **Patient Management** — Registration and patient search using NIC.
 * **Appointment Booking** — Doctor selection and appointment scheduling.
 * **Doctor Schedule** — Manage available consultation slots.
-* **Payment** — Hospital, doctor, laboratory and radiology fees.
+* **Payment** — Hospital, doctor, laboratory, and radiology fees.
 * **Consulting** — Payment-verified consultation workflow.
 * **Prescription** — Digital prescriptions and clinical orders.
 * **Laboratory** — MLT testing queue and result management.
-* **Radiology** — X-Ray, CT and ultrasound workflows.
+* **Radiology** — X-Ray, CT, and ultrasound workflows.
 * **Surgical Procedures** — Procedure management and nurse assignment.
 * **Test History** — Access previous diagnostic results.
-* **Admin Panel** — Manage staff and user accounts. [http://127.0.0.1:5000/admin]
-
+* **Admin Panel** — Manage staff and user accounts.  
+  `http://127.0.0.1:5000/admin`
 ---
 
 ## 📁 Project Structure
@@ -241,16 +220,17 @@ Please open a GitHub Issue and use a clear description of the proposed feature a
 
 
 
-### 👤 Contributor
+### 👤 Contributor (Special Thanks)
 
-**Sanithu** – [GitHub](https://github.com/Sanithu-2005) | [LinkedIn](https://www.linkedin.com/in/sanithukudaliyana)
+**Kudaliyana Waduge Sanithu Hasmal Kudaliyana** – [GitHub](https://github.com/Sanithu-2005) | [LinkedIn](https://www.linkedin.com/in/sanithukudaliyana)
 
-Contributions include:
-* Forms and data-transfer objects
+[Contributions include](https://github.com/NuvoXit/nuzoviya-v1.0-alpha/activity):
+* Forms, data-transfer objects and more frontends
 * Responsive CSS and UI components
 * Python testing
 * Frontend and clinical workflow improvements
-* Some backend work
+* Some backend works
+* He's better at using GitHub than me 😊
 
 ---
 
