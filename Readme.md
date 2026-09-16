@@ -224,7 +224,7 @@ Please open a GitHub Issue and use a clear description of the proposed feature a
 
 **Kudaliyana Waduge Sanithu Hasmal Kudaliyana** – [GitHub](https://github.com/Sanithu-2005) | [LinkedIn](https://www.linkedin.com/in/sanithukudaliyana)
 
-[Contributions include](https://github.com/NuvoXit/nuzoviya-v1.0-alpha/activity):
+[Contributions include]([https://github.com/NuvoXit/nuzoviya-v1.0-alpha/activity](https://github.com/NuvoXit/nuzoviya-v1.0-alpha/activity?actor=Sanithu-2005)):
 * Forms, data-transfer objects and more frontends
 * Responsive CSS and UI components
 * Python testing
